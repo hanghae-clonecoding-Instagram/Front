@@ -1,4 +1,4 @@
-/* @import '../shared/common/reset.css'; */
+@import '../src/shared/common/reset.css';
 
 
 @font-face {
@@ -21,9 +21,10 @@
   font-style: normal;
 }
 
-
+body{
+  background-color: #f1f3f5;
+}
 .App{
   width: 1200px;
   margin: 0 auto;
-  border: 1px solid black;
 }

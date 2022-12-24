@@ -1,0 +1,23 @@
+## 모달 설치
+yarn add react-modal
+import Modal from 'react-modal';
+
+## 로티 설치
+yarn add lottie-react
+NotFound파일보기
+
+
+## icon
+yarn add @mui/icons-material
+import { AccessAlarm, ThreeDRotation } from '@mui/icons-material';
+
+
+## 기본 설치
+yarn add redux react-redux
+yarn add react-router-dom
+yarn add react-redux @reduxjs/toolkit
+yarn add axios
+yarn styled-components
+
+
+
