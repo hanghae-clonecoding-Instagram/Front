@@ -3,8 +3,10 @@ import './App.css';
 
 function App() {
   return (
-    <div className='App'>
-      <Router/>
+    <div className='bg'>
+      <div className='App'>
+        <Router/>
+      </div>
     </div>
   );
 }
