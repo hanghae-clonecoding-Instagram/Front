@@ -16,6 +16,7 @@ const Header = () => {
 };
 
 const Bar = styled.div`
+  background-color: white;
   z-index: 0;
   height: 60px;
   border-bottom: 1px solid rgb(0, 0, 0, 0.2);
