@@ -1,11 +1,19 @@
 import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
+// style 
 import styled from "styled-components";
 import { FcPicture } from "react-icons/fc";
-import { useNavigate } from "react-router-dom";
+// modal store
+import { isModalHandler } from "../../Redux/modules/modalSlice";
 
 const PostAdd = () => {
   const navigate = useNavigate();
+
+  // 모달 store
+  const dispatch = useDispatch()
+  const isModal = useSelector((state)=> state.modal.modal)
 
   // 이미지 미리보기 state
   const [userImage, setUserImage] = useState(null);
@@ -26,19 +34,29 @@ const PostAdd = () => {
       console.log(resultImage);
     };
   }
-  const handlePostCancle = () => [
-    navigate(-1)
-  ]
+
+  const handlePostCancle = () => {
+    dispatch(isModalHandler(false))
+  }
+
   const handlePostAdd = () => {
     // 이미지를 어떻게 보낼 것인가
     console.log(userImage)
     console.log(textArea)
-    // 페이지이동
-    navigate('/')
+    dispatch(isModalHandler(false))
+  }
+
+  const handleImgClick = () => {
+    if (window.confirm("업로드를 취소하시겠습니까?")) {
+      dispatch(isModalHandler(false))
+    } else {
+      setUserImage(null);
+      setIconView(true);
+    }
   }
 
   return (
-    <div style={{ backgroundColor: "white", borderRadius: "15px" }}>
+    <div style={{ backgroundColor: "white", borderRadius: "15px"}}>
       <MainBar>
         <div className="main_btn" onClick={handlePostCancle}>취소하기</div>
         <div className="main_tit">새 게시물 만들기</div>
@@ -51,27 +69,16 @@ const PostAdd = () => {
           <Icon>
             {iconView ? (
               <>
-                {/* 아이콘 다시 찾아보기 */}
                 <FcPicture style={{ fontSize: "100px" }} />
                 <label htmlFor="file">컴퓨터에서 선택</label>
                 <input type="file" id="file" onChange={imgPreview} />
               </>
             ) : null}
           </Icon>
-          <Image>
-            {userImage ? (
-              <img
-                src={userImage || ""}
-                onClick={() => {
-                  if (window.confirm("업로드를 취소하시겠습니까?")) {
-                    navigate("/");
-                  } else {
-                    setUserImage(null);
-                    setIconView(true);
-                  }
-                }}
-              />
-            ) : null}
+          <Image onClick ={handleImgClick}>
+            {userImage ? 
+              (<img src={userImage || ""} />)
+            : null}
           </Image>
         </Picture>
         <Text>

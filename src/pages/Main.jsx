@@ -5,7 +5,6 @@ import ButtonLayout from "../components/ButtonsLayout";
 import DetailModal from "../components/DetailModal";
 import CommentInput from "../components/CommentInput";
 import MoreButtonsModal from "../components/MoreButtonsModal";
-import PostEdit from "../components/postPage/PostEdit";
 import PostAdd from "../components/postPage/PostAdd";
 import ModalBox from "../components/postPage/ModalBox";
 
@@ -16,13 +15,8 @@ const Main = () => {
   const [detailBtnClick, setDetailBtnClick] = useState(false);
   const [moreButtonsClick, setMoreButtonsClick] = useState(false);
 
-  const [isEdit, setIsEdit] = useState(false)
-
   return (
     <Total>
-      {isEdit? <ModalBox isEdit={isEdit} /> : null }
-      <button onClick={()=>{setIsEdit(!isEdit)}}>수정test</button>
-
       <DetailModal
         detailBtnClick={detailBtnClick}
         setDetailBtnClick={setDetailBtnClick}

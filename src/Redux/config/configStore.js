@@ -1,11 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-// import comment from "../modules/commentSlice";
+import modalReducer from "../modules/modalSlice";
 
 
 const store = configureStore({
   reducer: { 
-    // posts: posts, 
-    },
+    modal : modalReducer,
+
+  },
 });
 
 export default store;

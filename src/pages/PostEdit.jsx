@@ -1,47 +1,50 @@
-import { useRef, useState } from "react";
-
-import styled from "styled-components";
-import { FcPicture } from "react-icons/fc";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+// style
+import styled from "styled-components";
+import { FcPicture } from "react-icons/fc";
 
-const PostEdit = ()=>{
+const PostEdit  = ()=>{
   const navigate = useNavigate()
 
   // 이미지 미리보기 state
   const [userImage, setUserImage] = useState("");
   const [iconView, setIconView] = useState(true);
-
-  const [textArea, setTextArea] = useState('')
-
+  
   // 이미지 미리보기 
   const imgPreview = (e)=> {
     let reader = new FileReader();
-      if (e.target.files[0]){
-        reader.readAsDataURL(e.target.files[0]);
-      }
-      reader.onloadend = () =>{
-        const resultImage = reader.result;
-        setIconView(false)
-        setUserImage(resultImage)
+    if (e.target.files[0]){
+      reader.readAsDataURL(e.target.files[0]);
+    }
+    reader.onloadend = () =>{
+      const resultImage = reader.result;
+      setIconView(false)
+      setUserImage(resultImage)
     };
   }
+
+  const [textArea, setTextArea] = useState('')
+  
   const handlePostCancle = () => [
     navigate(-1)
   ]
+  
   const handlePostEdit = () => {
-    // 이미지를 어떻게 수정할 것인가
+    // 이미지를 어떻게 보낼 것인가
     console.log(userImage)
     console.log(textArea)
     // 페이지이동
     navigate(-1)
   }
 
-  return (
+return (
+  <Contain>
     <div style={{backgroundColor:'white', borderRadius:'15px'}}>
       <MainBar>
         <div className="main_btn" onClick={handlePostCancle}>취소</div>
-        <div className="main_tit">정보수정</div>
+        <div className="main_tit">게시물 수정하기</div>
         <div className="main_btn" onClick={handlePostEdit}>완료</div>
       </MainBar>
       <Box>
@@ -49,7 +52,6 @@ const PostEdit = ()=>{
           <Icon>
             {iconView?
             <>
-              {/* 아이콘 다시 찾아보기 */}
               <FcPicture style={{ fontSize:'100px'}}/>
               <label htmlFor="file">컴퓨터에서 선택</label>
               <input 
@@ -64,11 +66,11 @@ const PostEdit = ()=>{
           <Image>
             <img src={userImage ||""} 
               onClick={()=>{
-                if(window.confirm('업로드를 취소하시겠습니까?')){
-                  navigate('/')
-                }else{
+                if(window.confirm('사진을 삭제하시겠습니까?')){
+                  setIconView(true)                 
                   setUserImage(null)
-                  setIconView(true)
+                }else{
+                  setIconView(false)
                 }
               }}
             />
@@ -81,8 +83,7 @@ const PostEdit = ()=>{
           </div>
           <textarea 
             className="text_box"
-            value={textArea || ""}
-            placeholder = '내용을 입력해주세요'
+            defaultValue={textArea || "defaultValue 넣으면 이전text값 들어올거에요"}
             onChange={(e)=>{setTextArea(e.target.value)}}
           />
           <div className="view">위치추가 - view</div>
@@ -91,11 +92,20 @@ const PostEdit = ()=>{
         </Text>
       </Box>
     </div>
+  </Contain>
   )
 }
 
-const MainBar = styled.div`
 
+const Contain = styled.div`
+  width: 100%;
+  height: 850px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f1f3f5;
+`
+const MainBar = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -228,9 +238,6 @@ const Text = styled.div`
     border: none;
     border-bottom: 1px solid #dee2e6;
   }
+  
 `
-
-export default PostEdit;
-
-
-
+export default PostEdit;   
