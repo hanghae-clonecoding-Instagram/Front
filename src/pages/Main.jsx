@@ -10,15 +10,9 @@ import { __getPosts } from "../Redux/modules/postSlice";
 import { useNavigate } from "react-router-dom";
 import PostTop from "../components/PostTop";
 
-
 const Main = () => {
-  // const [isLike, setIsLike] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const [isDisplay, setIsDisplay] = useState("inline");
-  // const [detailBtnClick, setDetailBtnClick] = useState(false);
-  // const [postNum, setPostNum] = useState(0);
-  // const [moreButtonsClick, setMoreButtonsClick] = useState(false);
   const { posts } = useSelector((state) => state.post);
 
   // 호출 시 사용!!!
