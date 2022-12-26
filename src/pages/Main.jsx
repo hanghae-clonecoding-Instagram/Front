@@ -5,8 +5,7 @@ import ButtonLayout from "../components/ButtonsLayout";
 import DetailModal from "../components/DetailModal";
 import CommentInput from "../components/CommentInput";
 import MoreButtonsModal from "../components/MoreButtonsModal";
-import PostAdd from "../components/PostAdd";
-import ModalBox from "../components/ModalBox";
+
 
 
 const Main = () => {
