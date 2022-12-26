@@ -75,7 +75,6 @@ const Total = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.01);
   margin-top: -40px;
   font-size: 14px;
 `;
