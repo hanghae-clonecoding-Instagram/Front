@@ -3,31 +3,50 @@ import styled from "styled-components";
 
 import KakaoTalkLogin from "./KakaoTalkLogin";
 import { RiKakaoTalkFill } from "react-icons/ri";
-import { useNavigate } from "react-router-dom";
-// import { SiKakaotalk } from "react-icons/si";
+import useInput from "../../hooks/useInput";
 
-const LoginForm = ()=>{
-  const navigate = useNavigate()
-  const [userEmail, setUserEmail] = useState('')
-  const [password, setPassword] = useState('')
 
+const LoginForm = (props)=>{
+  const {isSignUp, setIsSignUp} = props
+
+  const [state, setState] = useState({
+    userEmail:'',
+    Password: ''
+  })
+
+  const handleLoginState = (e) =>{
+    // console.log(e.target.name, e.target.value)
+    setState({
+      ...state,
+      [e.target.name] : e.target.value
+    })
+  }
+
+  const onSubmit = (e) =>{
+    if(state ===""){ alert('빈칸 없이 입력해주세요')}
+    e.preventDefault()
+    console.log(state)
+    setState("")
+  }
 
   return (
     <div style={{display:'flex', flexDirection:'column'}}>
       <Box>
         <Logo/>
-        <InputBox>
+        <InputBox onSubmit={onSubmit}>
           <input
             type ='email'
-            value={ userEmail || ""} 
+            name = 'userEmail'
+            value={ state.userEmail || ""} 
             placeholder = '이메일을 입력해주세요'
-            onChange = {(e)=>{setUserEmail(e.target.value)}}
+            onChange = {handleLoginState}
             />
           <input 
             type ='password'
-            value={ password || ""} 
+            name = 'password'
+            value={ state.password || ""} 
             placeholder="비밀번호를 입력해주세요"
-            onChange = {(e)=>{setPassword(e.target.value)}}
+            onChange = {handleLoginState}
             />
           <button>로그인</button>
           <div className="line">
@@ -35,15 +54,15 @@ const LoginForm = ()=>{
             <p>또는</p>
             <hr className="hr_solid"/>
           </div>
-          {/* 소셜로그인 컴포넌트 */}
-          {/* <KakaoTalkLogin/> */}
-          <Kakao> 
-            <RiKakaoTalkFill style={{ fontSize:'16px', marginRight: '5px'}}/> 
-            <span>카카오 로그인</span>
-          </Kakao>
         </InputBox>
+        {/* 소셜로그인 컴포넌트 */}
+        {/* <KakaoTalkLogin/> */}
+        <Kakao> 
+          <RiKakaoTalkFill style={{ fontSize:'16px', marginRight: '5px'}}/> 
+          <span>카카오 로그인</span>
+        </Kakao>
       </Box>
-      <Div onClick={()=>{navigate('/signup')}}>
+      <Div onClick={()=>{setIsSignUp(true)}}>
         <p>회원이 아니신가요?</p>
         <p>회원 가입하기</p>
       </Div>
@@ -60,7 +79,7 @@ const Box = styled.div`
   align-items: center;
   margin: 12px 0 0 25px;
   max-width: 350px;
-  padding: 0 30px 30px; 
+  padding: 0 40px 30px; 
   box-sizing: border-box;
 `
 
@@ -71,14 +90,12 @@ const Logo = styled.div`
   height: 60px;
   margin: 50px 0;
 `
-const InputBox = styled.div`
+const InputBox = styled.form`
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px;
-  box-sizing: border-box;
   input{
     width: 100%;
     height: 35px;
