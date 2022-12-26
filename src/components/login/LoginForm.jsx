@@ -3,14 +3,16 @@ import styled from "styled-components";
 
 import KakaoTalkLogin from "./KakaoTalkLogin";
 import { RiKakaoTalkFill } from "react-icons/ri";
-import useInput from "../../hooks/useInput";
+import { instance } from "../../core/api/axios";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = (props) => {
+  const navigate = useNavigate()
   const { isSignUp, setIsSignUp } = props;
 
   const [state, setState] = useState({
     userEmail: "",
-    Password: "",
+    password: "",
   });
 
   const handleLoginState = (e) => {
@@ -24,10 +26,24 @@ const LoginForm = (props) => {
   const onSubmit = (e) => {
     if (state === "") {
       alert("빈칸 없이 입력해주세요");
+      return
     }
     e.preventDefault();
     console.log(state);
-    setState("");
+    instance.post("/api/user/login", state)
+    .then((res)=>{
+      console.log(res)    
+      // 토큰 저장 
+      localStorage.setItem("is_login", res.headers.authorization);
+      window.location.href = "/main";
+    })
+    .catch((err)=>{
+      const msg = err.response.data.errorMessage;
+      alert(msg);
+      setState("");
+      console.log("로그인 실패");
+      navigate("/");
+    })
   };
 
   return (
@@ -63,11 +79,7 @@ const LoginForm = (props) => {
           <span>카카오 로그인</span>
         </Kakao>
       </Box>
-      <Div
-        onClick={() => {
-          setIsSignUp(true);
-        }}
-      >
+      <Div onClick={() => {setIsSignUp(true)}}>
         <p>회원이 아니신가요?</p>
         <p>회원 가입하기</p>
       </Div>

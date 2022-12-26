@@ -16,7 +16,7 @@ const Header = () => {
   
   const isModal = useSelector((state)=> state.modal.modal)
 
-  if (locationNow.pathname === "/login") return null;
+  if (locationNow.pathname === "/") return null;
 
 
   return (

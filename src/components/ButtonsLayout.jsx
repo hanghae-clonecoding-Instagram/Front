@@ -53,6 +53,7 @@ const Heart = styled.img.attrs((props) => ({
 }))`
   width: 25px;
   margin-left: 15px;
+  cursor: pointer;
 `;
 
 const Comment = styled.img.attrs({
@@ -60,6 +61,7 @@ const Comment = styled.img.attrs({
 })`
   width: 25px;
   margin-left: 15px;
+  cursor: pointer;
 `;
 
 const Share = styled.img.attrs({
@@ -67,6 +69,7 @@ const Share = styled.img.attrs({
 })`
   width: 25px;
   margin-left: 15px;
+  cursor: pointer;
 `;
 
 const Save = styled.img.attrs({
@@ -74,5 +77,6 @@ const Save = styled.img.attrs({
 })`
   width: 21px;
   margin-right: 15px;
+  cursor: pointer;
 `;
 export default ButtonLayout;

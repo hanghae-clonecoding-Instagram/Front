@@ -162,6 +162,7 @@ const User = styled.div`
   height: 35px;
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 const UserImage = styled.img.attrs((props) => ({
   src: props.src,
@@ -188,6 +189,7 @@ const More = styled.img.attrs({
 })`
   width: 25px;
   margin-right: 14px;
+  cursor: pointer;
 `;
 
 const PostMiddle = styled.div``;
@@ -204,16 +206,19 @@ const ContentUsername = styled.span`
 
 const Content = styled.span`
   display: ${(props) => props.display};
+  line-height: 18px;
 `;
 
 const ContentMore = styled.span`
   display: ${(props) => props.display};
   color: #808080d5;
+  cursor: pointer;
 `;
 
 const CommentMore = styled.div`
   margin: 13px 0px 13px 15px;
   color: #808080d5;
+  cursor: pointer;
 `;
 
 const ContentText = styled.div`
