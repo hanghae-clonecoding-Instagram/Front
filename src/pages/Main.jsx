@@ -7,6 +7,7 @@ import CommentInput from "../components/CommentInput";
 import MoreButtonsModal from "../components/MoreButtonsModal";
 import { useSelector } from "react-redux";
 
+
 const Main = () => {
   // const [isLike, setIsLike] = useState(false);
   const [isDisplay, setIsDisplay] = useState("inline");
