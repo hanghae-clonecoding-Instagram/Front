@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 // style
 import styled from "styled-components";
-import { isModalHandler } from "../../Redux/modules/modalSlice";
+import { isModalHandler } from "../Redux/modules/modalSlice";
 import PostAdd from "./PostAdd";
 
 
