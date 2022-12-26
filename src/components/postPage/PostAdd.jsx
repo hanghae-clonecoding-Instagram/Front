@@ -17,8 +17,10 @@ const PostAdd = () => {
   const imgPreview = (e) => {
     let reader = new FileReader();
     if (e.target.files[0]) {
+      console.log(e.target.files[0]);
       reader.readAsDataURL(e.target.files[0]);
     }
+    // 읽기 동작이 끝났을 때마다 발생
     reader.onloadend = () => {
       const resultImage = reader.result;
       setIconView(false);
