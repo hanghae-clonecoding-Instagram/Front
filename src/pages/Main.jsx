@@ -128,7 +128,8 @@ const Main = () => {
           <ContentUsername marginLeft="15px">nickname</ContentUsername>
           <Content>댓글 댓글 댓글</Content>
         </PostMiddle>
-        <CommentInput inputTagWidth="355px" />
+        {/* postId값 받기 */}
+        <CommentInput inputTagWidth="355px" postId={1} />
       </Post>
     </Total>
   );

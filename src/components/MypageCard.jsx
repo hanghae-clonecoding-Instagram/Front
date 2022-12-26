@@ -1,7 +1,7 @@
 
 import styled from "styled-components";
 
-const MypageCard = ()=>{
+const  MypageCard = ()=>{
 
   return (
     <>
