@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import MypageCard from "../components/mypage/MypageCard";
+import MypageCard from "../components/MypageCard";
 
 
 const Mypage = ()=>{

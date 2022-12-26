@@ -25,6 +25,8 @@ const Login = ()=>{
 }
 
 const Body = styled.div`
+  /* border: 1px solid red; */
+  margin: 0 auto;
   width: 1200px;
   height: 100vh;
   display: flex;

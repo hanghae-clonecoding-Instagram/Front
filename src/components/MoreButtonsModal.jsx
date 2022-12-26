@@ -1,10 +1,22 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import styled from "styled-components";
+
 
 const MoreButtonsModal = ({ moreButtonsClick, setMoreButtonsClick }) => {
   const outSection = useRef();
+  const navigate = useNavigate()
+  const [isEdit, setIsEdit] = useState(false)
+
   return (
     <div>
+      {/* {isEdit? 
+        <ModalBox isEdit={isEdit} setIsEdit={setIsEdit}>
+          <PostAdd />
+        </ModalBox> 
+      : null } */}
+
       {moreButtonsClick === true ? (
         <ModalWrapper
           className="modalOutside"
@@ -19,7 +31,7 @@ const MoreButtonsModal = ({ moreButtonsClick, setMoreButtonsClick }) => {
             <ModalButton fontColor="red" fontWeight="bold">
               신고하기
             </ModalButton>
-            <ModalButton>게시물 수정</ModalButton>
+            <ModalButton onClick={()=>{navigate('/postEdit')}}>게시물 수정</ModalButton>
             <ModalButton>게시물 삭제</ModalButton>
             <ModalButton
               onClick={() => {
