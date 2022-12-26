@@ -1,29 +1,17 @@
-<<<<<<< HEAD:src/components/postPage/PostAdd.jsx
-import { useState } from "react";
 import styled from "styled-components";
-import { FcPicture } from "react-icons/fc";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { __addPost } from "../../Redux/modules/postSlice";
-=======
+import { __addPost } from "../Redux/modules/postSlice";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
-// style 
-import styled from "styled-components";
-import { FcPicture } from "react-icons/fc";
 // modal store
 import { isModalHandler } from "../Redux/modules/modalSlice";
->>>>>>> f8bdfff5c3a28a93d55944f51ac2f09554d03fec:src/components/PostAdd.jsx
 
 const PostAdd = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   // 모달 store
-  const dispatch = useDispatch()
-  const isModal = useSelector((state)=> state.modal.modal)
+  const dispatch = useDispatch();
+  const isModal = useSelector((state) => state.modal.modal);
 
   // 이미지 미리보기 state
   const [userImage, setUserImage] = useState(null);
@@ -56,11 +44,11 @@ const PostAdd = () => {
       setIconView(false);
       setUserImage(resultImage);
     };
-  }
+  };
 
   const handlePostCancle = () => {
-    dispatch(isModalHandler(false))
-  }
+    dispatch(isModalHandler(false));
+  };
 
   const postAddButtonHandler = () => {
     if (userImage === null) return alert("사진을 선택해주세요.");
@@ -75,7 +63,6 @@ const PostAdd = () => {
     //   console.log(value);
     // }
     // 이미지를 어떻게 보낼 것인가
-<<<<<<< HEAD:src/components/postPage/PostAdd.jsx
 
     const newPost = {
       image: userImageFile,
@@ -86,24 +73,21 @@ const PostAdd = () => {
     dispatch(__addPost(newPost));
     // navigate("/");
   };
-=======
-    console.log(userImage)
-    console.log(textArea)
-    dispatch(isModalHandler(false))
-  }
 
   const handleImgClick = () => {
     if (window.confirm("사진을 바꾸시겠습니까?")) {
+      dispatch(isModalHandler(false));
       setUserImage(null);
       setIconView(true);
     }
-  }
->>>>>>> f8bdfff5c3a28a93d55944f51ac2f09554d03fec:src/components/PostAdd.jsx
+  };
 
   return (
-    <div style={{ backgroundColor: "white", borderRadius: "15px"}}>
+    <div style={{ backgroundColor: "white", borderRadius: "15px" }}>
       <MainBar>
-        <div className="main_btn" onClick={handlePostCancle}>취소하기</div>
+        <div className="main_btn" onClick={handlePostCancle}>
+          취소하기
+        </div>
         <div className="main_tit">새 게시물 만들기</div>
         <div className="main_btn" onClick={postAddButtonHandler}>
           공유하기
@@ -114,22 +98,14 @@ const PostAdd = () => {
           <Icon>
             {iconView ? (
               <>
-<<<<<<< HEAD:src/components/postPage/PostAdd.jsx
-                {/* 아이콘 다시 찾아보기 */}
                 <AddImage />
-                {/* <FcPicture style={{ fontSize: "100px" }} /> */}
-=======
-                <FcPicture style={{ fontSize: "100px" }} />
->>>>>>> f8bdfff5c3a28a93d55944f51ac2f09554d03fec:src/components/PostAdd.jsx
                 <label htmlFor="file">컴퓨터에서 선택</label>
                 <input type="file" id="file" onChange={imgPreview} />
               </>
             ) : null}
           </Icon>
-          <Image onClick ={handleImgClick}>
-            {userImage ? 
-              (<img src={userImage || ""} />)
-            : null}
+          <Image onClick={handleImgClick}>
+            {userImage ? <img src={userImage || ""} /> : null}
           </Image>
         </Picture>
         <Text>
@@ -291,7 +267,7 @@ const Text = styled.div`
     border-bottom: 1px solid #dee2e6;
     padding: 15px 15px 15px 15px;
   }
-`
+`;
 
 const AddImage = styled.img.attrs({
   src: "/img/add image.png",

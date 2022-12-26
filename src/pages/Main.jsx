@@ -5,13 +5,7 @@ import ButtonLayout from "../components/ButtonsLayout";
 import DetailModal from "../components/DetailModal";
 import CommentInput from "../components/CommentInput";
 import MoreButtonsModal from "../components/MoreButtonsModal";
-<<<<<<< HEAD
 import { useSelector } from "react-redux";
-=======
-import PostAdd from "../components/PostAdd";
-import ModalBox from "../components/ModalBox";
-
->>>>>>> f8bdfff5c3a28a93d55944f51ac2f09554d03fec
 
 const Main = () => {
   // const [isLike, setIsLike] = useState(false);
