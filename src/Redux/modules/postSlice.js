@@ -14,6 +14,19 @@ const initialState = {
 //   headers: { Authorization: `Bearer ${getCookie("is_login")}` },
 // };
 
+export const __getPost = createAsyncThunk(
+  "getPost",
+  async (payload, thunkAPI) => {
+    console.log(payload);
+    try {
+      const data = await instance.get(`/api/post/${payload}`);
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 export const __getPosts = createAsyncThunk(
   "getPosts",
   async (payload, thunkAPI) => {
@@ -41,11 +54,33 @@ export const __addPost = createAsyncThunk(
   }
 );
 
+export const __postLike = createAsyncThunk(
+  "postLike",
+  async (payload, thunkAPI) => {
+    console.log(payload);
+    try {
+      const data = await instance.post(`/api/like/post/${payload}`);
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 export const postSlice = createSlice({
   name: "post",
   initialState,
   reducer: {},
   extraReducers: {
+    [__getPost.pending]: (state) => {},
+    [__getPost.fulfilled]: (state, action) => {
+      state.post = action.payload;
+    },
+    [__getPost.rejected]: (state, action) => {
+      console.log(action.payload.response.data.errorMessage);
+    },
+
     [__getPosts.pending]: (state) => {},
     [__getPosts.fulfilled]: (state, action) => {
       state.posts = action.payload.postFeed;

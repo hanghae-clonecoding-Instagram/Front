@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { __postLike } from "../Redux/modules/postSlice";
 
 const ButtonLayout = ({
   setDetailBtnClick,
@@ -8,28 +10,47 @@ const ButtonLayout = ({
   width,
   postId,
   isLikePost,
+  likePostNum,
 }) => {
-  // const [isLike, setIsLike] = useState(false);
+  const dispatch = useDispatch();
+  // const [isLike, setIsLike] = useState(isLikePost);
+  // const [likeNum, setLikeNum] = useState(likePostNum);
+  // 임시로 만듦!!!
+  const [isLike, setIsLike] = useState(false);
+  const [likeNum, setLikeNum] = useState(101);
+
+  // true가 누른 것!!!
+  const HeartButtonHandler = () => {
+    if (isLike === true) {
+      setLikeNum(likeNum - 1);
+    } else {
+      setLikeNum(likeNum + 1);
+    }
+    setIsLike(!isLike);
+    dispatch(__postLike(postId));
+  };
+
   return (
-    <Buttons borderTop={borderTop} marginTop={marginTop} width={width}>
-      <LeftButtons>
-        <Heart
-          onClick={() => {
-            // setIsLike(!isLike);
-          }}
-          heartUrl={
-            isLikePost === true ? "/img/red heart.png" : "/img/heart.png"
-          }
-        />
-        <Comment
-          onClick={() => {
-            setDetailBtnClick(true);
-          }}
-        />
-        <Share />
-      </LeftButtons>
-      <Save />
-    </Buttons>
+    <>
+      <Buttons borderTop={borderTop} marginTop={marginTop} width={width}>
+        <LeftButtons>
+          <Heart
+            onClick={() => {
+              HeartButtonHandler();
+            }}
+            heartUrl={isLike === true ? "/img/red heart.png" : "/img/heart.png"}
+          />
+          <Comment
+            onClick={() => {
+              setDetailBtnClick(true);
+            }}
+          />
+          <Share />
+        </LeftButtons>
+        <Save />
+      </Buttons>
+      <LikeNumber>좋아요 {likeNum}개</LikeNumber>
+    </>
   );
 };
 
@@ -78,5 +99,10 @@ const Save = styled.img.attrs({
   width: 21px;
   margin-right: 15px;
   cursor: pointer;
+`;
+
+const LikeNumber = styled.div`
+  margin: 9px 0px 12px 15px;
+  font-weight: bold;
 `;
 export default ButtonLayout;

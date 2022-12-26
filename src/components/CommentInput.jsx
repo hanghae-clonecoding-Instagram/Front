@@ -19,7 +19,7 @@ const CommentInput = ({ inputTagWidth, postId }) => {
   }
 
   return (
-    <PostBottom onSubmit={commentSubmit}>
+    <PostBottom>
       <Smile />
       <CommentInputTag 
         inputTagWidth={inputTagWidth}

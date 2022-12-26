@@ -1,5 +1,7 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { __getPost } from "../Redux/modules/postSlice";
 import ButtonLayout from "./ButtonsLayout";
 import CommentInput from "./CommentInput";
 
@@ -8,8 +10,16 @@ const DetailModal = ({
   setDetailBtnClick,
   moreButtonsClick,
   setMoreButtonsClick,
+  postId,
 }) => {
+  const dispatch = useDispatch();
   const outSection = useRef();
+  console.log(postId);
+  // useEffect(() => {
+  //   dispatch(__getPost(postId));
+  // }, [dispatch]);
+  // console.log(post);
+
   return (
     <div>
       {detailBtnClick === true ? (
@@ -28,7 +38,7 @@ const DetailModal = ({
               <ModalContentTop>
                 <User>
                   <UserImage marginLeft="15px" src="/img/user.png" />
-                  <Username>dlwlrma</Username>
+                  <Username>postId : {postId}</Username>
                 </User>
                 <More
                   onClick={() => {
@@ -62,12 +72,7 @@ const DetailModal = ({
                   marginTop="15px"
                   width="400px"
                 />
-                <LikeNumber>좋아요 102개</LikeNumber>
-                <CommentInput
-                  inputTagWidth="280px"
-                  marginTop="0px"
-                  width="400px"
-                />
+                <CommentInput inputTagWidth="280px" marginTop="0px" />
               </ModalContentBottom>
             </ModalContent>
           </Modal>
@@ -155,13 +160,9 @@ const ModalContentText = styled.div`
 const UserText = styled.div`
   padding-top: 4px;
 `;
+
 const UserContent = styled.span`
   line-height: 130%;
-`;
-
-const LikeNumber = styled.div`
-  margin: 9px 0px 12px 15px;
-  font-weight: bold;
 `;
 
 const ModalContentBottom = styled.div`

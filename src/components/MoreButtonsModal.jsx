@@ -3,11 +3,10 @@ import { useNavigate } from "react-router-dom";
 
 import styled from "styled-components";
 
-
 const MoreButtonsModal = ({ moreButtonsClick, setMoreButtonsClick }) => {
   const outSection = useRef();
-  const navigate = useNavigate()
-  const [isEdit, setIsEdit] = useState(false)
+  const navigate = useNavigate();
+  const [isEdit, setIsEdit] = useState(false);
 
   return (
     <div>
@@ -31,7 +30,13 @@ const MoreButtonsModal = ({ moreButtonsClick, setMoreButtonsClick }) => {
             <ModalButton fontColor="red" fontWeight="bold">
               신고하기
             </ModalButton>
-            <ModalButton onClick={()=>{navigate('/postEdit')}}>게시물 수정</ModalButton>
+            <ModalButton
+              onClick={() => {
+                navigate("/postEdit");
+              }}
+            >
+              게시물 수정
+            </ModalButton>
             <ModalButton>게시물 삭제</ModalButton>
             <ModalButton
               onClick={() => {
@@ -60,9 +65,9 @@ const ModalWrapper = styled.div`
 const Modal = styled.div`
   z-index: 4;
   position: fixed;
-  top: 35%;
-  left: 45%;
-  width: 300px;
+  top: 38%;
+  left: 43.2%;
+  width: 260px;
   background-color: white;
   border-radius: 15px;
   display: flex;
@@ -73,12 +78,12 @@ const Modal = styled.div`
 
 const ModalButton = styled.div`
   width: 100%;
-  height: 62px;
+  height: 55px;
   border-bottom: 1px solid rgb(0, 0, 0, 0.2);
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 19px;
+  font-size: 15px;
   font-weight: ${(props) => props.fontWeight || "none"};
   color: ${(props) => props.fontColor || "black"};
 `;

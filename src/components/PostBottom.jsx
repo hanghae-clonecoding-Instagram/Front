@@ -5,19 +5,30 @@ import styled from "styled-components";
 import CommentInput from "../components/CommentInput";
 import { __addComment, __getComment } from "../Redux/modules/commentSlice";
 
+
 // 댓글 추가하기 전에, 댓글을 전체 포스트랑 보여줘야 함
 // 댓글 get요청은 어디서? 
 const PostBottom  = ({inputTagWidth, postId}) =>{
-  console.log(inputTagWidth, postId)
-  
+
+  const comments = {
+    commentId : 2,
+    profileImage: "/img/user.png",
+    username: 'dlwlrma',
+    comment: '20자 이상인 글입니다!',
+    likeCmtNum:0,
+    isLikeCmt:true,
+    createdAt: '2022-12-01T12:52:06.729608',
+    modifiedAt: '2022-12-01T12:52:06.729608'
+  }
+
   const dispatch = useDispatch()
-  const {comments} = useSelector((state)=> state.comment)
+  // const {comments} = useSelector((state)=> state.comment)
   const [comment, setComment] = useState('')
 
-  useEffect(() => {
-    dispatch(__getComment(postId));
-  }, [dispatch]);
-  console.log(comments);
+  // useEffect(() => {
+  //   dispatch(__getComment(postId));
+  // }, [dispatch]);
+  // console.log(comments);
 
   const commentSubmit = (e) => {
     console.log(comment)
@@ -26,14 +37,15 @@ const PostBottom  = ({inputTagWidth, postId}) =>{
       return
     }
     e.preventDefault();
-    dispatch(__addComment(comment, postId))
+    // dispatch(__addComment(comment, postId))
   }
 
   return (
     <>
-      <div key={comments[0].id}>
-        <Username marginLeft="15px">{comments[0].username}</Username>
-        <Comment>{comments[0].comment}</Comment>
+    {/* test용 - view */}
+      <div key={comments.commentsId}>
+        <Username marginLeft="15px">{comments.username}</Username>
+        <Comment>{comments.comment}</Comment>
       </div>
       <CommentForm onSubmit={commentSubmit}>
         <Smile />
@@ -44,6 +56,20 @@ const PostBottom  = ({inputTagWidth, postId}) =>{
         <Button>게시</Button>
       </CommentForm>
     </>
+    // <>
+    //   <div key={comments[0].id}>
+    //     <Username marginLeft="15px">{comments[0].username}</Username>
+    //     <Comment>{comments[0].comment}</Comment>
+    //   </div>
+    //   <CommentForm onSubmit={commentSubmit}>
+    //     <Smile />
+    //     <InputTag 
+    //       inputTagWidth={inputTagWidth}
+    //       onChange={(e)=>{setComment(e.target.value)}}
+    //     />
+    //     <Button>게시</Button>
+    //   </CommentForm>
+    // </>
   )
 }
 const Username = styled.span`

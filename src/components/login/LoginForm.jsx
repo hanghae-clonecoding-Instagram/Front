@@ -45,8 +45,11 @@ const LoginForm = (props) => {
       navigate("/");
     })
   };
-// 카카오 ?????????????
-//  
+
+const socialLogin = () =>{
+  
+}
+
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <Box>
@@ -75,7 +78,7 @@ const LoginForm = (props) => {
         </InputBox>
         {/* 소셜로그인 컴포넌트 */}
         {/* <KakaoTalkLogin/> */}
-        <Kakao>
+        <Kakao onClick={socialLogin}>
           <RiKakaoTalkFill style={{ fontSize: "16px", marginRight: "5px" }} />
           <span>카카오 로그인</span>
         </Kakao>
