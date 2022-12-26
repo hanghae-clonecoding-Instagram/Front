@@ -10,6 +10,7 @@ import { __getPosts } from "../Redux/modules/postSlice";
 import { useNavigate } from "react-router-dom";
 import PostTop from "../components/PostTop";
 
+
 const Main = () => {
   // const [isLike, setIsLike] = useState(false);
   const dispatch = useDispatch();
