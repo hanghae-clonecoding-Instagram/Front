@@ -6,6 +6,7 @@ import DetailModal from "../components/DetailModal";
 import CommentInput from "../components/CommentInput";
 import MoreButtonsModal from "../components/MoreButtonsModal";
 import { useSelector } from "react-redux";
+import PostBottom from "../components/PostBottom";
 
 
 const Main = () => {
@@ -79,13 +80,13 @@ const Main = () => {
               >
                 댓글 12개 모두 보기
               </CommentMore>
-              <ContentUsername marginLeft="15px">nickname</ContentUsername>
-              <Content>댓글 댓글 댓글</Content>
             </PostMiddle>
-            <CommentInput inputTagWidth="355px" />
+            <PostBottom inputTagWidth="355px" postId={1} />
           </Post>
         );
       })}
+      
+      {/* Mock. view ;; */}
       <Post>
         <PostTop>
           <User>
@@ -121,15 +122,14 @@ const Main = () => {
           <CommentMore
             onClick={() => {
               setDetailBtnClick(true);
-            }}
+            }} 
           >
             댓글 12개 모두 보기
           </CommentMore>
-          <ContentUsername marginLeft="15px">nickname</ContentUsername>
-          <Content>댓글 댓글 댓글</Content>
         </PostMiddle>
-        {/* postId값 받기 */}
-        <CommentInput inputTagWidth="355px" postId={1} />
+        <ContentUsername marginLeft="15px">nickname</ContentUsername>
+        <Content>댓글 댓글 댓글</Content>
+        <CommentInput inputTagWidth="355px" />
       </Post>
     </Total>
   );

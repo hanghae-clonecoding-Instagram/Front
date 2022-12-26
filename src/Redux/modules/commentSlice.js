@@ -5,7 +5,6 @@ const initialState = {
   comment: [],
   isLoading: true,
   error: null,
-  hospitalCheck: false,
 };
 
 // const config = {
@@ -15,10 +14,10 @@ const initialState = {
 export const __getComment = createAsyncThunk(
   "getComment",
   async (payload, thunkAPI) => {
-    console.log(payload);
     try {
-      const data = await instance.get("/api/posts");
-      return thunkAPI.fulfillWithValue(data.data);
+      const data = await instance.get(`/api/comment/${payload.postId}`);
+      console.log(data.data);
+      return thunkAPI.fulfillWithValue(data.data.commentList);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -28,9 +27,11 @@ export const __getComment = createAsyncThunk(
 export const __addComment = createAsyncThunk(
   "addComment",
   async (payload, thunkAPI) => {
+    const [comment, postId] = payload
     console.log(payload);
     try {
-      const data = await instance.post("/api/post", payload);
+      const data = await instance.post(`/api/comment/${postId}`, comment)
+      console.log(data.data)
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log(error);
@@ -54,25 +55,27 @@ export const __delComment = createAsyncThunk(
 );
 
 export const postSlice = createSlice({
-  name: "post",
+  name: "comment",
   initialState,
   reducer: {},
   extraReducers: {
     [__getComment.pending]: (state) => {},
     [__getComment.fulfilled]: (state, action) => {
-      state.posts = action.payload.postFeed;
+      state.comment = action.payload
     },
     [__getComment.rejected]: (state, action) => {
       console.log(action.payload.response.data.errorMessage);
     },
 
-    [__addComment.pending]: (state) => {},
+
+    [__addComment.pending]: (state) => {console.log('로티보여주기')},
     [__addComment.fulfilled]: (state, action) => {
-      window.location.href = "/";
+      state.comment = action.payload
     },
     [__addComment.rejected]: (state, action) => {
       console.log(action.payload.response.data.errorMessage);
     },
+
 
     [__delComment.pending]: (state) => {},
     [__delComment.fulfilled]: (state, action) => {
