@@ -100,10 +100,10 @@ const Box = styled.div`
 `
 
 const Logo = styled.div`
-  background-image: url('/img/logo.png');
+  background-image: url('/img/logo2.png');
   background-size: cover; 
   width: 180px;
-  height: 60px;
+  height: 70px;
   margin: 50px 0 30px;
 `
 const InputBox = styled.form`

@@ -26,17 +26,21 @@ const PostAdd = ()=>{
         setUserImage(resultImage)
     };
   }
-  
+  const handlePostCancle = () => [
+    navigate(-1)
+  ]
   const handlePostAdd = () => {
     // 이미지를 어떻게 보낼 것인가
     console.log(userImage)
     console.log(textArea)
+    // 페이지이동
     navigate('/')
   }
 
   return (
     <div style={{backgroundColor:'white', borderRadius:'15px'}}>
       <MainBar>
+        <div className="main_btn" onClick={handlePostCancle}>취소하기</div>
         <div className="main_tit">새 게시물 만들기</div>
         <div className="main_btn" onClick={handlePostAdd}>공유하기</div>
       </MainBar>
@@ -96,7 +100,7 @@ const MainBar = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 35px;
+  height: 40px;
   box-sizing: border-box;
   .main_tit{
     width: 100%;
@@ -224,7 +228,6 @@ const Text = styled.div`
     border: none;
     border-bottom: 1px solid #dee2e6;
   }
-  
 `
 
 export default PostAdd;

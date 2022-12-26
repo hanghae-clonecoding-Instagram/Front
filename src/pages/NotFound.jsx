@@ -11,8 +11,11 @@ const NotFound = ()=>{
   )
 }
 const Box = styled.div`
-  width: 1000px;
-  height: 100%;
+  width: 500px;
+  height: 800px;
   margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
 export default NotFound;

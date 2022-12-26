@@ -25,7 +25,7 @@ const UserEdit = ()=>{
   }
 
   return (
-  <div style={{display:'flex', alignAtems:'center', height:'100vh'}}>
+  <div style={{display:'flex', alignAtems:'center', height:'900px'}}>
     <Box>
       <BasicProfile>
         {/* <img src='/img/user.jpg' /> */}
