@@ -5,12 +5,19 @@ import ButtonLayout from "../components/ButtonsLayout";
 import DetailModal from "../components/DetailModal";
 import CommentInput from "../components/CommentInput";
 import MoreButtonsModal from "../components/MoreButtonsModal";
+import { useSelector } from "react-redux";
 
 const Main = () => {
   // const [isLike, setIsLike] = useState(false);
   const [isDisplay, setIsDisplay] = useState("inline");
   const [detailBtnClick, setDetailBtnClick] = useState(false);
   const [moreButtonsClick, setMoreButtonsClick] = useState(false);
+  const { posts } = useSelector((state) => state.post);
+
+  // useEffect(() => {
+  //   dispatch(__getPosts());
+  // }, [dispatch]);
+  // console.log(posts);
 
   return (
     <Total>
@@ -24,10 +31,64 @@ const Main = () => {
         moreButtonsClick={moreButtonsClick}
         setMoreButtonsClick={setMoreButtonsClick}
       />
+      {posts.map((post) => {
+        return (
+          <Post key={post.postId}>
+            <PostTop>
+              <User>
+                <UserImage src={post.profileImage} />
+                <UserName>{post.username}</UserName>
+              </User>
+              <More
+                onClick={() => {
+                  setMoreButtonsClick(true);
+                }}
+              />
+            </PostTop>
+            <PostImage src={post.image} width="470.5px" />
+            <PostMiddle>
+              <ButtonLayout
+                setDetailBtnClick={setDetailBtnClick}
+                marginTop="0px"
+                postId={post.postId}
+                isLikePost={post.isLikePost}
+              />
+              <LikeNumber>좋아요 {post.likePostNum}개</LikeNumber>
+              <ContentText>
+                <ContentUsername marginLeft="0px">
+                  {post.username}
+                </ContentUsername>
+                <Content>{post.content.slice(0, 20)}</Content>
+                <ContentMore
+                  onClick={() => {
+                    setIsDisplay("none");
+                  }}
+                  display={isDisplay}
+                >
+                  ... 더보기
+                </ContentMore>
+                <Content display={isDisplay === "none" ? "inline" : "none"}>
+                  {post.content.slice(20)}
+                </Content>
+              </ContentText>
+              <CommentMore
+                onClick={() => {
+                  setDetailBtnClick(true);
+                }}
+              >
+                댓글 12개 모두 보기
+              </CommentMore>
+              <ContentUsername marginLeft="15px">nickname</ContentUsername>
+              <Content>댓글 댓글 댓글</Content>
+            </PostMiddle>
+            <CommentInput inputTagWidth="355px" />
+          </Post>
+        );
+      })}
       <Post>
         <PostTop>
           <User>
-            <UserImage />
+            <UserImage src="/img/user.png" />
             <UserName>nickname</UserName>
           </User>
           <More
@@ -36,7 +97,7 @@ const Main = () => {
             }}
           />
         </PostTop>
-        <PostImage width="470.5px" />
+        <PostImage src="/img/image sample.png" width="470.5px" />
         <PostMiddle>
           <ButtonLayout setDetailBtnClick={setDetailBtnClick} marginTop="0px" />
           <LikeNumber>좋아요 102개</LikeNumber>
@@ -101,9 +162,9 @@ const User = styled.div`
   display: flex;
   align-items: center;
 `;
-const UserImage = styled.img.attrs({
-  src: "/img/user.png",
-})`
+const UserImage = styled.img.attrs((props) => ({
+  src: props.src,
+}))`
   width: 35px;
   height: 35px;
   object-fit: cover;
@@ -115,9 +176,9 @@ const UserName = styled.div`
   padding-bottom: 2px;
 `;
 
-const PostImage = styled.img.attrs({
-  src: "/img/image sample.png",
-})`
+const PostImage = styled.img.attrs((props) => ({
+  src: props.src,
+}))`
   width: ${(props) => props.width};
 `;
 

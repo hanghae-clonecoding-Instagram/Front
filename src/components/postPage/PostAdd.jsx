@@ -1,23 +1,37 @@
-import { useRef, useState } from "react";
-
+import { useState } from "react";
 import styled from "styled-components";
 import { FcPicture } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { __addPost } from "../../Redux/modules/postSlice";
 
 const PostAdd = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // 이미지 미리보기 state
   const [userImage, setUserImage] = useState(null);
   const [iconView, setIconView] = useState(true);
-
   const [textArea, setTextArea] = useState("");
+  const userImageFile = new FormData();
 
   // 이미지 미리보기
   const imgPreview = (e) => {
     let reader = new FileReader();
     if (e.target.files[0]) {
-      console.log(e.target.files[0]);
+      userImageFile.append("file", e.target.files[0]);
+
+      console.log(userImageFile);
+
+      // 여기서 하는 것은 또 잘된다...뭘까...
+      // for (const key of userImageFile.keys()) {
+      //   console.log(key);
+      // }
+
+      // for (const value of userImageFile.values()) {
+      //   console.log(value);
+      // }
+
       reader.readAsDataURL(e.target.files[0]);
     }
     // 읽기 동작이 끝났을 때마다 발생
@@ -25,22 +39,38 @@ const PostAdd = () => {
       const resultImage = reader.result;
       setIconView(false);
       setUserImage(resultImage);
-      console.log(resultImage);
     };
   };
 
-  const handlePostAdd = () => {
+  const postAddButtonHandler = () => {
+    if (userImage === null) return alert("사진을 선택해주세요.");
+    console.log(userImageFile);
+
+    // 잘들어가는지 체크하고 싶은데 확인이 안된다...
+    // for (const key of userImageFile.keys()) {
+    //   console.log(key);
+    // }
+
+    // for (const value of userImageFile.values()) {
+    //   console.log(value);
+    // }
     // 이미지를 어떻게 보낼 것인가
-    console.log(userImage);
-    console.log(textArea);
-    navigate("/");
+
+    const newPost = {
+      image: userImageFile,
+      content: textArea,
+    };
+    console.log(newPost);
+
+    dispatch(__addPost(newPost));
+    // navigate("/");
   };
 
   return (
     <div style={{ backgroundColor: "white", borderRadius: "15px" }}>
       <MainBar>
         <div className="main_tit">새 게시물 만들기</div>
-        <div className="main_btn" onClick={handlePostAdd}>
+        <div className="main_btn" onClick={postAddButtonHandler}>
           공유하기
         </div>
       </MainBar>
@@ -50,7 +80,8 @@ const PostAdd = () => {
             {iconView ? (
               <>
                 {/* 아이콘 다시 찾아보기 */}
-                <FcPicture style={{ fontSize: "100px" }} />
+                <AddImage />
+                {/* <FcPicture style={{ fontSize: "100px" }} /> */}
                 <label htmlFor="file">컴퓨터에서 선택</label>
                 <input type="file" id="file" onChange={imgPreview} />
               </>
@@ -233,4 +264,10 @@ const Text = styled.div`
   }
 `;
 
+const AddImage = styled.img.attrs({
+  src: "/img/add image.png",
+})`
+  width: 100px;
+  margin-bottom: 20px;
+`;
 export default PostAdd;

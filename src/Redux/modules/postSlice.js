@@ -1,27 +1,38 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
-import { getCookie } from "../../shared/Cookie";
-
+//import { getCookie } from "../../shared/Cookie";
 import { instance } from "../../core/api/axios";
 
 const initialState = {
   posts: [],
+  post: {},
   isLoading: true,
   error: null,
   hospitalCheck: false,
 };
 
-const config = {
-  headers: { Authorization: `Bearer ${getCookie("is_login")}` },
-};
+// const config = {
+//   headers: { Authorization: `Bearer ${getCookie("is_login")}` },
+// };
 
 export const __getPosts = createAsyncThunk(
   "getPosts",
   async (payload, thunkAPI) => {
     console.log(payload);
     try {
-      const data = await instance.get(`/api/post/category?category=${payload}`);
+      const data = await instance.get("/api/posts");
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 
+export const __addPost = createAsyncThunk(
+  "addPost",
+  async (payload, thunkAPI) => {
+    console.log(payload);
+    try {
+      const data = await instance.post("/api/post", payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log(error);
@@ -30,23 +41,25 @@ export const __getPosts = createAsyncThunk(
   }
 );
 
-
 export const postSlice = createSlice({
   name: "post",
   initialState,
   reducer: {},
   extraReducers: {
-    [__getHospital.pending]: (state) => {
-      state.isLoading = true;
+    [__getPosts.pending]: (state) => {},
+    [__getPosts.fulfilled]: (state, action) => {
+      state.posts = action.payload.postFeed;
     },
-    [__getHospital.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      console.log(state, action);
-      console.log(state.hospitalCheck);
+    [__getPosts.rejected]: (state, action) => {
+      console.log(action.payload.response.data.errorMessage);
     },
-    [__getHospital.rejected]: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
+
+    [__addPost.pending]: (state) => {},
+    [__addPost.fulfilled]: (state, action) => {
+      window.location.href = "/";
+    },
+    [__addPost.rejected]: (state, action) => {
+      console.log(action.payload.response.data.errorMessage);
     },
   },
 });

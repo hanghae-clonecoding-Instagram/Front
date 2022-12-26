@@ -1,16 +1,25 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-const ButtonLayout = ({ setDetailBtnClick, borderTop, marginTop, width }) => {
-  const [isLike, setIsLike] = useState(false);
+const ButtonLayout = ({
+  setDetailBtnClick,
+  borderTop,
+  marginTop,
+  width,
+  postId,
+  isLikePost,
+}) => {
+  // const [isLike, setIsLike] = useState(false);
   return (
     <Buttons borderTop={borderTop} marginTop={marginTop} width={width}>
       <LeftButtons>
         <Heart
           onClick={() => {
-            setIsLike(!isLike);
+            // setIsLike(!isLike);
           }}
-          heartUrl={isLike === true ? "/img/red heart.png" : "/img/heart.png"}
+          heartUrl={
+            isLikePost === true ? "/img/red heart.png" : "/img/heart.png"
+          }
         />
         <Comment
           onClick={() => {
