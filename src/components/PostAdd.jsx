@@ -17,25 +17,15 @@ const PostAdd = () => {
   const [userImage, setUserImage] = useState(null);
   const [iconView, setIconView] = useState(true);
   const [textArea, setTextArea] = useState("");
+  const [images, setImages] = useState(null);
   const userImageFile = new FormData();
 
   // 이미지 미리보기
   const imgPreview = (e) => {
     let reader = new FileReader();
     if (e.target.files[0]) {
-      userImageFile.append("file", e.target.files[0]);
-
-      console.log(userImageFile);
-
-      // 여기서 하는 것은 또 잘된다...뭘까...
-      // for (const key of userImageFile.keys()) {
-      //   console.log(key);
-      // }
-
-      // for (const value of userImageFile.values()) {
-      //   console.log(value);
-      // }
-
+      // userImageFile.append("file", e.target.files[0]);
+      setImages(e.target.files[0]);
       reader.readAsDataURL(e.target.files[0]);
     }
     // 읽기 동작이 끝났을 때마다 발생
@@ -52,9 +42,10 @@ const PostAdd = () => {
 
   const postAddButtonHandler = () => {
     if (userImage === null) return alert("사진을 선택해주세요.");
-    console.log(userImageFile);
+    console.log(images);
+    userImageFile.append("file", images);
 
-    // 잘들어가는지 체크하고 싶은데 확인이 안된다...
+    // 잘들어가는지 체크!!!
     // for (const key of userImageFile.keys()) {
     //   console.log(key);
     // }
@@ -62,8 +53,8 @@ const PostAdd = () => {
     // for (const value of userImageFile.values()) {
     //   console.log(value);
     // }
-    // 이미지를 어떻게 보낼 것인가
 
+    // 이미지를 어떻게 보낼 것인가
     const newPost = {
       image: userImageFile,
       content: textArea,

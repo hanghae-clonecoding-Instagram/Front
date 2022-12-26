@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const CommentInput = ({ inputTagWidth, width }) => {
   return (
-    <PostBottom width={width}>
+    <PostBottom>
       <Smile />
       <CommentInputTag inputTagWidth={inputTagWidth} />
       <CommentPostBtn>게시</CommentPostBtn>
