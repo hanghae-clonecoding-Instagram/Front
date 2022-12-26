@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { FcPicture } from "react-icons/fc";
 // modal store
-import { isModalHandler } from "../../Redux/modules/modalSlice";
+import { isModalHandler } from "../Redux/modules/modalSlice";
 
 const PostAdd = () => {
   const navigate = useNavigate();
@@ -47,9 +47,7 @@ const PostAdd = () => {
   }
 
   const handleImgClick = () => {
-    if (window.confirm("업로드를 취소하시겠습니까?")) {
-      dispatch(isModalHandler(false))
-    } else {
+    if (window.confirm("사진을 바꾸시겠습니까?")) {
       setUserImage(null);
       setIconView(true);
     }

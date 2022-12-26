@@ -4,17 +4,17 @@ import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 // modal import
-import ModalBox from "./postPage/ModalBox";
+import ModalBox from "./ModalBox";
 import { isModalHandler } from "../Redux/modules/modalSlice";
-import PostAdd from "./postPage/PostAdd"
+import PostAdd from "./PostAdd"
 
 
 const Header = () => {
   const locationNow = useLocation();
   const dispatch = useDispatch()
   const navigate = useNavigate();
+  
   const isModal = useSelector((state)=> state.modal.modal)
-  // const [isModalAdd, setIsModalAdd] = useState(false)
 
   if (locationNow.pathname === "/login") return null;
 
@@ -42,8 +42,6 @@ const Header = () => {
           <Plus
             onClick={() => {
               dispatch(isModalHandler(true))
-              // setIsModalAdd(!isModalAdd)
-              // navigate("/postPage");
             }}
           />
           <User
