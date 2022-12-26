@@ -7,28 +7,21 @@ import SignUpForm from "../components/login/SignupForm";
 
 const Login = ()=>{
   const [isSignUp, setIsSignUp] = useState(false)
-  
+
   return (
     <Body>
-      <LoginPhImg/>
-      <LoginForm/>
+      <div>
+        {!isSignUp? 
+          <div style={{display:'flex', alignItems:'center'}}>
+            <LoginPhImg/>
+            <LoginForm isSignUp={isSignUp} setIsSignUp={setIsSignUp}/>
+          </div>
+            : 
+          <SignUpForm isSignUp={isSignUp} setIsSignUp={setIsSignUp}/>
+          }  
+        </div>
     </Body>
   )
-  
-  // return (
-  //   <Body>
-  //     <div>
-  //       {!isSignUp? 
-  //         <Contain>
-  //           <LoginPhImg/>
-  //           <LoginForm/>
-  //         </Contain>
-  //           : 
-  //         <SignUpForm/>
-  //         }  
-  //       </div>
-  //   </Body>
-  // )
 }
 
 const Body = styled.div`
