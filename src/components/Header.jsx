@@ -1,17 +1,34 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Header = () => {
   const locationNow = useLocation();
+  const navigate = useNavigate();
   if (locationNow.pathname === "/login") return null;
   return (
     <Bar>
       <Buttons>
-        <Logo />
+        <Logo
+          onClick={() => {
+            navigate("/");
+          }}
+        />
         <div>
-          <Home />
-          <Plus />
-          <User />
+          <Home
+            onClick={() => {
+              navigate("/");
+            }}
+          />
+          <Plus
+            onClick={() => {
+              navigate("/postPage");
+            }}
+          />
+          <User
+            onClick={() => {
+              navigate("/mypage");
+            }}
+          />
         </div>
       </Buttons>
     </Bar>
