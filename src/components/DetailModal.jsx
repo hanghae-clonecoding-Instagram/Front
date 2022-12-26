@@ -3,7 +3,12 @@ import styled from "styled-components";
 import ButtonLayout from "./ButtonsLayout";
 import CommentInput from "./CommentInput";
 
-const DetailModal = ({ detailBtnClick, setDetailBtnClick }) => {
+const DetailModal = ({
+  detailBtnClick,
+  setDetailBtnClick,
+  moreButtonsClick,
+  setMoreButtonsClick,
+}) => {
   const outSection = useRef();
   return (
     <div>
@@ -25,7 +30,11 @@ const DetailModal = ({ detailBtnClick, setDetailBtnClick }) => {
                   <UserImage marginLeft="15px" src="/img/user.png" />
                   <Username>dlwlrma</Username>
                 </User>
-                <More />
+                <More
+                  onClick={() => {
+                    setMoreButtonsClick(true);
+                  }}
+                />
               </ModalContentTop>
 
               <ModalContentText>

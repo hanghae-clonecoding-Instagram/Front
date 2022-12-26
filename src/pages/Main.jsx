@@ -17,6 +17,8 @@ const Main = () => {
       <DetailModal
         detailBtnClick={detailBtnClick}
         setDetailBtnClick={setDetailBtnClick}
+        moreButtonsClick={moreButtonsClick}
+        setMoreButtonsClick={setMoreButtonsClick}
       />
       <MoreButtonsModal
         moreButtonsClick={moreButtonsClick}

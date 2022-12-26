@@ -15,7 +15,20 @@ const MoreButtonsModal = ({ moreButtonsClick, setMoreButtonsClick }) => {
             }
           }}
         >
-          <Modal></Modal>
+          <Modal>
+            <ModalButton fontColor="red" fontWeight="bold">
+              신고하기
+            </ModalButton>
+            <ModalButton>게시물 수정</ModalButton>
+            <ModalButton>게시물 삭제</ModalButton>
+            <ModalButton
+              onClick={() => {
+                setMoreButtonsClick(false);
+              }}
+            >
+              취소
+            </ModalButton>
+          </Modal>
         </ModalWrapper>
       ) : null}
     </div>
@@ -38,11 +51,24 @@ const Modal = styled.div`
   top: 35%;
   left: 45%;
   width: 300px;
-  height: 300px;
   background-color: white;
   border-radius: 15px;
   display: flex;
   font-size: 14px;
+  display: flex;
+  flex-direction: column;
+`;
+
+const ModalButton = styled.div`
+  width: 100%;
+  height: 62px;
+  border-bottom: 1px solid rgb(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 19px;
+  font-weight: ${(props) => props.fontWeight || "none"};
+  color: ${(props) => props.fontColor || "black"};
 `;
 
 export default MoreButtonsModal;

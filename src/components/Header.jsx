@@ -1,6 +1,9 @@
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 const Header = () => {
+  const locationNow = useLocation();
+  if (locationNow.pathname === "/login") return null;
   return (
     <Bar>
       <Buttons>
