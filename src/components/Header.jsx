@@ -72,7 +72,7 @@ const Buttons = styled.div`
   align-items: center;
 `;
 const Logo = styled.img.attrs({
-  src: "/img/logo.png",
+  src: "/img/logo2.png",
 })`
   width: 120px;
 `;

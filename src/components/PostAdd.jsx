@@ -1,10 +1,8 @@
+import styled from "styled-components";
+import { __addPost } from "../Redux/modules/postSlice";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
-// style 
-import styled from "styled-components";
-import { FcPicture } from "react-icons/fc";
 // modal store
 import { isModalHandler } from "../Redux/modules/modalSlice";
 
@@ -12,53 +10,86 @@ const PostAdd = () => {
   const navigate = useNavigate();
 
   // 모달 store
-  const dispatch = useDispatch()
-  const isModal = useSelector((state)=> state.modal.modal)
+  const dispatch = useDispatch();
+  const isModal = useSelector((state) => state.modal.modal);
 
   // 이미지 미리보기 state
   const [userImage, setUserImage] = useState(null);
   const [iconView, setIconView] = useState(true);
-
   const [textArea, setTextArea] = useState("");
+  const userImageFile = new FormData();
 
   // 이미지 미리보기
   const imgPreview = (e) => {
     let reader = new FileReader();
     if (e.target.files[0]) {
+      userImageFile.append("file", e.target.files[0]);
+
+      console.log(userImageFile);
+
+      // 여기서 하는 것은 또 잘된다...뭘까...
+      // for (const key of userImageFile.keys()) {
+      //   console.log(key);
+      // }
+
+      // for (const value of userImageFile.values()) {
+      //   console.log(value);
+      // }
+
       reader.readAsDataURL(e.target.files[0]);
     }
+    // 읽기 동작이 끝났을 때마다 발생
     reader.onloadend = () => {
       const resultImage = reader.result;
       setIconView(false);
       setUserImage(resultImage);
-      console.log(resultImage);
     };
-  }
+  };
 
   const handlePostCancle = () => {
-    dispatch(isModalHandler(false))
-  }
+    dispatch(isModalHandler(false));
+  };
 
-  const handlePostAdd = () => {
+  const postAddButtonHandler = () => {
+    if (userImage === null) return alert("사진을 선택해주세요.");
+    console.log(userImageFile);
+
+    // 잘들어가는지 체크하고 싶은데 확인이 안된다...
+    // for (const key of userImageFile.keys()) {
+    //   console.log(key);
+    // }
+
+    // for (const value of userImageFile.values()) {
+    //   console.log(value);
+    // }
     // 이미지를 어떻게 보낼 것인가
-    console.log(userImage)
-    console.log(textArea)
-    dispatch(isModalHandler(false))
-  }
+
+    const newPost = {
+      image: userImageFile,
+      content: textArea,
+    };
+    console.log(newPost);
+
+    dispatch(__addPost(newPost));
+    // navigate("/");
+  };
 
   const handleImgClick = () => {
     if (window.confirm("사진을 바꾸시겠습니까?")) {
+      dispatch(isModalHandler(false));
       setUserImage(null);
       setIconView(true);
     }
-  }
+  };
 
   return (
-    <div style={{ backgroundColor: "white", borderRadius: "15px"}}>
+    <div style={{ backgroundColor: "white", borderRadius: "15px" }}>
       <MainBar>
-        <div className="main_btn" onClick={handlePostCancle}>취소하기</div>
+        <div className="main_btn" onClick={handlePostCancle}>
+          취소하기
+        </div>
         <div className="main_tit">새 게시물 만들기</div>
-        <div className="main_btn" onClick={handlePostAdd}>
+        <div className="main_btn" onClick={postAddButtonHandler}>
           공유하기
         </div>
       </MainBar>
@@ -67,16 +98,14 @@ const PostAdd = () => {
           <Icon>
             {iconView ? (
               <>
-                <FcPicture style={{ fontSize: "100px" }} />
+                <AddImage />
                 <label htmlFor="file">컴퓨터에서 선택</label>
                 <input type="file" id="file" onChange={imgPreview} />
               </>
             ) : null}
           </Icon>
-          <Image onClick ={handleImgClick}>
-            {userImage ? 
-              (<img src={userImage || ""} />)
-            : null}
+          <Image onClick={handleImgClick}>
+            {userImage ? <img src={userImage || ""} /> : null}
           </Image>
         </Picture>
         <Text>
@@ -238,6 +267,12 @@ const Text = styled.div`
     border-bottom: 1px solid #dee2e6;
     padding: 15px 15px 15px 15px;
   }
-`
+`;
 
+const AddImage = styled.img.attrs({
+  src: "/img/add image.png",
+})`
+  width: 100px;
+  margin-bottom: 20px;
+`;
 export default PostAdd;
