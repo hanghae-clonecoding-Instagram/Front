@@ -6,52 +6,52 @@ import styled from "styled-components";
 // modal import
 import ModalBox from "./ModalBox";
 import { isModalHandler } from "../Redux/modules/modalSlice";
-import PostAdd from "./PostAdd"
-
+import PostAdd from "./PostAdd";
 
 const Header = () => {
   const locationNow = useLocation();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  
-  const isModal = useSelector((state)=> state.modal.modal)
 
-  if (locationNow.pathname === "/login") return null;
+  const isModal = useSelector((state) => state.modal.modal);
 
+  // 이자리에 username 가져오기위한 get요청 할 것!!!
+
+  if (locationNow.pathname === "/") return null;
 
   return (
     <>
-    {isModal? 
-      <ModalBox>
-        <PostAdd/>
-      </ModalBox>
-    : null }
-    <Bar>
-      <Buttons>
-        <Logo
-          onClick={() => {
-            navigate("/");
-          }}
-        />
-        <div>
-          <Home
+      {isModal ? (
+        <ModalBox>
+          <PostAdd />
+        </ModalBox>
+      ) : null}
+      <Bar>
+        <Buttons>
+          <Logo
             onClick={() => {
-              navigate("/");
+              navigate("/main");
             }}
           />
-          <Plus
-            onClick={() => {
-              dispatch(isModalHandler(true))
-            }}
-          />
-          <User
-            onClick={() => {
-              navigate("/mypage");
-            }}
-          />
-        </div>
-      </Buttons>
-    </Bar>
+          <div>
+            <Home
+              onClick={() => {
+                navigate("/main");
+              }}
+            />
+            <Plus
+              onClick={() => {
+                dispatch(isModalHandler(true));
+              }}
+            />
+            <User
+              onClick={() => {
+                navigate("/mypage");
+              }}
+            />
+          </div>
+        </Buttons>
+      </Bar>
     </>
   );
 };

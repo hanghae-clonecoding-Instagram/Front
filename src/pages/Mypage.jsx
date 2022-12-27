@@ -1,117 +1,163 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import MypageCard from "../components/MypageCard";
+import { useDispatch } from "react-redux";
+import { __getMypage } from "../Redux/modules/postSlice";
 
+const Mypage = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  // const { mypage } = useSelector((state) => state.post);
 
-const Mypage = ()=>{
-  const navigate = useNavigate()
+  // 호출 시 사용!!!
+  // useEffect(() => {
+  //   dispatch(__getMypage());
+  // }, [dispatch]);
+  // console.log(mypage);
+
+  const mypage = {
+    profileImage: "/img/user.png",
+    username: "dlwlrma",
+    postingNum: 2,
+    introduction:
+      "마이페이지에서 소개란!마이페이지에서 소개란!마이페이지에서 소개란!마이페이지에서 소개란!마이페이지에서 소개란!마이페이지에서 소개란!마이페이지에서 소개란!",
+    postList: [
+      {
+        postId: 5,
+        image: "/img/image sample.png",
+        likePostNum: 10,
+        commentNum: 3,
+      },
+      {
+        postId: 6,
+        image: "/img/image sample.png",
+        likePostNum: 12,
+        commentNum: 4,
+      },
+    ],
+  };
 
   return (
     <Box>
       <UserBox>
-        <div className="profileImg"
-          onClick={()=>{navigate('/userEdit')}}
+        <div
+          className="profileImg"
+          onClick={() => {
+            navigate("/userEdit");
+          }}
         >
-          <img src='/img/user.jpg'/>
+          <img src={mypage.profileImage} />
         </div>
         <div className="userInfoBox">
           <div className="infoName">
-            <div> instagram-clone </div>
-            <button onClick={()=>{navigate('/userEdit')}}>
+            <div> {mypage.username} </div>
+            <button
+              onClick={() => {
+                navigate("/userEdit");
+              }}
+            >
               프로필편집
             </button>
           </div>
-          <div className="infoCard"> 
-            <p>게시물 10</p>
-            <div>항해99 클론코딩 주차, instagram clone coding입니다.<br/>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente perferendis vero quas exercitationem quae obcaecati itaque, 
-            </div>
+          <div className="infoCard">
+            <span>게시물 </span>
+            <span className="infoCardPostNum">{mypage.postingNum}</span>
+            <div>{mypage.introduction}</div>
           </div>
         </div>
       </UserBox>
       <PostBox>
-        <MypageCard/>
-        <MypageCard/>
-        <MypageCard/>
-        <MypageCard/>
-        <MypageCard/>
-        <MypageCard/>
-        <MypageCard/>
-        <MypageCard/>
+        {mypage.postList.map((post) => {
+          return (
+            <MypageCard
+              postId={post.postId}
+              image={post.image}
+              likePostNum={post.likePostNum}
+              commentNum={post.commentNum}
+            />
+          );
+        })}
       </PostBox>
     </Box>
-  )
-}
+  );
+};
 
 const Box = styled.div`
   width: 1000px;
   margin: 0 auto;
-`
+`;
 const UserBox = styled.div`
   height: 280px;
-  padding-top: 15px ;
+  padding-top: 15px;
   box-sizing: border-box;
   margin: 0 15px;
   border-bottom: 1px solid #ced4da;
   display: flex;
-  .profileImg{
+  .profileImg {
     width: 34%;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    img{
-      width:180px;
-      height:180px;
+    img {
+      width: 160px;
+      height: 160px;
       object-fit: cover;
       border-radius: 50%;
     }
   }
-  .userInfoBox{
+  .userInfoBox {
     width: 66%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     /* border: 1px solid red; */
-    .infoName{
+    .infoName {
       display: flex;
       align-items: center;
       margin-bottom: 15px;
-      div{
-        font-size : 50px;
+      div {
+        font-family: "Assistant", sans-serif;
+        font-size: 45px;
         margin-right: 20px;
       }
-      button{
+      button {
+        width: 100px;
+        height: 35px;
         padding: 5px 10px;
         box-sizing: border-box;
         cursor: pointer;
         border: none;
+        font-size: 14px;
         font-weight: 600;
         border-radius: 5px;
-        :hover{
+        :hover {
           background-color: #dee2e6;
-          
         }
       }
     }
-    .infoCard{
-      margin: 10px 0; 
-      div{
+    .infoCard {
+      margin: 10px 0;
+      padding-right: 10px;
+      div {
         /* border: 1px solid red; */
-        height: 70px;
+        height: 40px;
+        margin-top: 10px;
         padding-top: 15px;
         line-height: 20px;
       }
+      .infoCardPostNum {
+        font-weight: bold;
+      }
     }
   }
-`
+`;
 const PostBox = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
-  padding-top: 20px;
-`
-
+  padding-top: 40px;
+`;
 
 export default Mypage;

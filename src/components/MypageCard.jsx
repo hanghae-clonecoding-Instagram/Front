@@ -1,18 +1,34 @@
-
+import { useState } from "react";
 import styled from "styled-components";
+import DetailModal from "./DetailModal";
 
-const MypageCard = ()=>{
-
+const MypageCard = ({ postId, image, likePostNum, commentNum }) => {
+  const [detailBtnClick, setDetailBtnClick] = useState(false);
   return (
     <>
-    <div style={{marginLeft:'2px'}}>
-      <Card>
-        <img src='https://hips.hearstapps.com/hmg-prod/images/close-up-of-cat-wearing-sunglasses-while-sitting-royalty-free-image-1571755145.jpg?crop=0.670xw:1.00xh;0.147xw,0&resize=1200:*'/>
-      </Card>
-    </div>
+      <DetailModal
+        detailBtnClick={detailBtnClick}
+        setDetailBtnClick={setDetailBtnClick}
+        postId={postId}
+      />
+      <div
+        key={postId}
+        style={{ marginLeft: "2px" }}
+        onClick={() => {
+          setDetailBtnClick(true);
+        }}
+      >
+        <Card>
+          <Image src={image} />
+          <div>
+            <span>🤍 {likePostNum} </span>
+            <span>🗨️ {commentNum}</span>
+          </div>
+        </Card>
+      </div>
     </>
-  )
-}
+  );
+};
 
 const Card = styled.div`
   width: 300px;
@@ -20,16 +36,44 @@ const Card = styled.div`
   margin: 15px;
   cursor: pointer;
   background: black;
-  img{
+  position: relative;
+
+  /* img {
     width: 100%;
     height: 100%;
-  	opacity: 1;
-    -webkit-transition: .3s ease-in-out;
-    transition: .3s ease-in-out;
-}
-  :hover img {
-    opacity: .5;
+    opacity: 1;
+    -webkit-transition: 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
+  } */
+
+  div {
+    width: 110px;
+    height: 20px;
+    position: absolute;
+    top: 140px;
+    left: 95px;
+    color: white;
+    display: none;
+    font-size: 18px;
   }
-`
+
+  :hover img {
+    opacity: 0.5;
+  }
+
+  :hover div {
+    display: block;
+  }
+`;
+
+const Image = styled.img.attrs((props) => ({
+  src: props.src,
+}))`
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+`;
 
 export default MypageCard;

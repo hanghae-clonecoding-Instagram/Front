@@ -5,6 +5,7 @@ import { instance } from "../../core/api/axios";
 const initialState = {
   posts: [],
   post: {},
+  mypage: {},
   isLoading: true,
   error: null,
   hospitalCheck: false,
@@ -30,7 +31,6 @@ export const __getPost = createAsyncThunk(
 export const __getPosts = createAsyncThunk(
   "getPosts",
   async (payload, thunkAPI) => {
-    console.log(payload);
     try {
       const data = await instance.get("/api/posts");
       return thunkAPI.fulfillWithValue(data.data);
@@ -68,6 +68,18 @@ export const __postLike = createAsyncThunk(
   }
 );
 
+export const __getMypage = createAsyncThunk(
+  "getMypage",
+  async (payload, thunkAPI) => {
+    try {
+      const data = await instance.get("/api/mypage");
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 export const postSlice = createSlice({
   name: "post",
   initialState,
@@ -94,6 +106,14 @@ export const postSlice = createSlice({
       window.location.href = "/";
     },
     [__addPost.rejected]: (state, action) => {
+      console.log(action.payload.response.data.errorMessage);
+    },
+
+    [__getMypage.pending]: (state) => {},
+    [__getMypage.fulfilled]: (state, action) => {
+      state.mypage = action.payload;
+    },
+    [__getMypage.rejected]: (state, action) => {
       console.log(action.payload.response.data.errorMessage);
     },
   },

@@ -1,35 +1,54 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { __getPost } from "../Redux/modules/postSlice";
+import { __getPost, __getPosts } from "../Redux/modules/postSlice";
 import ButtonLayout from "./ButtonsLayout";
 import CommentInput from "./CommentInput";
+import MoreButtonsModal from "./MoreButtonsModal";
 
-const DetailModal = ({
-  detailBtnClick,
-  setDetailBtnClick,
-  moreButtonsClick,
-  setMoreButtonsClick,
-  postId,
-}) => {
+const DetailModal = ({ detailBtnClick, setDetailBtnClick, postId }) => {
   const dispatch = useDispatch();
   const outSection = useRef();
+  const [moreButtonsClick, setMoreButtonsClick] = useState(false);
   console.log(postId);
   // useEffect(() => {
   //   dispatch(__getPost(postId));
   // }, [dispatch]);
   // console.log(post);
 
+  const post = {
+    postId: 2,
+    profileImage: "/img/user.png",
+    username: "dlwlrma",
+    content:
+      "20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!",
+    image: "img/image sample.png",
+    likePostNum: 5,
+    isLikePost: true,
+    commentNum: 17,
+    createdAt: "2022-12-01T12:52:06.729608",
+    modifiedAt: "2022-12-01T12:52:06.729608",
+  };
+
+  const ModalWrapperHandler = (e) => {
+    if (outSection.current === e.target) {
+      setDetailBtnClick(false);
+    }
+    dispatch(__getPosts());
+  };
+
   return (
     <div>
+      <MoreButtonsModal
+        moreButtonsClick={moreButtonsClick}
+        setMoreButtonsClick={setMoreButtonsClick}
+      />
       {detailBtnClick === true ? (
         <ModalWrapper
           className="modalOutside"
           ref={outSection}
           onClick={(e) => {
-            if (outSection.current === e.target) {
-              setDetailBtnClick(false);
-            }
+            ModalWrapperHandler(e);
           }}
         >
           <Modal>
@@ -37,7 +56,7 @@ const DetailModal = ({
             <ModalContent>
               <ModalContentTop>
                 <User>
-                  <UserImage marginLeft="15px" src="/img/user.png" />
+                  <UserImage marginLeft="15px" src={post.profileImage} />
                   <Username>postId : {postId}</Username>
                 </User>
                 <More
@@ -50,11 +69,8 @@ const DetailModal = ({
               <ModalContentText>
                 <UserImage marginLeft="0px" src="/img/user.png" />
                 <UserText>
-                  <Username>dlwlrma</Username>
-                  <UserContent>
-                    아이유최고 아이유너무예뻐 아이유 이미 대박이지만 더 대박나자
-                    아이유최고 아이유너무예뻐 아이유 이미 대박이지만 더 대박나자
-                  </UserContent>
+                  <Username>{post.username}</Username>
+                  <UserContent>{post.content}</UserContent>
                 </UserText>
               </ModalContentText>
 

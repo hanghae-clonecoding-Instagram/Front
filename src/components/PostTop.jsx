@@ -11,6 +11,7 @@ const PostTop = () => {
   const [detailBtnClick, setDetailBtnClick] = useState(false);
   const [isDisplay, setIsDisplay] = useState("inline");
 
+  // 서버 연결 전에 테스트용으로 작성한 샘플 데이터
   const post = {
     postId: 2,
     profileImage: "/img/user.png",
@@ -30,8 +31,6 @@ const PostTop = () => {
       <DetailModal
         detailBtnClick={detailBtnClick}
         setDetailBtnClick={setDetailBtnClick}
-        moreButtonsClick={moreButtonsClick}
-        setMoreButtonsClick={setMoreButtonsClick}
         postId={post.postId}
       />
       <MoreButtonsModal

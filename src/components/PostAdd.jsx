@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { __addPost } from "../Redux/modules/postSlice";
+import { __addPost, __getPosts } from "../Redux/modules/postSlice";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -62,12 +62,13 @@ const PostAdd = () => {
     console.log(newPost);
 
     dispatch(__addPost(newPost));
+    dispatch(__getPosts());
     // navigate("/");
   };
 
   const handleImgClick = () => {
     if (window.confirm("사진을 바꾸시겠습니까?")) {
-      dispatch(isModalHandler(false));
+      // dispatch(isModalHandler(false));
       setUserImage(null);
       setIconView(true);
     }
