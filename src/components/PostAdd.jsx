@@ -62,7 +62,7 @@ const PostAdd = () => {
     console.log(newPost);
 
     dispatch(__addPost(newPost));
-    dispatch(__getPosts());
+    // dispatch(__getPosts());
     // navigate("/");
   };
 
