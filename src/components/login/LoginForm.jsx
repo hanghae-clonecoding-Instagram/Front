@@ -13,7 +13,7 @@ const LoginForm = (props) => {
   const { isSignUp, setIsSignUp } = props;
 
   const [state, setState] = useState({
-    userEmail: "",
+    email: "",
     password: "",
   });
 
@@ -44,7 +44,7 @@ const LoginForm = (props) => {
       alert(msg);
       setState("");
       console.log("로그인 실패");
-      navigate("/");
+      setIsSignUp(false)
     })
   };
 
@@ -52,20 +52,20 @@ const LoginForm = (props) => {
     // 카카오로 이동하는 url... 이 결과값을 어떻게 받지?
     // 서버에도 get으로 같은 url을 넣어주면 되는건가? 
     window.location.href = KAKAO_AUTH_URL
-    axios({
-      method: "GET",
-      // url: `http://3.35.208.142/oauth/callback/kakao?code=${code}` 여기에 뭘 넣지??.
-    })
-    .then((res)=>{
-      console.log(res); // 토큰이 넘어올 것임
-      const ACCESS_TOKEN = res.data.accessToken;
-      localStorage.setItem("token", ACCESS_TOKEN);//예시로 로컬에 저장함    
-      window.location.href("/main")// 토큰 받았았고 로그인됐으니 화면 전환시켜줌(메인으로)
-    }).catch((err)=>{
-      console.log("소셜로그인 에러", err);
-      // window.alert("로그인에 실패하였습니다.");
-      navigate("/login"); // 로그인 실패하면 로그인화면으로 돌려보냄
-    })
+    // axios({
+    //   method: "GET",
+    //   // url: `http://3.35.208.142/oauth/callback/kakao?code=${code}` 여기에 뭘 넣지??.
+    // })
+    // .then((res)=>{
+    //   console.log(res); // 토큰이 넘어올 것임
+    //   const ACCESS_TOKEN = res.data.accessToken;
+    //   localStorage.setItem("token", ACCESS_TOKEN);//예시로 로컬에 저장함    
+    //   window.location.href("/main")// 토큰 받았았고 로그인됐으니 화면 전환시켜줌(메인으로)
+    // }).catch((err)=>{
+    //   console.log("소셜로그인 에러", err);
+    //   // window.alert("로그인에 실패하였습니다.");
+    //   navigate("/login"); // 로그인 실패하면 로그인화면으로 돌려보냄
+    // })
   };
   // 로그인 링크로 보낸 결과값을 어떻게 받을 것인가? 
   // 비동기 처리 axios로? 뭔가를 보내서 결과값을 받아야 하는데?
@@ -85,8 +85,8 @@ const LoginForm = (props) => {
         <InputBox onSubmit={onSubmit}>
           <input
             type="email"
-            name="userEmail"
-            value={state.userEmail || ""}
+            name="email"
+            value={state.email || ""}
             placeholder="이메일을 입력해주세요"
             onChange={handleLoginState}
           />

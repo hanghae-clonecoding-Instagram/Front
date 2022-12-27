@@ -1,5 +1,5 @@
 import { isClickableInput } from "@testing-library/user-event/dist/utils";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import ButtonLayout from "../components/ButtonsLayout";
 import DetailModal from "../components/DetailModal";
@@ -10,17 +10,28 @@ import { __getPosts } from "../Redux/modules/postSlice";
 import { useNavigate } from "react-router-dom";
 import PostTop from "../components/PostTop";
 import PostBottom from "../components/PostBottom";
+import { __getComment } from "../Redux/modules/commentSlice";
 
 const Main = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { posts } = useSelector((state) => state.post);
-
+  console.log(posts)
+  
   // 호출 시 사용!!!
   // useEffect(() => {
   //   dispatch(__getPosts());
   // }, [dispatch]);
   // console.log(posts);
+
+
+  // useEffect(() => {
+  //   dispatch(__getComment(postId));
+  // }, [dispatch]);
+  // console.log(comments);
+
+
+
 
   return (
     <Total>

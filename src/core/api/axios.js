@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const instance = axios.create({
-  baseURL: "http://43.201.53.223:8080",
+  baseURL: "https://woooo.shop",
   headers: {
     "Access-Control-Allow-Origin": "*",
   },

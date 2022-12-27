@@ -9,7 +9,7 @@ const SignUpForm = (props)=>{
 
   const {isSignUp, setIsSignUp} = props;
   const [state, setState] = useState({
-    userEmail:"",
+    email:"",
     username: "",
     password: "",
     passwordCheck : ""
@@ -22,23 +22,28 @@ const SignUpForm = (props)=>{
     })
   }
   
-  const onSubmit = (e) => {
+  const handleSignUp = () => {
     console.log(state)
-    if(state ===""){ alert('빈칸 없이 입력해주세요')}
-    e.preventDefault()
+    if(state == ""){ 
+      alert('빈칸 없이 입력해주세요') 
+      // setIsSignUp(false)
+      return 
+    }
+    console.log(isSignUp)
     instance.post("/api/user/signup", state)
     .then((res)=>{
       console.log(res)    
       // 토큰 저장 
       localStorage.setItem("is_login", res.headers.authorization);
       setIsSignUp(false)
+      alert(res.data.msg)
     })
     .catch((err)=>{
       const msg = err.response.data.errorMessage;
       alert(msg);
       setState("");
+      setIsSignUp(true)
       console.log("회원가입 실패");
-      navigate("/");
     })
   }
 
@@ -55,7 +60,7 @@ const SignUpForm = (props)=>{
           <RiKakaoTalkFill style={{ fontSize:'16px', marginRight: '5px'}}/> 
           <span>카카오 로그인</span>
         </Kakao>
-        <InputBox onSubmit={onSubmit}>
+        <InputBox>
           <div className="line">
             <hr className="hr_solid"/>
             <p>또는</p>
@@ -63,8 +68,8 @@ const SignUpForm = (props)=>{
           </div>
           <input
             type ='email'
-            name = 'userEmail'
-            value={ state.userEmail || ""} 
+            name = 'email'
+            value={ state.email || ""} 
             placeholder = '이메일을 입력해주세요'
             onChange = {handleSignupState}
             />
@@ -89,7 +94,7 @@ const SignUpForm = (props)=>{
             placeholder="비밀번호를 확인해주세요"
             onChange = {handleSignupState}
             />
-          <button>회원가입</button>
+          <button onClick={handleSignUp}>회원가입</button>
         </InputBox>
       </Box>
       <Div onClick={()=>{setIsSignUp(false)}}>
@@ -120,7 +125,7 @@ const Logo = styled.div`
   height: 70px;
   margin: 50px 0 30px;
 `
-const InputBox = styled.form`
+const InputBox = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
