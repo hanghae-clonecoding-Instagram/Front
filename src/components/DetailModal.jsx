@@ -4,13 +4,29 @@ import styled from "styled-components";
 import { __getPost, __getPosts } from "../Redux/modules/postSlice";
 import ButtonLayout from "./ButtonsLayout";
 import CommentInput from "./CommentInput";
+<<<<<<< HEAD
 import MoreButtonsModal from "./MoreButtonsModal";
 
 const DetailModal = ({ detailBtnClick, setDetailBtnClick, postId }) => {
+=======
+import DetailModalComment from "./DetailModalComment";
+
+const DetailModal = ({
+  detailBtnClick,
+  setDetailBtnClick,
+  moreButtonsClick,
+  setMoreButtonsClick,
+  postId,
+  }) => {
+>>>>>>> a1487e2517fd9c4c19a8d75eeb15c1a9cde089ec
   const dispatch = useDispatch();
   const outSection = useRef();
   const [moreButtonsClick, setMoreButtonsClick] = useState(false);
   console.log(postId);
+
+  // 댓글 리스트는 state로 관리해야하고
+  // 댓글 인풋은 관리할 필요 없다. ㅇㅇ 
+
   // useEffect(() => {
   //   dispatch(__getPost(postId));
   // }, [dispatch]);
@@ -65,6 +81,7 @@ const DetailModal = ({ detailBtnClick, setDetailBtnClick, postId }) => {
                   }}
                 />
               </ModalContentTop>
+<<<<<<< HEAD
 
               <ModalContentText>
                 <UserImage marginLeft="0px" src="/img/user.png" />
@@ -82,13 +99,16 @@ const DetailModal = ({ detailBtnClick, setDetailBtnClick, postId }) => {
                 </UserText>
               </ModalContentText>
 
+=======
+              <DetailModalComment postId={postId}/>  
+>>>>>>> a1487e2517fd9c4c19a8d75eeb15c1a9cde089ec
               <ModalContentBottom>
                 <ButtonLayout
                   borderTop="0.5px solid rgb(0, 0, 0, 0.1)"
                   marginTop="15px"
                   width="400px"
                 />
-                <CommentInput inputTagWidth="280px" marginTop="0px" />
+                <CommentInput inputTagWidth="280px" marginTop="0px"/>
               </ModalContentBottom>
             </ModalContent>
           </Modal>

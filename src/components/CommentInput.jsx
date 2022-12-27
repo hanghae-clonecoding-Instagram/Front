@@ -1,21 +1,41 @@
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { __addComment } from "../Redux/modules/commentSlice";
 
-const CommentInput = ({ inputTagWidth, width }) => {
+
+const CommentInput = ({ inputTagWidth, postId }) => {
+  console.log(inputTagWidth, postId)
+  const dispatch = useDispatch()
+  const [comment, setComment] = useState('')
+
+  const handleClick = (e) => {
+    console.log(comment)
+    if( comment === "" ){
+      alert("댓글을 입력해주세요")
+      return
+    }
+    dispatch(__addComment(comment))
+  }
+
   return (
-    <PostBottom>
+    <CommentForm>
       <Smile />
-      <CommentInputTag inputTagWidth={inputTagWidth} />
-      <CommentPostBtn>게시</CommentPostBtn>
-    </PostBottom>
+      <InputTag 
+        inputTagWidth={inputTagWidth}
+        onChange={(e)=>{
+          setComment(e.target.value)
+        }}
+      />
+      <Button onClick={handleClick}>게시</Button>
+    </CommentForm>
   );
 };
 
-const PostBottom = styled.div`
-  width: ${(props) => props.width};
+const CommentForm = styled.form`
   height: 50px;
   margin-top: 15px;
   border-top: 0.5px solid rgb(0, 0, 0, 0.1);
-
   display: flex;
   align-items: center;
 `;
@@ -27,23 +47,23 @@ const Smile = styled.img.attrs({
   margin: 0px 15px 0px 15px;
 `;
 
-const CommentInputTag = styled.input.attrs({ placeholder: "댓글 달기..." })`
+const InputTag = styled.input.attrs({ placeholder: "댓글 달기..." })`
   border: none;
   width: ${(props) => props.inputTagWidth};
   font-size: 14px;
-
   &:focus {
     outline: none;
   }
 `;
 
-const CommentPostBtn = styled.button`
+const Button = styled.button`
   background-color: transparent;
   border: none;
   font-size: 15px;
   font-weight: bold;
   color: #2ca0f4;
   padding: 0px 10px 0px 10px;
+  cursor: pointer;
 `;
 
 export default CommentInput;

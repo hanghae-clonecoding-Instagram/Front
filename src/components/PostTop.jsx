@@ -107,6 +107,7 @@ const User = styled.div`
   height: 35px;
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 const UserImage = styled.img.attrs((props) => ({
   src: props.src,
@@ -133,6 +134,7 @@ const More = styled.img.attrs({
 })`
   width: 25px;
   margin-right: 14px;
+  cursor: pointer;
 `;
 
 const ContentMiddle = styled.div`

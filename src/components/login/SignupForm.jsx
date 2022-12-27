@@ -2,11 +2,12 @@ import { useState } from "react";
 import styled from "styled-components";
 import { RiKakaoTalkFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
-import useInput from "../../hooks/useInput";
+import { instance } from "../../core/api/axios";
 
 const SignUpForm = (props)=>{
-  const {isSignUp, setIsSignUp} = props;
+  const navigate = useNavigate()
 
+  const {isSignUp, setIsSignUp} = props;
   const [state, setState] = useState({
     userEmail:"",
     username: "",
@@ -25,7 +26,20 @@ const SignUpForm = (props)=>{
     console.log(state)
     if(state ===""){ alert('빈칸 없이 입력해주세요')}
     e.preventDefault()
-    setState("")
+    instance.post("/api/user/signup", state)
+    .then((res)=>{
+      console.log(res)    
+      // 토큰 저장 
+      localStorage.setItem("is_login", res.headers.authorization);
+      setIsSignUp(false)
+    })
+    .catch((err)=>{
+      const msg = err.response.data.errorMessage;
+      alert(msg);
+      setState("");
+      console.log("회원가입 실패");
+      navigate("/");
+    })
   }
 
   return (
