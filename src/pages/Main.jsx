@@ -17,16 +17,17 @@ const Main = () => {
   const navigate = useNavigate();
   const { posts } = useSelector((state) => state.post);
   console.log(posts)
-  
+
   // 호출 시 사용!!!
-  // useEffect(() => {
-  //   dispatch(__getPosts());
-  // }, [dispatch]);
-  // console.log(posts);
+  useEffect(() => {
+    dispatch(__getPosts());
+  }, [dispatch]);
+  console.log(posts);
 
 
   // useEffect(() => {
-  //   dispatch(__getComment(postId));
+  // dispatch(__getComment(postId));
+
   // }, [dispatch]);
   // console.log(comments);
 

@@ -23,7 +23,7 @@ const PostBottom  = ({inputTagWidth, postId}) =>{
   const dispatch = useDispatch()
   const {comments} = useSelector((state)=> state.comment)
   const [comment, setComment] = useState('')
-
+  console.log(comments)
 
   return (
     <>

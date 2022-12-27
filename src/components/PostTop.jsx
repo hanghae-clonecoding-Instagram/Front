@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import ButtonLayout from "./ButtonsLayout";
@@ -11,21 +12,8 @@ const PostTop = () => {
   const [detailBtnClick, setDetailBtnClick] = useState(false);
   const [isDisplay, setIsDisplay] = useState("inline");
 
-  // 서버 연결 전에 테스트용으로 작성한 샘플 데이터
-  const post = {
-    postId: 2,
-    profileImage: "/img/user.png",
-    username: "dlwlrma",
-    content:
-      "20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!",
-    image: "img/image sample.png",
-    likePostNum: 5,
-    isLikePost: true,
-    commentNum: 17,
-    createdAt: "2022-12-01T12:52:06.729608",
-    modifiedAt: "2022-12-01T12:52:06.729608",
-  };
-
+  const post = useSelector((state)=>state.post.posts)
+  console.log(post)
   return (
     <>
       <DetailModal
@@ -67,7 +55,10 @@ const PostTop = () => {
         />
         <ContentText>
           <ContentUsername marginLeft="0px">{post.username}</ContentUsername>
-          <Content>{post.content.slice(0, 20)}</Content>
+          {/* <Content>{post.content.slice(0, 20)}</Content> */}
+          <Content>
+            {post.content}
+          </Content>
           <ContentMore
             onClick={() => {
               setIsDisplay("none");
@@ -77,7 +68,7 @@ const PostTop = () => {
             ... 더보기
           </ContentMore>
           <Content display={isDisplay === "none" ? "inline" : "none"}>
-            {post.content.slice(20)}
+            {post.content}
           </Content>
         </ContentText>
         <CommentMore
@@ -124,7 +115,6 @@ const UserName = styled.div`
 `;
 
 const PostImage = styled.img.attrs((props) => ({
-  src: props.src,
 }))`
   width: ${(props) => props.width};
 `;
