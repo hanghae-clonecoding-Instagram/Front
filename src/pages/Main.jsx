@@ -16,26 +16,19 @@ const Main = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { posts } = useSelector((state) => state.post);
-  console.log(posts)
+  console.log(posts);
 
   // 호출 시 사용!!!
   useEffect(() => {
     dispatch(__getPosts());
   }, [dispatch]);
   console.log(posts);
-<<<<<<< HEAD
-
 
   // useEffect(() => {
   // dispatch(__getComment(postId));
 
   // }, [dispatch]);
   // console.log(comments);
-
-
-
-=======
->>>>>>> ed848f9da165ba299e34a85abc75cfa2bac095f1
 
   return (
     <Total>
