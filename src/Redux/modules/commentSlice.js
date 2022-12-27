@@ -45,7 +45,21 @@ export const __delComment = createAsyncThunk(
   async (payload, thunkAPI) => {
     console.log(payload);
     try {
-      const data = await instance.post("/api/post", payload);
+      const data = await instance.delete(`/api/comment/${payload}`);
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const __commentLike = createAsyncThunk(
+  "commentLike",
+  async (payload, thunkAPI) => {
+    console.log(payload); //commentId가 나와야함
+    try {
+      const data = await instance.post(`/api/like/comment/${payload}`);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log(error);
