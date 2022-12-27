@@ -16,7 +16,7 @@ const Header = () => {
   
   const isModal = useSelector((state)=> state.modal.modal)
 
-  if (locationNow.pathname === "/login") return null;
+  if (locationNow.pathname === "/") return null;
 
 
   return (
@@ -30,13 +30,13 @@ const Header = () => {
       <Buttons>
         <Logo
           onClick={() => {
-            navigate("/");
+            navigate("/main");
           }}
         />
         <div>
           <Home
             onClick={() => {
-              navigate("/");
+              navigate("/main");
             }}
           />
           <Plus
@@ -75,6 +75,7 @@ const Logo = styled.img.attrs({
   src: "/img/logo2.png",
 })`
   width: 120px;
+  cursor: pointer;
 `;
 
 const Home = styled.img.attrs({
@@ -82,6 +83,7 @@ const Home = styled.img.attrs({
 })`
   width: 25px;
   margin-right: 20px;
+  cursor: pointer;
 `;
 
 const Plus = styled.img.attrs({
@@ -89,6 +91,7 @@ const Plus = styled.img.attrs({
 })`
   width: 25px;
   margin-right: 21px;
+  cursor: pointer;
 `;
 
 const User = styled.img.attrs({
@@ -98,6 +101,7 @@ const User = styled.img.attrs({
   height: 25px;
   object-fit: cover;
   border-radius: 50%;
+  cursor: pointer;
 `;
 
 export default Header;
