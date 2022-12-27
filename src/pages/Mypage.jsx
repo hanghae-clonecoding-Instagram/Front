@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import MypageCard from "../components/MypageCard";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { __getMypage } from "../Redux/modules/postSlice";
 
 const Mypage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const { mypage } = useSelector((state) => state.post);
+  // const { mypageUserInfo, mypagePostList } = useSelector((state) => state.post);
 
   // 호출 시 사용!!!
   // useEffect(() => {
@@ -15,7 +15,7 @@ const Mypage = () => {
   // }, [dispatch]);
   // console.log(mypage);
 
-  const mypage = {
+  const mypageUserInfo = {
     profileImage: "/img/user.png",
     username: "dlwlrma",
     postingNum: 2,
@@ -37,6 +37,21 @@ const Mypage = () => {
     ],
   };
 
+  const mypagePostList = [
+    {
+      postId: 5,
+      image: "/img/image sample.png",
+      likePostNum: 10,
+      commentNum: 3,
+    },
+    {
+      postId: 6,
+      image: "/img/image sample.png",
+      likePostNum: 12,
+      commentNum: 4,
+    },
+  ];
+
   return (
     <Box>
       <UserBox>
@@ -46,11 +61,11 @@ const Mypage = () => {
             navigate("/userEdit");
           }}
         >
-          <img src={mypage.profileImage} />
+          <img src={mypageUserInfo.profileImage} />
         </div>
         <div className="userInfoBox">
           <div className="infoName">
-            <div> {mypage.username} </div>
+            <div> {mypageUserInfo.username} </div>
             <button
               onClick={() => {
                 navigate("/userEdit");
@@ -61,13 +76,13 @@ const Mypage = () => {
           </div>
           <div className="infoCard">
             <span>게시물 </span>
-            <span className="infoCardPostNum">{mypage.postingNum}</span>
-            <div>{mypage.introduction}</div>
+            <span className="infoCardPostNum">{mypageUserInfo.postingNum}</span>
+            <div>{mypageUserInfo.introduction}</div>
           </div>
         </div>
       </UserBox>
       <PostBox>
-        {mypage.postList.map((post) => {
+        {mypagePostList.map((post) => {
           return (
             <MypageCard
               postId={post.postId}

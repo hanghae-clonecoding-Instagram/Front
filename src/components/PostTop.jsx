@@ -5,29 +5,15 @@ import ButtonLayout from "./ButtonsLayout";
 import DetailModal from "./DetailModal";
 import MoreButtonsModal from "./MoreButtonsModal";
 
-const PostTop = () => {
+// 여기다 post 넣기!!!
+const PostTop = ({ post }) => {
   const navigate = useNavigate();
   const [moreButtonsClick, setMoreButtonsClick] = useState(false);
   const [detailBtnClick, setDetailBtnClick] = useState(false);
   const [isDisplay, setIsDisplay] = useState("inline");
 
-  // 서버 연결 전에 테스트용으로 작성한 샘플 데이터
-  const post = {
-    postId: 2,
-    profileImage: "/img/user.png",
-    username: "dlwlrma",
-    content:
-      "20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!",
-    image: "img/image sample.png",
-    likePostNum: 5,
-    isLikePost: true,
-    commentNum: 17,
-    createdAt: "2022-12-01T12:52:06.729608",
-    modifiedAt: "2022-12-01T12:52:06.729608",
-  };
-
   return (
-    <>
+    <Total>
       <DetailModal
         detailBtnClick={detailBtnClick}
         setDetailBtnClick={setDetailBtnClick}
@@ -36,6 +22,7 @@ const PostTop = () => {
       <MoreButtonsModal
         moreButtonsClick={moreButtonsClick}
         setMoreButtonsClick={setMoreButtonsClick}
+        postId={post.postId}
       />
 
       <ContentTop>
@@ -89,10 +76,12 @@ const PostTop = () => {
           댓글 {post.commentNum}개 모두 보기
         </CommentMore>
       </ContentMiddle>
-    </>
+    </Total>
   );
 };
-
+const Total = styled.div`
+  z-index: 0;
+`;
 const ContentTop = styled.div`
   width: 470px;
   height: 60px;

@@ -1,5 +1,5 @@
 import { isClickableInput } from "@testing-library/user-event/dist/utils";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import ButtonLayout from "../components/ButtonsLayout";
 import DetailModal from "../components/DetailModal";
@@ -17,24 +17,24 @@ const Main = () => {
   const { posts } = useSelector((state) => state.post);
 
   // 호출 시 사용!!!
-  // useEffect(() => {
-  //   dispatch(__getPosts());
-  // }, [dispatch]);
-  // console.log(posts);
+  useEffect(() => {
+    dispatch(__getPosts());
+  }, [dispatch]);
+  console.log(posts);
 
   return (
     <Total>
       {/* 서버연결 전에 해본 샘플입니다! */}
-      <Post>
+      {/* <Post>
         <PostTop />
         <PostBottom inputTagWidth="355px" postId={1} />
-      </Post>
+      </Post> */}
 
       {posts.map((post) => {
         return (
           <>
             <Post key={post.postId}>
-              <PostTop />
+              <PostTop post={post} />
               <PostBottom inputTagWidth="355px" postId={post.postId} />
             </Post>
           </>
@@ -59,6 +59,8 @@ const Post = styled.div`
   border: 1px solid rgb(0, 0, 0, 0.2);
   border-radius: 10px;
   background-color: white;
+  // 게시물 사이 간격 설정한 것임
+  margin-bottom: 30px;
 `;
 
 export default Main;

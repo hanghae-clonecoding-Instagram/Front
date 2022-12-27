@@ -1,20 +1,37 @@
 import { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
 import styled from "styled-components";
+import { __deletePost } from "../Redux/modules/postSlice";
+import PostEdit from "./PostEdit";
 
-const MoreButtonsModal = ({ moreButtonsClick, setMoreButtonsClick }) => {
-  const outSection = useRef();
+const MoreButtonsModal = ({
+  moreButtonsClick,
+  setMoreButtonsClick,
+  setDetailBtnClick,
+  postId,
+}) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const outSection = useRef();
   const [isEdit, setIsEdit] = useState(false);
+
+  const onClickDeleteBtnHandler = () => {
+    if (window.confirm("게시글을 삭제하시겠습니까?")) {
+      setMoreButtonsClick(false); // 모어버튼 모달창 끄기
+      setDetailBtnClick(false); // 디테일모달창 끄기!!!
+      return dispatch(__deletePost(postId));
+    }
+  };
 
   return (
     <div>
-      {/* {isEdit? 
+      {/* {isEdit === true ? 
         <ModalBox isEdit={isEdit} setIsEdit={setIsEdit}>
           <PostAdd />
         </ModalBox> 
       : null } */}
+      <PostEdit isEdit={isEdit} setIsEdit={setIsEdit} postId={postId} />
 
       {moreButtonsClick === true ? (
         <ModalWrapper
@@ -32,12 +49,19 @@ const MoreButtonsModal = ({ moreButtonsClick, setMoreButtonsClick }) => {
             </ModalButton>
             <ModalButton
               onClick={() => {
-                navigate("/postEdit");
+                setMoreButtonsClick(false);
+                setIsEdit(true);
               }}
             >
               게시물 수정
             </ModalButton>
-            <ModalButton>게시물 삭제</ModalButton>
+            <ModalButton
+              onClick={() => {
+                onClickDeleteBtnHandler();
+              }}
+            >
+              게시물 삭제
+            </ModalButton>
             <ModalButton
               onClick={() => {
                 setMoreButtonsClick(false);
@@ -60,19 +84,22 @@ const ModalWrapper = styled.div`
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Modal = styled.div`
   z-index: 4;
-  position: fixed;
+  /* position: fixed;
   top: 38%;
-  left: 43.2%;
+  left: 43.2%; */
   width: 260px;
   background-color: white;
   border-radius: 15px;
   display: flex;
   font-size: 14px;
-  display: flex;
   flex-direction: column;
 `;
 
