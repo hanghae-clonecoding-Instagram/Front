@@ -41,7 +41,7 @@ const Main = () => {
           <>
             <Post key={post.postId}>
               <PostTop />
-              <PostBottom inputTagWidth="355px" postId={1} />
+              <PostBottom inputTagWidth="355px" postId={post.postId} />
             </Post>
           </>
         );
