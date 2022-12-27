@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { __getPost } from "../Redux/modules/postSlice";
 import ButtonLayout from "./ButtonsLayout";
 import CommentInput from "./CommentInput";
+import DetailModalComment from "./DetailModalComment";
 
 const DetailModal = ({
   detailBtnClick,
@@ -11,10 +12,14 @@ const DetailModal = ({
   moreButtonsClick,
   setMoreButtonsClick,
   postId,
-}) => {
+  }) => {
   const dispatch = useDispatch();
   const outSection = useRef();
   console.log(postId);
+
+  // 댓글 리스트는 state로 관리해야하고
+  // 댓글 인풋은 관리할 필요 없다. ㅇㅇ 
+
   // useEffect(() => {
   //   dispatch(__getPost(postId));
   // }, [dispatch]);
@@ -46,33 +51,14 @@ const DetailModal = ({
                   }}
                 />
               </ModalContentTop>
-
-              <ModalContentText>
-                <UserImage marginLeft="0px" src="/img/user.png" />
-                <UserText>
-                  <Username>dlwlrma</Username>
-                  <UserContent>
-                    아이유최고 아이유너무예뻐 아이유 이미 대박이지만 더 대박나자
-                    아이유최고 아이유너무예뻐 아이유 이미 대박이지만 더 대박나자
-                  </UserContent>
-                </UserText>
-              </ModalContentText>
-
-              <ModalContentText>
-                <UserImage marginLeft="0px" src="/img/comment user image.jpg" />
-                <UserText>
-                  <Username>dlwlrma</Username>
-                  <UserContent>아이유 사진 감사합니다 개꿀</UserContent>
-                </UserText>
-              </ModalContentText>
-
+              <DetailModalComment postId={postId}/>  
               <ModalContentBottom>
                 <ButtonLayout
                   borderTop="0.5px solid rgb(0, 0, 0, 0.1)"
                   marginTop="15px"
                   width="400px"
                 />
-                <CommentInput inputTagWidth="280px" marginTop="0px" />
+                <CommentInput inputTagWidth="280px" marginTop="0px"/>
               </ModalContentBottom>
             </ModalContent>
           </Modal>
