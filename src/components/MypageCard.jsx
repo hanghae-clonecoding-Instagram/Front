@@ -2,13 +2,9 @@ import { useState } from "react";
 import styled from "styled-components";
 import DetailModal from "./DetailModal";
 
-<<<<<<< HEAD
 const MypageCard = ({ postId, image, likePostNum, commentNum }) => {
   const [detailBtnClick, setDetailBtnClick] = useState(false);
-=======
-const  MypageCard = ()=>{
 
->>>>>>> a1487e2517fd9c4c19a8d75eeb15c1a9cde089ec
   return (
     <>
       <DetailModal

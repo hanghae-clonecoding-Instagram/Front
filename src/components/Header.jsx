@@ -12,12 +12,7 @@ const Header = () => {
   const locationNow = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-<<<<<<< HEAD
   const isModal = useSelector((state) => state.modal.modal);
-=======
-  if (locationNow.pathname === "/") return null;
->>>>>>> a1487e2517fd9c4c19a8d75eeb15c1a9cde089ec
 
   // 이자리에 username 가져오기위한 get요청 할 것!!!
 
@@ -25,7 +20,6 @@ const Header = () => {
 
   return (
     <>
-<<<<<<< HEAD
       {isModal ? (
         <ModalBox>
           <PostAdd />
@@ -34,22 +28,6 @@ const Header = () => {
       <Bar>
         <Buttons>
           <Logo
-=======
-    {isModal? 
-      <ModalBox>
-        <PostAdd/>
-      </ModalBox>
-    : null }
-    <Bar>
-      <Buttons>
-        <Logo
-          onClick={() => {
-            navigate("/main");
-          }}
-        />
-        <div>
-          <Home
->>>>>>> a1487e2517fd9c4c19a8d75eeb15c1a9cde089ec
             onClick={() => {
               navigate("/main");
             }}
