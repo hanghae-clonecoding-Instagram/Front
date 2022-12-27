@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { __getPost, __getPosts } from "../Redux/modules/postSlice";
 import ButtonLayout from "./ButtonsLayout";
@@ -12,26 +12,27 @@ const DetailModal = ({ detailBtnClick, setDetailBtnClick, postId }) => {
   const dispatch = useDispatch();
   const outSection = useRef();
   const [moreButtonsClick, setMoreButtonsClick] = useState(false);
+  const { post } = useSelector((state) => state.post);
   console.log(postId);
 
-  // useEffect(() => {
-  //   dispatch(__getPost(postId));
-  // }, [dispatch]);
-  // console.log(post);
+  useEffect(() => {
+    dispatch(__getPost(postId));
+  }, [dispatch]);
+  console.log(post);
 
-  const post = {
-    postId: 2,
-    profileImage: "/img/user.png",
-    username: "dlwlrma",
-    content:
-      "20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!",
-    image: "img/image sample.png",
-    likePostNum: 5,
-    isLikePost: true,
-    commentNum: 17,
-    createdAt: "2022-12-01T12:52:06.729608",
-    modifiedAt: "2022-12-01T12:52:06.729608",
-  };
+  // const post = {
+  //   postId: 2,
+  //   profileImage: "/img/user.png",
+  //   username: "dlwlrma",
+  //   content:
+  //     "20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!",
+  //   image: "/img/image sample.png",
+  //   likePostNum: 5,
+  //   isLikePost: true,
+  //   commentNum: 17,
+  //   createdAt: "2022-12-01T12:52:06.729608",
+  //   modifiedAt: "2022-12-01T12:52:06.729608",
+  // };
 
   const ModalWrapperHandler = (e) => {
     if (outSection.current === e.target) {
@@ -45,6 +46,9 @@ const DetailModal = ({ detailBtnClick, setDetailBtnClick, postId }) => {
       <MoreButtonsModal
         moreButtonsClick={moreButtonsClick}
         setMoreButtonsClick={setMoreButtonsClick}
+        detailBtnClick={detailBtnClick}
+        setDetailBtnClick={setDetailBtnClick}
+        postId={post.postId}
       />
       {detailBtnClick === true ? (
         <ModalWrapper
@@ -60,7 +64,7 @@ const DetailModal = ({ detailBtnClick, setDetailBtnClick, postId }) => {
               <ModalContentTop>
                 <User>
                   <UserImage marginLeft="15px" src={post.profileImage} />
-                  <Username>postId : {postId}</Username>
+                  <Username>{post.username}</Username>
                 </User>
                 <More
                   onClick={() => {
@@ -95,13 +99,14 @@ const ModalWrapper = styled.div`
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Modal = styled.div`
   z-index: 2;
-  position: fixed;
-  top: 7%;
-  left: 22%;
   width: 1100px;
   display: flex;
   font-size: 14px;

@@ -6,16 +6,15 @@ import ButtonLayout from "./ButtonsLayout";
 import DetailModal from "./DetailModal";
 import MoreButtonsModal from "./MoreButtonsModal";
 
-const PostTop = () => {
+// 여기다 post 넣기!!!
+const PostTop = ({ post }) => {
   const navigate = useNavigate();
   const [moreButtonsClick, setMoreButtonsClick] = useState(false);
   const [detailBtnClick, setDetailBtnClick] = useState(false);
   const [isDisplay, setIsDisplay] = useState("inline");
 
-  const post = useSelector((state)=>state.post.posts)
-  console.log(post)
   return (
-    <>
+    <Total>
       <DetailModal
         detailBtnClick={detailBtnClick}
         setDetailBtnClick={setDetailBtnClick}
@@ -24,6 +23,7 @@ const PostTop = () => {
       <MoreButtonsModal
         moreButtonsClick={moreButtonsClick}
         setMoreButtonsClick={setMoreButtonsClick}
+        postId={post.postId}
       />
 
       <ContentTop>
@@ -80,10 +80,12 @@ const PostTop = () => {
           댓글 {post.commentNum}개 모두 보기
         </CommentMore>
       </ContentMiddle>
-    </>
+    </Total>
   );
 };
-
+const Total = styled.div`
+  z-index: 0;
+`;
 const ContentTop = styled.div`
   width: 470px;
   height: 60px;

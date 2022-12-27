@@ -5,15 +5,12 @@ import { instance } from "../../core/api/axios";
 const initialState = {
   posts: [],
   post: {},
-  mypage: {},
+  mypageUserInfo: {},
+  mypagePostList: {},
   isLoading: true,
   error: null,
   hospitalCheck: false,
 };
-
-// const config = {
-//   headers: { Authorization: `Bearer ${getCookie("is_login")}` },
-// };
 
 export const __getPost = createAsyncThunk(
   "getPost",
@@ -33,6 +30,7 @@ export const __getPosts = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await instance.get("/api/posts");
+      // console.log(data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -46,6 +44,37 @@ export const __addPost = createAsyncThunk(
     console.log(payload);
     try {
       const data = await instance.post("/api/post", payload);
+      thunkAPI.dispatch(__getPosts());
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const __deletePost = createAsyncThunk(
+  "deletePost",
+  async (payload, thunkAPI) => {
+    console.log(payload);
+    try {
+      await instance.post(`/api/post/${payload}`);
+      thunkAPI.dispatch(__getPosts());
+      return thunkAPI.fulfillWithValue(payload);
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const __editPost = createAsyncThunk(
+  "editPost",
+  async (payload, thunkAPI) => {
+    console.log(payload);
+    const [newPost, postId] = payload;
+    try {
+      const data = await instance.post(`/api/post/${postId}`, newPost);
       thunkAPI.dispatch(__getPosts());
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
@@ -104,15 +133,34 @@ export const postSlice = createSlice({
 
     [__addPost.pending]: (state) => {},
     [__addPost.fulfilled]: (state, action) => {
-      window.location.href = "/";
+      state.mypagePostList.unshift(action.payload);
     },
     [__addPost.rejected]: (state, action) => {
       console.log(action.payload.response.data.errorMessage);
     },
 
+    [__deletePost.pending]: (state) => {},
+    [__deletePost.fulfilled]: (state, action) => {
+      state.mypagePostList = state.mypagePostList.filter(
+        (post) => post.postId !== action.payload
+      );
+    },
+    [__deletePost.rejected]: (state, action) => {
+      console.log(action.payload.response.data.errorMessage);
+    },
+
+    [__editPost.pending]: (state) => {},
+    [__editPost.fulfilled]: (state, action) => {
+      state.post = action.payload;
+    },
+    [__editPost.rejected]: (state, action) => {
+      console.log(action.payload.response.data.errorMessage);
+    },
+
     [__getMypage.pending]: (state) => {},
     [__getMypage.fulfilled]: (state, action) => {
-      state.mypage = action.payload;
+      state.mypageUserInfo = action.payload;
+      state.mypagePostList = action.payload.postList;
     },
     [__getMypage.rejected]: (state, action) => {
       console.log(action.payload.response.data.errorMessage);
