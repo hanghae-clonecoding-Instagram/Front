@@ -32,7 +32,7 @@ const CommentInput = ({ inputTagWidth, postId }) => {
   );
 };
 
-const CommentForm = styled.form`
+const CommentForm = styled.div`
   height: 50px;
   margin-top: 15px;
   border-top: 0.5px solid rgb(0, 0, 0, 0.1);

@@ -9,7 +9,7 @@ const SignUpForm = (props) => {
 
   const { isSignUp, setIsSignUp } = props;
   const [state, setState] = useState({
-    email: "",
+    email:"",
     username: "",
     password: "",
     passwordCheck: "",
@@ -18,32 +18,34 @@ const SignUpForm = (props) => {
   const handleSignupState = (e) => {
     setState({
       ...state,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const onSubmit = (e) => {
-    console.log(state);
-    if (state === "") {
-      alert("빈칸 없이 입력해주세요");
+      [e.target.name]: e.target.value
+    })
+  }
+  
+  const handleSignUp = () => {
+    console.log(state)
+    if(state == ""){ 
+      alert('빈칸 없이 입력해주세요') 
+      // setIsSignUp(false)
+      return 
     }
-    e.preventDefault();
-    instance
-      .post("/api/user/signup", state)
-      .then((res) => {
-        console.log(res);
-        // 토큰 저장
-        localStorage.setItem("is_login", res.headers.authorization);
-        setIsSignUp(false);
-      })
-      .catch((err) => {
-        const msg = err.response.data.errorMessage;
-        alert(msg);
-        setState("");
-        console.log("회원가입 실패");
-        navigate("/");
-      });
-  };
+    console.log(isSignUp)
+    instance.post("/api/user/signup", state)
+    .then((res)=>{
+      console.log(res)    
+      // 토큰 저장 
+      localStorage.setItem("is_login", res.headers.authorization);
+      setIsSignUp(false)
+      alert(res.data.msg)
+    })
+    .catch((err)=>{
+      const msg = err.response.data.errorMessage;
+      alert(msg);
+      setState("");
+      setIsSignUp(true)
+      console.log("회원가입 실패");
+    })
+  }
 
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
@@ -65,7 +67,7 @@ const SignUpForm = (props) => {
           <RiKakaoTalkFill style={{ fontSize: "16px", marginRight: "5px" }} />
           <span>카카오 로그인</span>
         </Kakao>
-        <InputBox onSubmit={onSubmit}>
+        <InputBox>
           <div className="line">
             <hr className="hr_solid" />
             <p>또는</p>
@@ -97,9 +99,9 @@ const SignUpForm = (props) => {
             name="passwordCheck"
             value={state.passwordCheck || ""}
             placeholder="비밀번호를 확인해주세요"
-            onChange={handleSignupState}
-          />
-          <button>회원가입</button>
+            onChange = {handleSignupState}
+            />
+          <button onClick={handleSignUp}>회원가입</button>
         </InputBox>
       </Box>
       <Div
@@ -133,8 +135,8 @@ const Logo = styled.div`
   width: 180px;
   height: 70px;
   margin: 50px 0 30px;
-`;
-const InputBox = styled.form`
+`
+const InputBox = styled.div`
   width: 100%;
   height: 100%;
   display: flex;

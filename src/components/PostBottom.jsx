@@ -9,44 +9,30 @@ import { __addComment, __getComment } from "../Redux/modules/commentSlice";
 // 댓글 get요청은 어디서? 
 const PostBottom  = ({inputTagWidth, postId}) =>{
 
-  const comments = {
-    commentId : 2,
-    profileImage: "/img/user.png",
-    username: 'dlwlrma',
-    comment: '20자 이상인 글입니다!',
-    likeCmtNum:0,
-    isLikeCmt:true,
-    createdAt: '2022-12-01T12:52:06.729608',
-    modifiedAt: '2022-12-01T12:52:06.729608'
-  }
+  // const comments = {
+  //   commentId : 2,
+  //   profileImage: "/img/user.png",
+  //   username: 'dlwlrma',
+  //   comment: '20자 이상인 글입니다!',
+  //   likeCmtNum:0,
+  //   isLikeCmt:true,
+  //   createdAt: '2022-12-01T12:52:06.729608',
+  //   modifiedAt: '2022-12-01T12:52:06.729608'
+  // }
 
   const dispatch = useDispatch()
-  // const {comments} = useSelector((state)=> state.comment)
+  const {comments} = useSelector((state)=> state.comment)
   const [comment, setComment] = useState('')
-
-  // useEffect(() => {
-  //   dispatch(__getComment(postId));
-  // }, [dispatch]);
-  // console.log(comments);
-
-  // const commentSubmit = (e) => {
-  //   console.log(comment)
-  //   if( comment === "" ){
-  //     alert("댓글을 입력해주세요")
-  //     return
-  //   }
-  //   e.preventDefault();
-  //   // dispatch(__addComment(comment, postId))
-  // }
+  console.log(comments)
 
   return (
     <>
     {/* test용 - view */}
-      <div key={comments.commentsId}>
+      {/* <div key={comments.commentsId}>
         <Username marginLeft="15px">{comments.username}</Username>
         <Comment>{comments.comment}</Comment>
       </div>
-      <CommentInput inputTagWidth={inputTagWidth} />
+      <CommentInput inputTagWidth={inputTagWidth} /> */}
     </>
   )
 }

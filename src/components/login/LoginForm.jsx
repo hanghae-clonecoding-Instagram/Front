@@ -31,26 +31,23 @@ const LoginForm = (props) => {
     }
     e.preventDefault();
     console.log(state);
-    instance
-      .post("/api/user/login", state)
-      .then((res) => {
-        console.log(res);
-        // 토큰 저장
-        localStorage.setItem("is_login", res.headers.authorization);
-        window.location.href = "/main";
-      })
-      .catch((err) => {
-        const msg = err.response.data.errorMessage;
-        alert(msg);
-        setState("");
-        console.log("로그인 실패");
-        navigate("/");
-      });
+    instance.post("/api/user/login", state)
+    .then((res)=>{
+      console.log(res)    
+      // 토큰 저장 
+      localStorage.setItem("is_login", res.headers.authorization);
+      window.location.href = "/main";
+    })
+    .catch((err)=>{
+      const msg = err.response.data.errorMessage;
+      alert(msg);
+      setState("");
+      console.log("로그인 실패");
+      setIsSignUp(false)
+    })
   };
 
   const socialLogin = () => {
-    // 카카오로 이동하는 url... 이 결과값을 어떻게 받지?
-    // 서버에도 get으로 같은 url을 넣어주면 되는건가?
     window.location.href = KAKAO_AUTH_URL;
     axios({
       method: "GET",

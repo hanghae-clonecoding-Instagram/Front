@@ -46,7 +46,7 @@ export const __delComment = createAsyncThunk(
     console.log(payload);
     try {
       const data = await instance.delete(`/api/comment/${payload}`);
-      return thunkAPI.fulfillWithValue(data.data);
+      return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       console.log(error);
       return thunkAPI.rejectWithValue(error);
@@ -82,9 +82,10 @@ export const postSlice = createSlice({
     },
 
 
-    [__addComment.pending]: (state) => {console.log('로티보여주기')},
+    [__addComment.pending]: (state) => {},
     [__addComment.fulfilled]: (state, action) => {
       state.comment = action.payload
+      
     },
     [__addComment.rejected]: (state, action) => {
       console.log(action.payload.response.data.errorMessage);
@@ -93,7 +94,8 @@ export const postSlice = createSlice({
 
     [__delComment.pending]: (state) => {},
     [__delComment.fulfilled]: (state, action) => {
-      window.location.href = "/";
+      state.comment = state.comment.filter(
+        (c) => c.commentId !== action.payload)
     },
     [__delComment.rejected]: (state, action) => {
       console.log(action.payload.response.data.errorMessage);
