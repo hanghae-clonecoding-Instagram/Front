@@ -23,7 +23,7 @@ const DetailModal = ({ detailBtnClick, setDetailBtnClick, postId }) => {
   //     dispatch(cleanupDetail());
   //   };
   // }, [dispatch]);
-
+  // console.log(post)
   useEffect(() => {
     dispatch(__getPost(postId));
   }, [dispatch]);

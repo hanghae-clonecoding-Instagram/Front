@@ -10,8 +10,9 @@ const KakaoLogin = (code) => {
   return function (dispatch, getState, { history }) {
     axios({
     method: "GET",
-    url: `http://{서버주소}?code=${code}`,
+    url: `api~~~~ 영준님 꺼 ?code=${code}`,
   })
+  // 카카오 인증받을 api
     .then((res) => {
       console.log(res); // 토큰이 넘어올 것임
       const ACCESS_TOKEN = res.data.accessToken;
