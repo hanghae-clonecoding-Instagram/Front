@@ -19,11 +19,13 @@ const PostAdd = () => {
   const [textArea, setTextArea] = useState("");
   const [images, setImages] = useState(null);
   const userImageFile = new FormData();
+  const form = new FormData();
 
   // 이미지 미리보기
   const imgPreview = (e) => {
     let reader = new FileReader();
     if (e.target.files[0]) {
+      console.log(e.target.files[0].name);
       // userImageFile.append("file", e.target.files[0]);
       setImages(e.target.files[0]);
       reader.readAsDataURL(e.target.files[0]);
@@ -43,7 +45,7 @@ const PostAdd = () => {
   const postAddButtonHandler = () => {
     if (userImage === null) return alert("사진을 선택해주세요.");
     console.log(images);
-    userImageFile.append("file", images);
+    // userImageFile.append("file", images);
 
     // 잘들어가는지 체크!!!
     // for (const key of userImageFile.keys()) {
@@ -55,20 +57,21 @@ const PostAdd = () => {
     // }
 
     // 이미지를 어떻게 보낼 것인가
-    const newPost = {
-      image: userImageFile,
-      content: textArea,
-    };
-    console.log(newPost);
+    form.append(
+      "requestDto",
+      new Blob([JSON.stringify({ content: textArea })], {
+        type: "application/json",
+      })
+    );
+    form.append("file", images, images.name);
+    console.log(form);
 
-    dispatch(__addPost(newPost));
+    dispatch(__addPost(form));
     dispatch(isModalHandler(false));
-    // navigate("/");
   };
 
   const handleImgClick = () => {
     if (window.confirm("사진을 바꾸시겠습니까?")) {
-      // dispatch(isModalHandler(false));
       setUserImage(null);
       setIconView(true);
     }

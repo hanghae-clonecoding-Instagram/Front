@@ -6,9 +6,8 @@ import CommentInput from "../components/CommentInput";
 import { __addComment, __getComment } from "../Redux/modules/commentSlice";
 
 // 댓글 추가하기 전에, 댓글을 전체 포스트랑 보여줘야 함
-// 댓글 get요청은 어디서? 
-const PostBottom  = ({inputTagWidth, postId}) =>{
-
+// 댓글 get요청은 어디서?
+const PostBottom = ({ inputTagWidth, postId }) => {
   // const comments = {
   //   commentId : 2,
   //   profileImage: "/img/user.png",
@@ -20,22 +19,22 @@ const PostBottom  = ({inputTagWidth, postId}) =>{
   //   modifiedAt: '2022-12-01T12:52:06.729608'
   // }
 
-  const dispatch = useDispatch()
-  const {comments} = useSelector((state)=> state.comment)
-  const [comment, setComment] = useState('')
-  console.log(comments)
+  const dispatch = useDispatch();
+  const { comments } = useSelector((state) => state.comment);
+  const [comment, setComment] = useState("");
+  // console.log(comments)
 
   return (
     <>
-    {/* test용 - view */}
+      {/* test용 - view */}
       {/* <div key={comments.commentsId}>
         <Username marginLeft="15px">{comments.username}</Username>
         <Comment>{comments.comment}</Comment>
       </div>
       <CommentInput inputTagWidth={inputTagWidth} /> */}
     </>
-  )
-}
+  );
+};
 const Username = styled.span`
   margin: 0px 5px 0px ${(props) => props.marginLeft};
   font-weight: bold;
@@ -84,6 +83,5 @@ const Button = styled.button`
   padding: 0px 10px 0px 10px;
   cursor: pointer;
 `;
-
 
 export default PostBottom;

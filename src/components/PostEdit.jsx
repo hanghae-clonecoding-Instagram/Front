@@ -13,37 +13,38 @@ import { isModalHandler } from "../Redux/modules/modalSlice";
 
 const PostEdit = ({ isEdit, setIsEdit, postId }) => {
   const navigate = useNavigate();
-  // const { post } = useSelector((state) => state.post);
+  const { post } = useSelector((state) => state.post);
   // 모달 store
   const dispatch = useDispatch();
   const isModal = useSelector((state) => state.modal.modal);
 
-  const post = {
-    postId: 2,
-    profileImage: "/img/user.png",
-    username: "dlwlrma",
-    content:
-      "20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!",
-    image: "/img/image sample.png",
-    likePostNum: 5,
-    isLikePost: true,
-    commentNum: 17,
-    createdAt: "2022-12-01T12:52:06.729608",
-    modifiedAt: "2022-12-01T12:52:06.729608",
-  };
+  // const post = {
+  //   postId: 2,
+  //   profileImage: "/img/user.png",
+  //   username: "dlwlrma",
+  //   content:
+  //     "20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!",
+  //   image: "/img/image sample.png",
+  //   likePostNum: 5,
+  //   isLikePost: true,
+  //   commentNum: 17,
+  //   createdAt: "2022-12-01T12:52:06.729608",
+  //   modifiedAt: "2022-12-01T12:52:06.729608",
+  // };
+  console.log(postId);
+  useEffect(() => {
+    dispatch(__getPost(postId));
+  }, [dispatch]);
+
+  console.log(post);
 
   // 이미지 미리보기 state
-  const [userImage, setUserImage] = useState(post.image);
+  // const [userImage, setUserImage] = useState(post.image);
   const [iconView, setIconView] = useState(true);
   const [textArea, setTextArea] = useState(post.content);
   const [images, setImages] = useState(null);
   const userImageFile = new FormData();
   const outSection = useRef();
-
-  // useEffect(() => {
-  //   dispatch(__getPost(postId));
-  // }, [dispatch]);
-  // console.log(post);
 
   // 이미지 미리보기
   const imgPreview = (e) => {
@@ -57,7 +58,7 @@ const PostEdit = ({ isEdit, setIsEdit, postId }) => {
     reader.onloadend = () => {
       const resultImage = reader.result;
       setIconView(false);
-      setUserImage(resultImage);
+      // setUserImage(resultImage);
     };
   };
 
@@ -66,24 +67,24 @@ const PostEdit = ({ isEdit, setIsEdit, postId }) => {
   };
 
   const postEditButtonHandler = () => {
-    if (userImage === null) return alert("사진을 선택해주세요.");
+    // if (userImage === null) return alert("사진을 선택해주세요.");
     // console.log(images);
 
-    if (images !== null) {
-      userImageFile.append("file", images);
+    // if (images !== null) {
+    //   userImageFile.append("file", images);
+    console.log(textArea);
 
-      const newPost = {
-        image: userImageFile,
-        content: textArea,
-      };
-      dispatch(__editPost([newPost, postId]));
-    } else {
-      const newPost = {
-        image: post.image,
-        content: textArea,
-      };
-      dispatch(__editPost([newPost, postId]));
-    }
+    const newPost = {
+      content: textArea,
+    };
+    dispatch(__editPost([newPost, postId]));
+    // } else {
+    //   const newPost = {
+    //     image: post.image,
+    //     content: textArea,
+    //   };
+    //   dispatch(__editPost([newPost, postId]));
+    // }
 
     // 잘들어가는지 체크!!!
     // for (const key of userImageFile.keys()) {
@@ -97,75 +98,72 @@ const PostEdit = ({ isEdit, setIsEdit, postId }) => {
     setIsEdit(false);
   };
 
-  const handleImgClick = () => {
-    if (window.confirm("사진을 바꾸시겠습니까?")) {
-      setUserImage(null);
-      setUserImage(null);
-      setIconView(true);
-    }
-  };
+  // const handleImgClick = () => {
+  //   if (window.confirm("사진을 바꾸시겠습니까?")) {
+  //     setUserImage(null);
+  //     setUserImage(null);
+  //     setIconView(true);
+  //   }
+  // };
 
   return (
     <div>
-      {isEdit === true ? (
-        <ModalWrapper
-          className="modalOutside"
-          ref={outSection}
-          onClick={(e) => {
-            if (outSection.current === e.target) {
-              setIsEdit(false);
-            }
-          }}
-        >
-          <Modal>
-            <MainBar>
-              <div className="main_btn" onClick={handlePostCancle}>
-                취소하기
-              </div>
-              <div className="main_tit">게시물 수정하기</div>
-              <div className="main_btn" onClick={postEditButtonHandler}>
-                공유하기
-              </div>
-            </MainBar>
-            <Box>
-              <Picture className="picture">
-                <Icon>
-                  {iconView ? (
+      {/* {isEdit === true ? ( */}
+      <ModalWrapper
+        className="modalOutside"
+        ref={outSection}
+        onClick={(e) => {
+          if (outSection.current === e.target) {
+            setIsEdit(false);
+          }
+        }}
+      >
+        <Modal>
+          <MainBar>
+            <div className="main_btn" onClick={handlePostCancle}>
+              취소하기
+            </div>
+            <div className="main_tit">게시물 수정하기</div>
+            <div className="main_btn" onClick={postEditButtonHandler}>
+              공유하기
+            </div>
+          </MainBar>
+          <Box>
+            <Picture className="picture">
+              <Icon>
+                {/* {iconView ? (
                     <>
                       <AddImage />
                       <label htmlFor="file">컴퓨터에서 선택</label>
                       <input type="file" id="file" onChange={imgPreview} />
                     </>
-                  ) : null}
-                </Icon>
-                <Image onClick={handleImgClick}>
-                  {
-                    userImage ? <img src={userImage} /> : null
-                    // <img src={userImage} />
-                  }
-                </Image>
-              </Picture>
-              <Text>
-                <div className="user_box">
-                  <img src={post.profileImage} />
-                  <p>{post.username}</p>
-                </div>
-                <textarea
-                  className="text_box"
-                  value={textArea}
-                  placeholder="내용을 입력해주세요"
-                  onChange={(e) => {
-                    setTextArea(e.target.value);
-                  }}
-                />
-                <div className="view">위치추가</div>
-                <div className="view">접근성</div>
-                <div className="view">고급설정</div>
-              </Text>
-            </Box>
-          </Modal>
-        </ModalWrapper>
-      ) : null}
+                  ) : null} */}
+              </Icon>
+              <Image>
+                <img src={post.image} />
+              </Image>
+            </Picture>
+            <Text>
+              <div className="user_box">
+                <img src={post.profileImage} />
+                <p>{post.username}</p>
+              </div>
+              <textarea
+                className="text_box"
+                value={textArea}
+                placeholder="내용을 입력해주세요"
+                onChange={(e) => {
+                  setTextArea(e.target.value);
+                }}
+              />
+              <div className="view">위치추가</div>
+              <div className="view">접근성</div>
+              <div className="view">고급설정</div>
+            </Text>
+          </Box>
+        </Modal>
+      </ModalWrapper>
+      {/* ) : null} */}
     </div>
   );
 };

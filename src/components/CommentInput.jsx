@@ -3,28 +3,27 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { __addComment } from "../Redux/modules/commentSlice";
 
-
 const CommentInput = ({ inputTagWidth, postId }) => {
-  console.log(inputTagWidth, postId)
-  const dispatch = useDispatch()
-  const [comment, setComment] = useState('')
+  // console.log(inputTagWidth, postId)
+  const dispatch = useDispatch();
+  const [comment, setComment] = useState("");
 
   const handleClick = (e) => {
-    console.log(comment)
-    if( comment === "" ){
-      alert("댓글을 입력해주세요")
-      return
+    console.log(comment);
+    if (comment === "") {
+      alert("댓글을 입력해주세요");
+      return;
     }
-    dispatch(__addComment(comment))
-  }
+    dispatch(__addComment(comment));
+  };
 
   return (
     <CommentForm>
       <Smile />
-      <InputTag 
+      <InputTag
         inputTagWidth={inputTagWidth}
-        onChange={(e)=>{
-          setComment(e.target.value)
+        onChange={(e) => {
+          setComment(e.target.value);
         }}
       />
       <Button onClick={handleClick}>게시</Button>

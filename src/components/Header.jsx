@@ -5,26 +5,34 @@ import styled from "styled-components";
 
 // modal import
 import ModalBox from "./ModalBox";
-import { isModalHandler } from "../Redux/modules/modalSlice";
+import {
+  isModalHandler,
+  isDetailModalHandler,
+} from "../Redux/modules/modalSlice";
 import PostAdd from "./PostAdd";
+import DetailModal from "./DetailModal";
 
 const Header = () => {
   const locationNow = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isModal = useSelector((state) => state.modal.modal);
+  const isDetailModal = useSelector((state) => state.modal.detailModal);
 
   // 이자리에 username 가져오기위한 get요청 할 것!!!
 
   if (locationNow.pathname === "/") return null;
 
   return (
-    <>
+    <Total>
       {isModal ? (
         <ModalBox>
           <PostAdd />
         </ModalBox>
       ) : null}
+      {/* {
+        isDetailModal ? <DetailModal /> : null
+      } */}
       <Bar>
         <Buttons>
           <Logo
@@ -51,13 +59,21 @@ const Header = () => {
           </div>
         </Buttons>
       </Bar>
-    </>
+    </Total>
   );
 };
 
+const Total = styled.div`
+  /* position: relative; */
+`;
 const Bar = styled.div`
+  z-index: 1;
+  width: 100vw;
+  position: fixed;
+  top: 0%;
+  left: 0%;
   background-color: white;
-  z-index: 0;
+  /* z-index: 1; */
   height: 60px;
   border-bottom: 1px solid rgb(0, 0, 0, 0.2);
   display: flex;

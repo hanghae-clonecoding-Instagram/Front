@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { isMoreButtonsModal } from "../Redux/modules/modalSlice";
 import ButtonLayout from "./ButtonsLayout";
 import DetailModal from "./DetailModal";
 import MoreButtonsModal from "./MoreButtonsModal";
@@ -9,22 +10,44 @@ import MoreButtonsModal from "./MoreButtonsModal";
 // 여기다 post 넣기!!!
 const PostTop = ({ post }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [moreButtonsClick, setMoreButtonsClick] = useState(false);
   const [detailBtnClick, setDetailBtnClick] = useState(false);
   const [isDisplay, setIsDisplay] = useState("inline");
+  const moreButtonsModal = useSelector((state) => state.modal.moreButtonsModal);
+  // console.log(post);
+  // console.log(moreButtonsModal);
 
   return (
     <Total>
-      <DetailModal
-        detailBtnClick={detailBtnClick}
-        setDetailBtnClick={setDetailBtnClick}
-        postId={post.postId}
-      />
-      <MoreButtonsModal
+      {detailBtnClick === true ? (
+        <DetailModal
+          detailBtnClick={detailBtnClick}
+          setDetailBtnClick={setDetailBtnClick}
+          postId={post.postId}
+        />
+      ) : null}
+
+      {/* <DetailModal
+      detailBtnClick={detailBtnClick}
+      setDetailBtnClick={setDetailBtnClick}
+      postId={post.postId}
+      /> */}
+      {moreButtonsModal === true ? (
+        <MoreButtonsModal
+          moreButtonsClick={moreButtonsClick}
+          setMoreButtonsClick={setMoreButtonsClick}
+          detailBtnClick={detailBtnClick}
+          setDetailBtnClick={setDetailBtnClick}
+          postId={post.postId}
+        />
+      ) : null}
+      {/* <MoreButtonsModal
         moreButtonsClick={moreButtonsClick}
         setMoreButtonsClick={setMoreButtonsClick}
+        setDetailBtnClick={setDetailBtnClick}
         postId={post.postId}
-      />
+      /> */}
 
       <ContentTop>
         <User>
@@ -39,6 +62,8 @@ const PostTop = ({ post }) => {
         <More
           onClick={() => {
             setMoreButtonsClick(true);
+            dispatch(isMoreButtonsModal(true));
+            // console.log(moreButtonsModal);
           }}
         />
       </ContentTop>
@@ -50,15 +75,13 @@ const PostTop = ({ post }) => {
           setDetailBtnClick={setDetailBtnClick}
           marginTop="0px"
           postId={post.postId}
-          isLikePost={post.isLikePost}
+          likePost={post.likePost}
           likePostNum={post.likePostNum}
         />
         <ContentText>
           <ContentUsername marginLeft="0px">{post.username}</ContentUsername>
-          {/* <Content>{post.content.slice(0, 20)}</Content> */}
-          <Content>
-            {post.content}
-          </Content>
+          <Content>{post.content.slice(0, 20)}</Content>
+          {/* <Content>{post.content}</Content> */}
           <ContentMore
             onClick={() => {
               setIsDisplay("none");
@@ -68,12 +91,11 @@ const PostTop = ({ post }) => {
             ... 더보기
           </ContentMore>
           <Content display={isDisplay === "none" ? "inline" : "none"}>
-            {post.content}
+            {post.content.slice(20)}
           </Content>
         </ContentText>
         <CommentMore
           onClick={() => {
-            console.log(detailBtnClick);
             setDetailBtnClick(true);
           }}
         >
@@ -84,7 +106,7 @@ const PostTop = ({ post }) => {
   );
 };
 const Total = styled.div`
-  z-index: 0;
+  /* z-index: 0; */
 `;
 const ContentTop = styled.div`
   width: 470px;
@@ -116,8 +138,7 @@ const UserName = styled.div`
   padding-bottom: 2px;
 `;
 
-const PostImage = styled.img.attrs((props) => ({
-}))`
+const PostImage = styled.img.attrs((props) => ({}))`
   width: ${(props) => props.width};
 `;
 
@@ -138,11 +159,6 @@ const ContentUsername = styled.span`
   font-weight: bold;
 `;
 
-const Content = styled.span`
-  display: ${(props) => props.display};
-  line-height: 130%;
-`;
-
 const ContentMore = styled.span`
   display: ${(props) => props.display};
   color: #808080d5;
@@ -154,7 +170,13 @@ const CommentMore = styled.div`
 `;
 
 const ContentText = styled.div`
+  width: 300px;
   padding: 0px 15px 0px 15px;
+`;
+
+const Content = styled.span`
+  display: ${(props) => props.display};
+  line-height: 130%;
 `;
 
 export default PostTop;

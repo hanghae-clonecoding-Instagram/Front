@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { __commentLike, __delComment } from "../Redux/modules/commentSlice";
 
-const DetailModalComment = ({postId}) => {
-  console.log(postId)
-  const dispatch = useDispatch()
+const DetailModalComment = ({ postId }) => {
+  // console.log(postId)
+  const dispatch = useDispatch();
   // const comments = useSelector((state)=>state.comment.comment)
-  const [isLikeCmt, setCommentLike] = useState(false) 
+  const [isLikeCmt, setCommentLike] = useState(false);
 
   // useEffect(() => {
   //   dispatch(__getComment(postId));
@@ -16,50 +16,52 @@ const DetailModalComment = ({postId}) => {
 
   const comments = [
     {
-    commentId : 2,
-    profileImage: "/img/user.png",
-    username: 'dlwlrma',
-    comment: '20dd자 이상인 글입니다!',
-    likeCmtNum:0,
-    isLikeCmt:false,
-    createdAt: '2022-12-01T12:52:06.729608',
-    modifiedAt: '2022-12-01T12:52:06.729608'
-  }
-]
-  const commentDel = (id) =>{
-    window.confirm('댓글을 삭제하시겠습니까?', id)?
-      dispatch(__delComment(id))
-    :
-    console.log('t삭제취소')
-  }
+      commentId: 2,
+      profileImage: "/img/user.png",
+      username: "dlwlrma",
+      comment: "20dd자 이상인 글입니다!",
+      likeCmtNum: 0,
+      isLikeCmt: false,
+      createdAt: "2022-12-01T12:52:06.729608",
+      modifiedAt: "2022-12-01T12:52:06.729608",
+    },
+  ];
+  const commentDel = (id) => {
+    window.confirm("댓글을 삭제하시겠습니까?", id)
+      ? dispatch(__delComment(id))
+      : console.log("t삭제취소");
+  };
 
   return (
     <>
-    {comments.map((c) => {
-      return (
-        <>
-        <ModalContentText key={c.commentId}>
-          <UserImage marginLeft="0px" src={c.profileImage}/>
-          <UserText>
-            <Username>{c.username}</Username>
-            <UserContent onClick={()=>{commentDel(c.commentId)}}>
-              {c.comment}
-            </UserContent>
-            <CommentLike 
-              onClick={()=>{
-                setCommentLike(!isLikeCmt)
-                dispatch(__commentLike(c.commentId))
-              }}
-              src={isLikeCmt? 
-              '/img/red heart.png' : '/img/heart.png'}
-            />
-          </UserText>
-        </ModalContentText>
-        </>
-        )
-    })}
+      {comments.map((c) => {
+        return (
+          <>
+            <ModalContentText key={c.commentId}>
+              <UserImage marginLeft="0px" src={c.profileImage} />
+              <UserText>
+                <Username>{c.username}</Username>
+                <UserContent
+                  onClick={() => {
+                    commentDel(c.commentId);
+                  }}
+                >
+                  {c.comment}
+                </UserContent>
+                <CommentLike
+                  onClick={() => {
+                    setCommentLike(!isLikeCmt);
+                    dispatch(__commentLike(c.commentId));
+                  }}
+                  src={isLikeCmt ? "/img/red heart.png" : "/img/heart.png"}
+                />
+              </UserText>
+            </ModalContentText>
+          </>
+        );
+      })}
 
-    {/* <ModalContentText>
+      {/* <ModalContentText>
       <UserImage marginLeft="0px" src="/img/user.png" />
       <UserText>
         <Username>dlwlrma</Username>
@@ -70,10 +72,8 @@ const DetailModalComment = ({postId}) => {
       </UserText>
     </ModalContentText> */}
     </>
-  )
-}
-
-
+  );
+};
 
 const UserImage = styled.img.attrs((props) => ({
   src: props.src,
@@ -88,7 +88,7 @@ const UserImage = styled.img.attrs((props) => ({
 const Username = styled.span`
   font-weight: bold;
   margin-right: 10px;
-  flex : 1.5
+  flex: 1.5;
 `;
 
 const ModalContentText = styled.div`
@@ -101,13 +101,13 @@ const ModalContentText = styled.div`
 
 const UserText = styled.div`
   width: 100%;
-  display: flex; 
-  justify-content: space-between;  
+  display: flex;
+  justify-content: space-between;
 `;
 const UserContent = styled.span`
-  flex : 4;
+  flex: 4;
   cursor: pointer;
-  :hover{
+  :hover {
     color: gray;
   }
 `;
@@ -115,5 +115,5 @@ const CommentLike = styled.img`
   width: 18px;
   height: 15px;
   cursor: pointer;
-`
+`;
 export default DetailModalComment;
