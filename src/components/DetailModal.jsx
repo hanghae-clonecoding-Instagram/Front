@@ -10,7 +10,7 @@ import ButtonLayout from "./ButtonsLayout";
 import CommentInput from "./CommentInput";
 
 import MoreButtonsModal from "./MoreButtonsModal";
-import DetailModalComment from "./DetailModalComment";
+import DetailModalCom from "./DetailModalCom";
 
 const DetailModal = ({ detailBtnClick, setDetailBtnClick, postId }) => {
   const dispatch = useDispatch();
@@ -18,7 +18,6 @@ const DetailModal = ({ detailBtnClick, setDetailBtnClick, postId }) => {
   const [moreButtonsClick, setMoreButtonsClick] = useState(false);
   const { post } = useSelector((state) => state.post);
   // console.log(postId);
-
   // useEffect(() => {
   //   return () => {
   //     dispatch(cleanupDetail());
@@ -29,6 +28,7 @@ const DetailModal = ({ detailBtnClick, setDetailBtnClick, postId }) => {
     dispatch(__getPost(postId));
   }, [dispatch]);
   console.log(post.likePostNum);
+
 
   const ModalWrapperHandler = (e) => {
     if (outSection.current === e.target) {
@@ -48,13 +48,6 @@ const DetailModal = ({ detailBtnClick, setDetailBtnClick, postId }) => {
           postId={post.postId}
         />
       ) : null}
-      {/* // <MoreButtonsModal
-      //   moreButtonsClick={moreButtonsClick}
-      //   setMoreButtonsClick={setMoreButtonsClick}
-      //   detailBtnClick={detailBtnClick}
-      //   setDetailBtnClick={setDetailBtnClick}
-      //   postId={post.postId}
-      // /> */}
       <ModalWrapper
         className="modalOutside"
         ref={outSection}
@@ -63,7 +56,7 @@ const DetailModal = ({ detailBtnClick, setDetailBtnClick, postId }) => {
         }}
       >
         <Modal>
-          <PostImage src={post.image} width="700px" />
+          <PostImage width="700px" />
           <ModalContent>
             <ModalContentTop>
               <User>
@@ -77,18 +70,19 @@ const DetailModal = ({ detailBtnClick, setDetailBtnClick, postId }) => {
               />
             </ModalContentTop>
 
-            <DetailModalComment postId={postId} />
+            <ModalContentMidle>
+              <DetailModalCom postId={postId} />
+            </ModalContentMidle>
 
             <ModalContentBottom>
               <ButtonLayout
                 borderTop="0.5px solid rgb(0, 0, 0, 0.1)"
                 marginTop="15px"
                 width="400px"
-                likePost={post.likePost}
-                likePostNum={post.likePostNum}
-                postId={post.postId}
               />
-              <CommentInput inputTagWidth="280px" marginTop="0px" />
+              <CommentInput postId={postId} 
+                inputTagWidth="280px" marginTop="0px" 
+              />
             </ModalContentBottom>
           </ModalContent>
         </Modal>
@@ -168,7 +162,13 @@ const More = styled.img.attrs({
   width: 23px;
   margin-right: 14px;
 `;
-
+const ModalContentMidle = styled.div`
+  height: 490px;
+  overflow: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`
 const ModalContentText = styled.div`
   display: flex;
   padding: 15px 15px 5px 15px;

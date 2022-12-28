@@ -5,6 +5,8 @@ import { useState } from "react";
 
 const UserEdit = ()=>{
   const navigate = useNavigate()
+  // 유저 수정정보
+  const [username, serUsername] = useState('')
 
   // 이미지 미리보기 state
   const [userImage, setUserImage] = useState("");
@@ -43,13 +45,22 @@ const UserEdit = ()=>{
       <FormBox>     
         <div className="userEdit">
           <p>username </p>
-          <input type='text'/>
+          <input 
+            type="text"
+            name="username"
+            value={username || ""}
+            placeholder="이름을 입력해주세요"
+            // onChange={}  
+          />
         </div>
         <div className="userEdit">
           <p>소개</p>
           <textarea/>
         </div>
-        <button onClick={handleUserEdit}>내 정보 변경</button>
+        <div className="btnBox">
+          <button onClick={()=>{navigate(-1)}}>뒤로가기</button>
+          <button onClick={handleUserEdit}>내 정보 변경</button>
+        </div>
       </FormBox>
     </Box>
   </div>
@@ -145,13 +156,12 @@ const FormBox = styled.div`
       box-sizing: border-box;
       border-radius: 5px;
       border: none;
+      margin-right: 10px;
       cursor: pointer;
       :hover{
         outline: none;
         background-color: #3caefa;
       }
     }
-
-
 `
 export default UserEdit;
