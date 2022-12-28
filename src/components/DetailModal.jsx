@@ -6,33 +6,18 @@ import ButtonLayout from "./ButtonsLayout";
 import CommentInput from "./CommentInput";
 
 import MoreButtonsModal from "./MoreButtonsModal";
-import DetailModalComment from "./DetailModalComment";
+import DetailModalCom from "./DetailModalCom";
 
 const DetailModal = ({ detailBtnClick, setDetailBtnClick, postId }) => {
   const dispatch = useDispatch();
   const outSection = useRef();
   const [moreButtonsClick, setMoreButtonsClick] = useState(false);
   const { post } = useSelector((state) => state.post);
-  console.log(postId);
+  // console.log(postId);
 
   useEffect(() => {
     dispatch(__getPost(postId));
   }, [dispatch]);
-  console.log(post);
-
-  // const post = {
-  //   postId: 2,
-  //   profileImage: "/img/user.png",
-  //   username: "dlwlrma",
-  //   content:
-  //     "20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!",
-  //   image: "/img/image sample.png",
-  //   likePostNum: 5,
-  //   isLikePost: true,
-  //   commentNum: 17,
-  //   createdAt: "2022-12-01T12:52:06.729608",
-  //   modifiedAt: "2022-12-01T12:52:06.729608",
-  // };
 
   const ModalWrapperHandler = (e) => {
     if (outSection.current === e.target) {
@@ -73,7 +58,9 @@ const DetailModal = ({ detailBtnClick, setDetailBtnClick, postId }) => {
                 />
               </ModalContentTop>
 
-              <DetailModalComment postId={postId} />
+              <ModalContentMidle>
+                <DetailModalCom postId={postId} />
+              </ModalContentMidle>
 
               <ModalContentBottom>
                 <ButtonLayout
@@ -81,7 +68,9 @@ const DetailModal = ({ detailBtnClick, setDetailBtnClick, postId }) => {
                   marginTop="15px"
                   width="400px"
                 />
-                <CommentInput inputTagWidth="280px" marginTop="0px" />
+                <CommentInput postId={postId} 
+                  inputTagWidth="280px" marginTop="0px" 
+                />
               </ModalContentBottom>
             </ModalContent>
           </Modal>
@@ -161,7 +150,13 @@ const More = styled.img.attrs({
   width: 23px;
   margin-right: 14px;
 `;
-
+const ModalContentMidle = styled.div`
+  height: 490px;
+  overflow: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`
 const ModalContentText = styled.div`
   display: flex;
   padding: 15px 15px 5px 15px;

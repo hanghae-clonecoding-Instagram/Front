@@ -3,54 +3,65 @@ import { useNavigate } from "react-router-dom";
 import MypageCard from "../components/MypageCard";
 import { useDispatch, useSelector } from "react-redux";
 import { __getMypage } from "../Redux/modules/postSlice";
+import { useEffect } from "react";
 
 const Mypage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const { mypageUserInfo, mypagePostList } = useSelector((state) => state.post);
+  // const userinfo = useSelector((state)=> state.post)
+  const { mypageUserInfo, mypagePostList } = useSelector((state) => state.post);
+  console.log('mypageUserInfo: ', mypageUserInfo)
+  console.log('mypagePostList: ', mypagePostList)
+  // console.log(userinfo)
 
   // 호출 시 사용!!!
-  // useEffect(() => {
-  //   dispatch(__getMypage());
-  // }, [dispatch]);
-  // console.log(mypage);
+  useEffect(() => {
+    dispatch(__getMypage());
+  }, [dispatch]);
 
-  const mypageUserInfo = {
-    profileImage: "/img/user.png",
-    username: "dlwlrma",
-    postingNum: 2,
-    introduction:
-      "마이페이지에서 소개란!마이페이지에서 소개란!마이페이지에서 소개란!마이페이지에서 소개란!마이페이지에서 소개란!마이페이지에서 소개란!마이페이지에서 소개란!",
-    postList: [
-      {
-        postId: 5,
-        image: "/img/image sample.png",
-        likePostNum: 10,
-        commentNum: 3,
-      },
-      {
-        postId: 6,
-        image: "/img/image sample.png",
-        likePostNum: 12,
-        commentNum: 4,
-      },
-    ],
-  };
 
-  const mypagePostList = [
-    {
-      postId: 5,
-      image: "/img/image sample.png",
-      likePostNum: 10,
-      commentNum: 3,
-    },
-    {
-      postId: 6,
-      image: "/img/image sample.png",
-      likePostNum: 12,
-      commentNum: 4,
-    },
-  ];
+  // const mypageUserInfo = {
+  //   profileImage: "/img/user.png",
+  //   username: "dlwlrma",
+  //   postingNum: 2,
+  //   introduction:
+  //     "마이페이지에서 소개란!마이페이지에서 소개란!마이페이지에서 소개란!마이페이지에서 소개란!마이페이지에서 소개란!마이페이지에서 소개란!마이페이지에서 소개란!",
+  //   postList: [
+  //     {
+  //       postId: 5,
+  //       image: "/img/image sample.png",
+  //       likePostNum: 10,
+  //       commentNum: 3,
+  //     },
+  //     {
+  //       postId: 6,
+  //       image: "/img/image sample.png",
+  //       likePostNum: 12,
+  //       commentNum: 4,
+  //     },
+  //   ],
+  // };
+
+  // const mypagePostList = [
+  //   {
+  //     postId: 5,
+  //     image: "/img/image sample.png",
+  //     likePostNum: 10,
+  //     commentNum: 3,
+  //   },
+  //   {
+  //     postId: 6,
+  //     image: "/img/image sample.png",
+  //     likePostNum: 12,
+  //     commentNum: 4,
+  //   },
+  // ];
+  const logout = () => {
+    if(window.confirm('로그아웃 하시겠습니까?')){
+      window.localStorage.removeItem('is_login');
+      window.location.href='/'
+    }
+  }
 
   return (
     <Box>
@@ -73,16 +84,19 @@ const Mypage = () => {
             >
               프로필편집
             </button>
+            <Logout src='/img/logout.png' onClick={logout}/>
           </div>
           <div className="infoCard">
             <span>게시물 </span>
-            <span className="infoCardPostNum">{mypageUserInfo.postingNum}</span>
+            <span className="infoCardPostNum">
+              {mypageUserInfo.postingNum}
+            </span>
             <div>{mypageUserInfo.introduction}</div>
           </div>
         </div>
       </UserBox>
-      <PostBox>
-        {mypagePostList.map((post) => {
+      {/* <PostBox>
+        {mypagePostList?.map((post) => {
           return (
             <MypageCard
               postId={post.postId}
@@ -92,7 +106,7 @@ const Mypage = () => {
             />
           );
         })}
-      </PostBox>
+      </PostBox> */}
     </Box>
   );
 };
@@ -174,5 +188,11 @@ const PostBox = styled.div`
   flex-wrap: wrap;
   padding-top: 40px;
 `;
+const Logout = styled.img`
+  width: 40px;
+  height: 35px;
+  cursor: pointer;
+  margin-left: 15px;
+`
 
 export default Mypage;

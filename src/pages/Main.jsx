@@ -12,44 +12,24 @@ import PostTop from "../components/PostTop";
 import PostBottom from "../components/PostBottom";
 import { __getComment } from "../Redux/modules/commentSlice";
 
-const Main = () => {
+const Main = (post) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { posts } = useSelector((state) => state.post);
-  console.log(posts)
 
   // 호출 시 사용!!!
   useEffect(() => {
     dispatch(__getPosts());
   }, [dispatch]);
-  console.log(posts);
-<<<<<<< HEAD
 
-
-  // useEffect(() => {
-  // dispatch(__getComment(postId));
-
-  // }, [dispatch]);
-  // console.log(comments);
-
-
-
-=======
->>>>>>> ed848f9da165ba299e34a85abc75cfa2bac095f1
 
   return (
     <Total>
-      {/* 서버연결 전에 해본 샘플입니다! */}
-      {/* <Post>
-        <PostTop />
-        <PostBottom inputTagWidth="355px" postId={1} />
-      </Post> */}
-
       {posts.map((post) => {
         return (
           <>
             <Post key={post.postId}>
-              <PostTop post={post} />
+              <PostTop post= {post} />
               <PostBottom inputTagWidth="355px" postId={post.postId} />
             </Post>
           </>
@@ -74,8 +54,6 @@ const Post = styled.div`
   border: 1px solid rgb(0, 0, 0, 0.2);
   border-radius: 10px;
   background-color: white;
-  // 게시물 사이 간격 설정한 것임
-  margin-bottom: 30px;
 `;
 
 export default Main;

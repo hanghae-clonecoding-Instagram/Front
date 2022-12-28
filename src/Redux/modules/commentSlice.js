@@ -2,21 +2,18 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { instance } from "../../core/api/axios";
 
 const initialState = {
-  comment: [],
+  commentList: [],
   isLoading: true,
   error: null,
 };
 
-// const config = {
-//   headers: { Authorization: `Bearer ${getCookie("is_login")}` },
-// };
-
 export const __getComment = createAsyncThunk(
   "getComment",
   async (payload, thunkAPI) => {
+    console.log(payload)
     try {
-      const data = await instance.get(`/api/comment/${payload.postId}`);
-      console.log(data.data);
+      const data = await instance.get(`/api/comments/${payload}`);
+      console.log(data.data.commentList);
       return thunkAPI.fulfillWithValue(data.data.commentList);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -27,12 +24,14 @@ export const __getComment = createAsyncThunk(
 export const __addComment = createAsyncThunk(
   "addComment",
   async (payload, thunkAPI) => {
-    const [comment, postId] = payload
-    console.log(payload);
+    const {comment, postId} = payload
+    // console.log(comment,postId);
     try {
-      const data = await instance.post(`/api/comment/${postId}`, comment)
-      console.log(data.data)
-      return thunkAPI.fulfillWithValue(data.data);
+      const data = await instance.post(`/api/comment/${postId}`,{comment:comment})
+      console.log(data.data.commentList)
+      let commentList = {}
+      console.log(commentList)
+      return thunkAPI.fulfillWithValue(data.data.commentList, postId);
     } catch (error) {
       console.log(error);
       return thunkAPI.rejectWithValue(error);
@@ -60,6 +59,8 @@ export const __commentLike = createAsyncThunk(
     console.log(payload); //commentId가 나와야함
     try {
       const data = await instance.post(`/api/like/comment/${payload}`);
+      console.log(data)
+      // thunkAPI.dispatch(__commentLike(payload))
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log(error);
@@ -75,30 +76,42 @@ export const postSlice = createSlice({
   extraReducers: {
     [__getComment.pending]: (state) => {},
     [__getComment.fulfilled]: (state, action) => {
-      state.comment = action.payload
+      state.commentList = action.payload
     },
     [__getComment.rejected]: (state, action) => {
       console.log(action.payload.response.data.errorMessage);
     },
 
-
     [__addComment.pending]: (state) => {},
     [__addComment.fulfilled]: (state, action) => {
-      state.comment = action.payload
+      console.log(action.payload)
+      state.commentList = action.payload
+      const comment = [...action.payload]
       
+      console.log(comment)
+      // const list = comment.map((c)=> c.postId={postId})
+      // console.log(list)
+      // console.log(action.payload);
     },
     [__addComment.rejected]: (state, action) => {
       console.log(action.payload.response.data.errorMessage);
     },
 
-
     [__delComment.pending]: (state) => {},
     [__delComment.fulfilled]: (state, action) => {
-      state.comment = state.comment.filter(
+      state.commentList = state.commentList.filter(
         (c) => c.commentId !== action.payload)
     },
     [__delComment.rejected]: (state, action) => {
-      console.log(action.payload.response.data.errorMessage);
+      alert(action.payload.response.data.errorMessage);
+    },
+    
+    [__commentLike.pending]: (state) => {},
+    [__commentLike.fulfilled]: (state, action) => {
+      state.commentList = state.commentList
+    },
+    [__commentLike.rejected]: (state, action) => {
+      alert(action.payload.response.data.errorMessage);
     },
   },
 });

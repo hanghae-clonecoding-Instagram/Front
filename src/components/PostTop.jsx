@@ -12,7 +12,7 @@ const PostTop = ({ post }) => {
   const [moreButtonsClick, setMoreButtonsClick] = useState(false);
   const [detailBtnClick, setDetailBtnClick] = useState(false);
   const [isDisplay, setIsDisplay] = useState("inline");
-
+  // console.log(post)
   return (
     <Total>
       <DetailModal

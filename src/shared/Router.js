@@ -23,7 +23,7 @@ const Router = () => {
           <Route path="/userEdit" element={<UserEdit />} />
           {/* 카카오 리다이렉트 url */}
           {/* http://localhost:3000/api/user/kakao/callback */}
-          {/* <Route path="api/user/kakao/callback" element={<KakaoRedirect />} /> */}
+          <Route path="/api/user/kakao/callback" element={<KakaoRedirect />} />
           <Route path="/*" element={<NotFound />} />
         </Routes>
       </Layout>
