@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { __addPost, __getPosts } from "../Redux/modules/postSlice";
-import { useRef, useState } from "react";
+import { __addPost, __getMypage, __getPosts } from "../Redux/modules/postSlice";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 // modal store
@@ -20,6 +20,12 @@ const PostAdd = () => {
   const [images, setImages] = useState(null);
   const userImageFile = new FormData();
   const form = new FormData();
+  const { mypageUserInfo } = useSelector((state) => state.post);
+
+  useEffect(() => {
+    dispatch(__getMypage());
+  }, []);
+  console.log(mypageUserInfo);
 
   // 이미지 미리보기
   const imgPreview = (e) => {
@@ -105,8 +111,8 @@ const PostAdd = () => {
         </Picture>
         <Text>
           <div className="user_box">
-            <img src="/img/test.jpg" />
-            <p>username</p>
+            <img src={mypageUserInfo.profileImage} />
+            <p>{mypageUserInfo.username}</p>
           </div>
           <textarea
             className="text_box"
@@ -224,9 +230,10 @@ const Text = styled.div`
     margin-bottom: 15px;
     padding: 10px 10px 0px 10px;
     img {
-      border-radius: 50%;
-      width: 45px;
+      width: 40px;
       height: 40px;
+      object-fit: cover;
+      border-radius: 50%;
       margin-right: 10px;
     }
   }

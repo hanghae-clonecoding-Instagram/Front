@@ -46,7 +46,7 @@ const Total = styled.div`
   z-index: 0;
   position: absolute;
   top: 5000px;
-  left: 40%;
+  left: 38%;
   height: 100vh;
   display: flex;
   flex-direction: column;
