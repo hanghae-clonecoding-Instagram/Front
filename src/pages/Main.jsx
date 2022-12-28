@@ -28,7 +28,7 @@ const Main = (post) => {
 
   // }, [dispatch]);
   // console.log(comments);
-// 커멘트 가져오는 디스패치 어디 ㅇ확인
+  // 커멘트 가져오는 디스패치 어디 ㅇ확인
   return (
     <Total>
       {posts.map((post) => {
@@ -45,7 +45,7 @@ const Main = (post) => {
 const Total = styled.div`
   z-index: 0;
   position: absolute;
-  top: 3000px;
+  top: 5000px;
   left: 40%;
   height: 100vh;
   display: flex;
@@ -63,6 +63,7 @@ const Post = styled.div`
   border: 1px solid rgb(0, 0, 0, 0.2);
   border-radius: 10px;
   background-color: white;
+  margin-bottom: 15px;
 `;
 
 export default Main;

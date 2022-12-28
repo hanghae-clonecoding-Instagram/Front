@@ -9,28 +9,23 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 // modal store
-import { isModalHandler } from "../Redux/modules/modalSlice";
+import {
+  isEditModalHandler,
+  isModalHandler,
+  isMoreButtonsModal,
+} from "../Redux/modules/modalSlice";
 
-const PostEdit = ({ isEdit, setIsEdit, postId }) => {
+const PostEdit = ({ postId }) => {
   const navigate = useNavigate();
   const { post } = useSelector((state) => state.post);
   // 모달 store
   const dispatch = useDispatch();
   const isModal = useSelector((state) => state.modal.modal);
 
-  // const post = {
-  //   postId: 2,
-  //   profileImage: "/img/user.png",
-  //   username: "dlwlrma",
-  //   content:
-  //     "20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!20자 이상인 글입니다!",
-  //   image: "/img/image sample.png",
-  //   likePostNum: 5,
-  //   isLikePost: true,
-  //   commentNum: 17,
-  //   createdAt: "2022-12-01T12:52:06.729608",
-  //   modifiedAt: "2022-12-01T12:52:06.729608",
-  // };
+  // useEffect(() => {
+  //   dispatch(isMoreButtonsModal(false));
+  // }, []);
+
   console.log(postId);
   useEffect(() => {
     dispatch(__getPost(postId));
@@ -45,6 +40,7 @@ const PostEdit = ({ isEdit, setIsEdit, postId }) => {
   const [images, setImages] = useState(null);
   const userImageFile = new FormData();
   const outSection = useRef();
+  const isEdit = useSelector((state) => state.modal.editModal);
 
   // 이미지 미리보기
   const imgPreview = (e) => {
@@ -63,7 +59,8 @@ const PostEdit = ({ isEdit, setIsEdit, postId }) => {
   };
 
   const handlePostCancle = () => {
-    setIsEdit(false);
+    // setIsEdit(false);
+    dispatch(isEditModalHandler(false));
   };
 
   const postEditButtonHandler = () => {
@@ -95,7 +92,8 @@ const PostEdit = ({ isEdit, setIsEdit, postId }) => {
     //   console.log(value);
     // }
 
-    setIsEdit(false);
+    // setIsEdit(false);
+    dispatch(isEditModalHandler(false));
   };
 
   // const handleImgClick = () => {
@@ -114,7 +112,8 @@ const PostEdit = ({ isEdit, setIsEdit, postId }) => {
         ref={outSection}
         onClick={(e) => {
           if (outSection.current === e.target) {
-            setIsEdit(false);
+            // setIsEdit(false);
+            dispatch(isEditModalHandler(false));
           }
         }}
       >
@@ -169,7 +168,7 @@ const PostEdit = ({ isEdit, setIsEdit, postId }) => {
 };
 
 const ModalWrapper = styled.div`
-  z-index: 6;
+  z-index: 150;
   position: fixed;
   top: 0px;
   left: 0%;
@@ -182,7 +181,7 @@ const ModalWrapper = styled.div`
 `;
 
 const Modal = styled.div`
-  z-index: 6;
+  z-index: 151;
   width: 1000px;
   background-color: white;
   border-radius: 15px;

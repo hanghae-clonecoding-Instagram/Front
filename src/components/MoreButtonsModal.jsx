@@ -18,15 +18,16 @@ const MoreButtonsModal = ({
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const outSection = useRef();
-  const [isEdit, setIsEdit] = useState(false);
+  // const [isEdit, setIsEdit] = useState(false);
   const moreButtonsModal = useSelector((state) => state.modal.moreButtonsModal);
-  // const isEdit = useSelector((state) => state.modal.editModal);
+  const isEdit = useSelector((state) => state.modal.editModal);
 
   console.log(postId);
-
+  // console.log(isEdit);
   const onClickDeleteBtnHandler = () => {
     if (window.confirm("게시글을 삭제하시겠습니까?")) {
-      setMoreButtonsClick(false); // 모어버튼 모달창 끄기
+      dispatch(isMoreButtonsModal(false));
+      // setMoreButtonsClick(false); // 모어버튼 모달창 끄기
       setDetailBtnClick(false); // 디테일모달창 끄기!!!
       return dispatch(__deletePost(postId));
     }
@@ -34,9 +35,7 @@ const MoreButtonsModal = ({
 
   return (
     <div>
-      {isEdit === true ? (
-        <PostEdit isEdit={isEdit} setIsEdit={setIsEdit} postId={postId} />
-      ) : null}
+      {isEdit === true ? <PostEdit isEdit={isEdit} postId={postId} /> : null}
       {/* <PostEdit isEdit={isEdit} setIsEdit={setIsEdit} postId={postId} /> */}
       {/* {moreButtonsClick === true ? ( */}
       <ModalWrapper
@@ -55,9 +54,12 @@ const MoreButtonsModal = ({
           </ModalButton>
           <ModalButton
             onClick={() => {
-              setIsEdit(true);
-              // console.log(isEdit);
-              // dispatch(isEditModalHandler(true));
+              // dispatch(isMoreButtonsModal(false));
+              // setIsEdit(true);
+              console.log(isEdit);
+              dispatch(isEditModalHandler(true));
+              // dispatch(isMoreButtonsModal(false));
+              // dispatch(isHandler(true));
               // setMoreButtonsClick(false);
               // console.log(moreButtonsClick);
             }}

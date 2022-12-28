@@ -17,18 +17,23 @@ const DetailModal = ({ detailBtnClick, setDetailBtnClick, postId }) => {
   const outSection = useRef();
   const [moreButtonsClick, setMoreButtonsClick] = useState(false);
   const { post } = useSelector((state) => state.post);
-  // console.log(postId);
+
   // useEffect(() => {
   //   return () => {
   //     dispatch(cleanupDetail());
   //   };
   // }, [dispatch]);
 
+  // console.log(postId);
+
   useEffect(() => {
     dispatch(__getPost(postId));
+    // return () => {
+    //   dispatch(cleanupDetail());
+    // };
   }, [dispatch]);
-  console.log(post.likePostNum);
 
+  console.log(post);
 
   const ModalWrapperHandler = (e) => {
     if (outSection.current === e.target) {
@@ -56,7 +61,7 @@ const DetailModal = ({ detailBtnClick, setDetailBtnClick, postId }) => {
         }}
       >
         <Modal>
-          <PostImage width="700px" />
+          <PostImage src={post.image} width="700px" />
           <ModalContent>
             <ModalContentTop>
               <User>
@@ -70,6 +75,14 @@ const DetailModal = ({ detailBtnClick, setDetailBtnClick, postId }) => {
               />
             </ModalContentTop>
 
+            <ModalContentText>
+              <User>
+                <UserImage marginLeft="15px" src={post.profileImage} />
+                <Username>{post.username}</Username>
+                <Username>{post.content}</Username>
+              </User>
+            </ModalContentText>
+
             <ModalContentMidle>
               <DetailModalCom postId={postId} />
             </ModalContentMidle>
@@ -79,9 +92,14 @@ const DetailModal = ({ detailBtnClick, setDetailBtnClick, postId }) => {
                 borderTop="0.5px solid rgb(0, 0, 0, 0.1)"
                 marginTop="15px"
                 width="400px"
+                likePost={post.likePost}
+                likePostNum={post.likePostNum}
+                postId={post.postId}
               />
-              <CommentInput postId={postId} 
-                inputTagWidth="280px" marginTop="0px" 
+              <CommentInput
+                postId={postId}
+                inputTagWidth="280px"
+                marginTop="0px"
               />
             </ModalContentBottom>
           </ModalContent>
@@ -168,10 +186,9 @@ const ModalContentMidle = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
-`
+`;
 const ModalContentText = styled.div`
-  display: flex;
-  padding: 15px 15px 5px 15px;
+  padding: 15px 15px 5px 0px;
 `;
 
 const UserText = styled.div`
