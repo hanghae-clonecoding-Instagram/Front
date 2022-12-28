@@ -9,17 +9,13 @@ const Mypage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { mypageUserInfo, mypagePostList } = useSelector((state) => state.post);
-  const aa = useSelector((state)=>state.comment)
-  // console.log(aa.length)
   // console.log('mypageUserInfo: ', mypageUserInfo)
-  // console.log('mypagePostList: ', mypagePostList)
+  console.log('mypagePostList: ', mypagePostList)
 
-  
   // 호출 시 사용!!!
   useEffect(() => {
     dispatch(__getMypage());
   }, [dispatch ]);
-
 
 
   const logout = () => {

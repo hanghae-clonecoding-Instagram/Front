@@ -16,6 +16,7 @@ const Main = (post) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { posts } = useSelector((state) => state.post);
+  console.log(posts)
 
   // 호출 시 사용!!!
   useEffect(() => {
@@ -31,7 +32,7 @@ const Main = (post) => {
         return (
           <Post key={`main-post-${post.postId}`}>
             <PostTop post={post} />
-            <PostBottom inputTagWidth="355px" postId={post.postId} />
+            <PostBottom inputTagWidth="355px" post={post} />
           </Post>
         );
       })}

@@ -11,6 +11,9 @@ const initialState = {
   error: null,
   hospitalCheck: false,
 };
+// 커멘트가 추가되면 post list에 숫자가 들어가야함. 
+// 마이페이지에서 사용하려는 데이터 ... 끼리 슬라이스를 만들어라.
+// 그것을 기준으로 슬라이스를 만들어라 . 
 
 export const __getPost = createAsyncThunk(
   "getPost",

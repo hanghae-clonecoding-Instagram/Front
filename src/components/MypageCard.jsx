@@ -4,7 +4,7 @@ import DetailModal from "./DetailModal";
 
 const MypageCard = ({ postId, image, likePostNum, commentNum }) => {
   const [detailBtnClick, setDetailBtnClick] = useState(false);
-  
+
   return (
     <>
       {detailBtnClick === true ? (
