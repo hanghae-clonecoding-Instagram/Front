@@ -24,8 +24,8 @@ const PostBottom  = ({inputTagWidth, postId}) =>{
       </div>      
       <CommentInput inputTagWidth={inputTagWidth} postId={postId} />
     </>
-  )
-}
+  );
+};
 const Username = styled.span`
   margin: 0px 5px 0px ${(props) => props.marginLeft};
   font-weight: bold;

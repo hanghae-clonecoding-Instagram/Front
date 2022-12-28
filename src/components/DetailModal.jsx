@@ -1,7 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { __getPost, __getPosts } from "../Redux/modules/postSlice";
+import {
+  cleanupDetail,
+  __getPost,
+  __getPosts,
+} from "../Redux/modules/postSlice";
 import ButtonLayout from "./ButtonsLayout";
 import CommentInput from "./CommentInput";
 
@@ -14,10 +18,17 @@ const DetailModal = ({ detailBtnClick, setDetailBtnClick, postId }) => {
   const [moreButtonsClick, setMoreButtonsClick] = useState(false);
   const { post } = useSelector((state) => state.post);
   // console.log(postId);
+  // useEffect(() => {
+  //   return () => {
+  //     dispatch(cleanupDetail());
+  //   };
+  // }, [dispatch]);
 
   useEffect(() => {
     dispatch(__getPost(postId));
   }, [dispatch]);
+  console.log(post.likePostNum);
+
 
   const ModalWrapperHandler = (e) => {
     if (outSection.current === e.target) {
@@ -28,60 +39,60 @@ const DetailModal = ({ detailBtnClick, setDetailBtnClick, postId }) => {
 
   return (
     <div>
-      <MoreButtonsModal
-        moreButtonsClick={moreButtonsClick}
-        setMoreButtonsClick={setMoreButtonsClick}
-        detailBtnClick={detailBtnClick}
-        setDetailBtnClick={setDetailBtnClick}
-        postId={post.postId}
-      />
-      {detailBtnClick === true ? (
-        <ModalWrapper
-          className="modalOutside"
-          ref={outSection}
-          onClick={(e) => {
-            ModalWrapperHandler(e);
-          }}
-        >
-          <Modal>
-            <PostImage width="700px" />
-            <ModalContent>
-              <ModalContentTop>
-                <User>
-                  <UserImage marginLeft="15px" src={post.profileImage} />
-                  <Username>{post.username}</Username>
-                </User>
-                <More
-                  onClick={() => {
-                    setMoreButtonsClick(true);
-                  }}
-                />
-              </ModalContentTop>
-
-              <ModalContentMidle>
-                <DetailModalCom postId={postId} />
-              </ModalContentMidle>
-
-              <ModalContentBottom>
-                <ButtonLayout
-                  borderTop="0.5px solid rgb(0, 0, 0, 0.1)"
-                  marginTop="15px"
-                  width="400px"
-                />
-                <CommentInput postId={postId} 
-                  inputTagWidth="280px" marginTop="0px" 
-                />
-              </ModalContentBottom>
-            </ModalContent>
-          </Modal>
-        </ModalWrapper>
+      {moreButtonsClick === true ? (
+        <MoreButtonsModal
+          moreButtonsClick={moreButtonsClick}
+          setMoreButtonsClick={setMoreButtonsClick}
+          detailBtnClick={detailBtnClick}
+          setDetailBtnClick={setDetailBtnClick}
+          postId={post.postId}
+        />
       ) : null}
+      <ModalWrapper
+        className="modalOutside"
+        ref={outSection}
+        onClick={(e) => {
+          ModalWrapperHandler(e);
+        }}
+      >
+        <Modal>
+          <PostImage width="700px" />
+          <ModalContent>
+            <ModalContentTop>
+              <User>
+                <UserImage marginLeft="15px" src={post.profileImage} />
+                <Username>{post.username}</Username>
+              </User>
+              <More
+                onClick={() => {
+                  setMoreButtonsClick(true);
+                }}
+              />
+            </ModalContentTop>
+
+            <ModalContentMidle>
+              <DetailModalCom postId={postId} />
+            </ModalContentMidle>
+
+            <ModalContentBottom>
+              <ButtonLayout
+                borderTop="0.5px solid rgb(0, 0, 0, 0.1)"
+                marginTop="15px"
+                width="400px"
+              />
+              <CommentInput postId={postId} 
+                inputTagWidth="280px" marginTop="0px" 
+              />
+            </ModalContentBottom>
+          </ModalContent>
+        </Modal>
+      </ModalWrapper>
     </div>
   );
 };
 
 const ModalWrapper = styled.div`
-  z-index: 1;
+  z-index: 99;
   position: fixed;
   top: 0%;
   left: 0%;
@@ -95,7 +106,8 @@ const ModalWrapper = styled.div`
 `;
 
 const Modal = styled.div`
-  z-index: 2;
+  z-index: 100;
+  position: fixed;
   width: 1100px;
   display: flex;
   font-size: 14px;
@@ -110,9 +122,9 @@ const ModalContent = styled.div`
   position: relative;
 `;
 
-const PostImage = styled.img.attrs({
-  src: "/img/image sample.png",
-})`
+const PostImage = styled.img.attrs((props) => ({
+  src: props.src,
+}))`
   width: ${(props) => props.width};
 `;
 

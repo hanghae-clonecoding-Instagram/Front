@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { __addComment, __commentLike } from "../Redux/modules/commentSlice";
 
-
 const CommentInput = ({ inputTagWidth, postId }) => {
   // console.log(inputTagWidth, postId)
   const dispatch = useDispatch()
@@ -24,7 +23,7 @@ const CommentInput = ({ inputTagWidth, postId }) => {
   return (
     <CommentForm>
       <Smile />
-      <InputTag 
+      <InputTag
         inputTagWidth={inputTagWidth}
         value= {comment || ""}
         onChange={(e)=>{

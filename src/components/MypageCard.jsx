@@ -7,11 +7,18 @@ const MypageCard = ({ postId, image, likePostNum, commentNum }) => {
 
   return (
     <>
+      {detailBtnClick === true ? (
       <DetailModal
         detailBtnClick={detailBtnClick}
         setDetailBtnClick={setDetailBtnClick}
         postId={postId}
       />
+      ) : null}
+      {/* <DetailModal
+        detailBtnClick={detailBtnClick}
+        setDetailBtnClick={setDetailBtnClick}
+        postId={postId}
+      /> */}
       <div
         key={postId}
         style={{ marginLeft: "2px" }}

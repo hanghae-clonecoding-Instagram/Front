@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { __postLike } from "../Redux/modules/postSlice";
+import { __getPost, __postLike } from "../Redux/modules/postSlice";
 
 const ButtonLayout = ({
   setDetailBtnClick,
@@ -9,15 +9,23 @@ const ButtonLayout = ({
   marginTop,
   width,
   postId,
-  isLikePost,
+  likePost,
   likePostNum,
 }) => {
   const dispatch = useDispatch();
-  // const [isLike, setIsLike] = useState(isLikePost);
-  // const [likeNum, setLikeNum] = useState(likePostNum);
-  // 임시로 만듦!!!
-  const [isLike, setIsLike] = useState(false);
-  const [likeNum, setLikeNum] = useState(101);
+
+  useEffect(() => {
+    setLikeNum(likePostNum);
+    setIsLike(likePost);
+  }, [likePostNum]);
+
+  // const { post } = useSelector((state) => state.post);
+  const [isLike, setIsLike] = useState(likePost);
+  const [likeNum, setLikeNum] = useState(likePostNum);
+  // console.log(likePost);
+  // console.log(likePostNum);
+
+  console.log(postId);
 
   // true가 누른 것!!!
   const HeartButtonHandler = () => {
@@ -27,6 +35,7 @@ const ButtonLayout = ({
       setLikeNum(likeNum + 1);
     }
     setIsLike(!isLike);
+    console.log(postId);
     dispatch(__postLike(postId));
   };
 

@@ -1,7 +1,11 @@
 import { useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import {
+  isEditModalHandler,
+  isMoreButtonsModal,
+} from "../Redux/modules/modalSlice";
 import { __deletePost } from "../Redux/modules/postSlice";
 import PostEdit from "./PostEdit";
 
@@ -15,6 +19,10 @@ const MoreButtonsModal = ({
   const dispatch = useDispatch();
   const outSection = useRef();
   const [isEdit, setIsEdit] = useState(false);
+  const moreButtonsModal = useSelector((state) => state.modal.moreButtonsModal);
+  // const isEdit = useSelector((state) => state.modal.editModal);
+
+  console.log(postId);
 
   const onClickDeleteBtnHandler = () => {
     if (window.confirm("게시글을 삭제하시겠습니까?")) {
@@ -26,64 +34,65 @@ const MoreButtonsModal = ({
 
   return (
     <div>
-      {/* {isEdit === true ? 
-        <ModalBox isEdit={isEdit} setIsEdit={setIsEdit}>
-          <PostAdd />
-        </ModalBox> 
-      : null } */}
-      <PostEdit isEdit={isEdit} setIsEdit={setIsEdit} postId={postId} />
-
-      {moreButtonsClick === true ? (
-        <ModalWrapper
-          className="modalOutside"
-          ref={outSection}
-          onClick={(e) => {
-            if (outSection.current === e.target) {
-              setMoreButtonsClick(false);
-            }
-          }}
-        >
-          <Modal>
-            <ModalButton fontColor="red" fontWeight="bold">
-              신고하기
-            </ModalButton>
-            <ModalButton
-              onClick={() => {
-                setMoreButtonsClick(false);
-                setIsEdit(true);
-              }}
-            >
-              게시물 수정
-            </ModalButton>
-            <ModalButton
-              onClick={() => {
-                onClickDeleteBtnHandler();
-              }}
-            >
-              게시물 삭제
-            </ModalButton>
-            <ModalButton
-              onClick={() => {
-                setMoreButtonsClick(false);
-              }}
-            >
-              취소
-            </ModalButton>
-          </Modal>
-        </ModalWrapper>
+      {isEdit === true ? (
+        <PostEdit isEdit={isEdit} setIsEdit={setIsEdit} postId={postId} />
       ) : null}
+      {/* <PostEdit isEdit={isEdit} setIsEdit={setIsEdit} postId={postId} /> */}
+      {/* {moreButtonsClick === true ? ( */}
+      <ModalWrapper
+        className="modalOutside"
+        ref={outSection}
+        onClick={(e) => {
+          if (outSection.current === e.target) {
+            // setMoreButtonsClick(false);
+            dispatch(isMoreButtonsModal(false));
+          }
+        }}
+      >
+        <Modal>
+          <ModalButton fontColor="red" fontWeight="bold">
+            신고하기
+          </ModalButton>
+          <ModalButton
+            onClick={() => {
+              setIsEdit(true);
+              // console.log(isEdit);
+              // dispatch(isEditModalHandler(true));
+              // setMoreButtonsClick(false);
+              // console.log(moreButtonsClick);
+            }}
+          >
+            게시물 수정
+          </ModalButton>
+          <ModalButton
+            onClick={() => {
+              onClickDeleteBtnHandler();
+            }}
+          >
+            게시물 삭제
+          </ModalButton>
+          <ModalButton
+            onClick={() => {
+              setMoreButtonsClick(false);
+            }}
+          >
+            취소
+          </ModalButton>
+        </Modal>
+      </ModalWrapper>
+      {/* ) : null} */}
     </div>
   );
 };
 
 const ModalWrapper = styled.div`
-  z-index: 3;
+  z-index: 120;
   position: fixed;
-  top: 0%;
-  left: 0%;
+  top: 0px;
+  left: 0px;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.05);
 
   display: flex;
   justify-content: center;
@@ -91,7 +100,7 @@ const ModalWrapper = styled.div`
 `;
 
 const Modal = styled.div`
-  z-index: 4;
+  z-index: 121;
   /* position: fixed;
   top: 38%;
   left: 43.2%; */

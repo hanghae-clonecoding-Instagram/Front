@@ -6,7 +6,7 @@ const initialState = {
   posts: [],
   post: {},
   mypageUserInfo: {},
-  mypagePostList: {},
+  mypagePostList: [],
   isLoading: true,
   error: null,
   hospitalCheck: false,
@@ -18,6 +18,7 @@ export const __getPost = createAsyncThunk(
     try {
       const data = await instance.get(`/api/post/${payload}`);
       // console.log(data)
+
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -58,7 +59,7 @@ export const __deletePost = createAsyncThunk(
   async (payload, thunkAPI) => {
     console.log(payload);
     try {
-      await instance.post(`/api/post/${payload}`);
+      await instance.delete(`/api/post/${payload}`);
       thunkAPI.dispatch(__getPosts());
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
@@ -74,7 +75,7 @@ export const __editPost = createAsyncThunk(
     console.log(payload);
     const [newPost, postId] = payload;
     try {
-      const data = await instance.post(`/api/post/${postId}`, newPost);
+      const data = await instance.put(`/api/post/${postId}`, newPost);
       thunkAPI.dispatch(__getPosts());
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
@@ -90,6 +91,7 @@ export const __postLike = createAsyncThunk(
     console.log(payload);
     try {
       const data = await instance.post(`/api/like/post/${payload}`);
+      thunkAPI.dispatch(__getPosts());
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log(error);
@@ -129,7 +131,11 @@ export const __addMypage = createAsyncThunk(
 export const postSlice = createSlice({
   name: "post",
   initialState,
-  reducer: {},
+  reducer: {
+    cleanupDetail: (state) => {
+      state.post = {};
+    },
+  },
   extraReducers: {
     [__getPost.pending]: (state) => {},
     [__getPost.fulfilled]: (state, action) => {
@@ -201,5 +207,5 @@ export const postSlice = createSlice({
   },
 });
 
-export const {} = postSlice.actions;
+export const { cleanupDetail } = postSlice.actions;
 export default postSlice.reducer;
