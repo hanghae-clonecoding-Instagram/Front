@@ -2,60 +2,26 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import MypageCard from "../components/MypageCard";
 import { useDispatch, useSelector } from "react-redux";
-import { __getMypage } from "../Redux/modules/postSlice";
+import { __getMypage, __getPost, __getPosts } from "../Redux/modules/postSlice";
 import { useEffect } from "react";
 
 const Mypage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const userinfo = useSelector((state)=> state.post)
   const { mypageUserInfo, mypagePostList } = useSelector((state) => state.post);
-  console.log('mypageUserInfo: ', mypageUserInfo)
-  console.log('mypagePostList: ', mypagePostList)
-  // console.log(userinfo)
+  const aa = useSelector((state)=>state.comment)
+  // console.log(aa.length)
+  // console.log('mypageUserInfo: ', mypageUserInfo)
+  // console.log('mypagePostList: ', mypagePostList)
 
+  
   // 호출 시 사용!!!
   useEffect(() => {
     dispatch(__getMypage());
-  }, [dispatch]);
+  }, [dispatch ]);
 
 
-  // const mypageUserInfo = {
-  //   profileImage: "/img/user.png",
-  //   username: "dlwlrma",
-  //   postingNum: 2,
-  //   introduction:
-  //     "마이페이지에서 소개란!마이페이지에서 소개란!마이페이지에서 소개란!마이페이지에서 소개란!마이페이지에서 소개란!마이페이지에서 소개란!마이페이지에서 소개란!",
-  //   postList: [
-  //     {
-  //       postId: 5,
-  //       image: "/img/image sample.png",
-  //       likePostNum: 10,
-  //       commentNum: 3,
-  //     },
-  //     {
-  //       postId: 6,
-  //       image: "/img/image sample.png",
-  //       likePostNum: 12,
-  //       commentNum: 4,
-  //     },
-  //   ],
-  // };
 
-  // const mypagePostList = [
-  //   {
-  //     postId: 5,
-  //     image: "/img/image sample.png",
-  //     likePostNum: 10,
-  //     commentNum: 3,
-  //   },
-  //   {
-  //     postId: 6,
-  //     image: "/img/image sample.png",
-  //     likePostNum: 12,
-  //     commentNum: 4,
-  //   },
-  // ];
   const logout = () => {
     if(window.confirm('로그아웃 하시겠습니까?')){
       window.localStorage.removeItem('is_login');
@@ -95,7 +61,7 @@ const Mypage = () => {
           </div>
         </div>
       </UserBox>
-      {/* <PostBox>
+      <PostBox>
         {mypagePostList?.map((post) => {
           return (
             <MypageCard
@@ -106,7 +72,7 @@ const Mypage = () => {
             />
           );
         })}
-      </PostBox> */}
+      </PostBox>
     </Box>
   );
 };

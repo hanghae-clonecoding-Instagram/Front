@@ -23,12 +23,8 @@ const Main = (post) => {
   }, [dispatch]);
   console.log(posts);
 
-  // useEffect(() => {
-  // dispatch(__getComment(postId));
 
-  // }, [dispatch]);
-  // console.log(comments);
-// 커멘트 가져오는 디스패치 어디 ㅇ확인
+  
   return (
     <Total>
       {posts.map((post) => {

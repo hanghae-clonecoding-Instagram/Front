@@ -29,8 +29,7 @@ export const __addComment = createAsyncThunk(
     try {
       const data = await instance.post(`/api/comment/${postId}`,{comment:comment})
       console.log(data.data.commentList)
-      let commentList = {}
-      console.log(commentList)
+      thunkAPI.dispatch(__getComment())
       return thunkAPI.fulfillWithValue(data.data.commentList, postId);
     } catch (error) {
       console.log(error);
@@ -82,16 +81,11 @@ export const postSlice = createSlice({
       console.log(action.payload.response.data.errorMessage);
     },
 
-    [__addComment.pending]: (state) => {},
+    [__addComment.pending]: (state) => {
+    },
     [__addComment.fulfilled]: (state, action) => {
       console.log(action.payload)
       state.commentList = action.payload
-      const comment = [...action.payload]
-      
-      console.log(comment)
-      // const list = comment.map((c)=> c.postId={postId})
-      // console.log(list)
-      // console.log(action.payload);
     },
     [__addComment.rejected]: (state, action) => {
       console.log(action.payload.response.data.errorMessage);
@@ -99,6 +93,7 @@ export const postSlice = createSlice({
 
     [__delComment.pending]: (state) => {},
     [__delComment.fulfilled]: (state, action) => {
+      console.log(state.commentList)
       state.commentList = state.commentList.filter(
         (c) => c.commentId !== action.payload)
     },
