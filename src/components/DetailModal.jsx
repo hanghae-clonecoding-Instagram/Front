@@ -23,13 +23,9 @@ const DetailModal = ({ detailBtnClick, setDetailBtnClick, postId }) => {
   //     dispatch(cleanupDetail());
   //   };
   // }, [dispatch]);
-<<<<<<< HEAD
 
-  // console.log(postId);
-
-=======
   // console.log(post)
->>>>>>> 009ea5cf06c639c508174abf46eeab32810da2bc
+
   useEffect(() => {
     dispatch(__getPost(postId));
     // return () => {
@@ -49,13 +45,13 @@ const DetailModal = ({ detailBtnClick, setDetailBtnClick, postId }) => {
   return (
     <div>
       {/* {moreButtonsClick === true ? ( */}
-        <MoreButtonsModal
-          moreButtonsClick={moreButtonsClick}
-          setMoreButtonsClick={setMoreButtonsClick}
-          detailBtnClick={detailBtnClick}
-          setDetailBtnClick={setDetailBtnClick}
-          postId={post.postId}
-        />
+      <MoreButtonsModal
+        moreButtonsClick={moreButtonsClick}
+        setMoreButtonsClick={setMoreButtonsClick}
+        detailBtnClick={detailBtnClick}
+        setDetailBtnClick={setDetailBtnClick}
+        postId={post.postId}
+      />
       {/* ) : null} */}
       <ModalWrapper
         className="modalOutside"

@@ -10,10 +10,8 @@ const PostAdd = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // 글작성 버튼 누르면 상단에 user정보 보여야함 
-  // 어떤 정보로 가져올 것인지. 일단 postuser정보로 가져오기로 
-  const { mypageUserInfo } = useSelector((state) => state.post);
-  console.log(mypageUserInfo)
+  // 글작성 버튼 누르면 상단에 user정보 보여야함
+  // 어떤 정보로 가져올 것인지. 일단 postuser정보로 가져오기로
 
   // 이미지 미리보기 state
   const [userImage, setUserImage] = useState(null);
@@ -237,8 +235,8 @@ const Text = styled.div`
       border-radius: 50%;
       margin-right: 10px;
     }
-    p{
-      font-weight:600;
+    p {
+      font-weight: 600;
     }
   }
   textarea {

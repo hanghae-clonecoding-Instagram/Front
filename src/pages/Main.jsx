@@ -16,7 +16,7 @@ const Main = (post) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { posts } = useSelector((state) => state.post);
-  console.log(posts)
+  console.log(posts);
 
   // 호출 시 사용!!!
   useEffect(() => {
@@ -24,14 +24,6 @@ const Main = (post) => {
   }, [dispatch]);
   console.log(posts);
 
-
-<<<<<<< HEAD
-  // }, [dispatch]);
-  // console.log(comments);
-  // 커멘트 가져오는 디스패치 어디 ㅇ확인
-=======
-  
->>>>>>> 009ea5cf06c639c508174abf46eeab32810da2bc
   return (
     <Total>
       {posts.map((post) => {
@@ -47,26 +39,15 @@ const Main = (post) => {
 };
 const Total = styled.div`
   z-index: 0;
-  position: fixed;
-  top: 50px;
+  position: absolute;
+  top: 80px;
   left: 38%;
-  padding-top: 4500px;
-  overflow: auto;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
   font-size: 14px;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
 `;
 
 const Post = styled.div`
-  /* z-index: 0; */
-
   width: 470px;
   border: 1px solid rgb(0, 0, 0, 0.2);
   border-radius: 10px;
