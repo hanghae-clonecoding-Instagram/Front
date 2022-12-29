@@ -18,8 +18,6 @@ const PostBottom  = ({inputTagWidth, post}) =>{
 
   return (
     <>
-      {/* 상위컴포넌트에서 map을 돌렸는데, 
-      왜 모든 post에 같은내용의 댓글이 들어가는가? */}
       <div key={post.postId}>
         <Username marginLeft="15px">{post.cmtUsername}</Username>
         <Comment>{post.latestCmt}</Comment>
