@@ -26,11 +26,6 @@ const KakaoRedirect = (props) => {
     console.log(code);
     console.log("thdud");
 
-    // return function () {
-    //   axios({
-    //   method: "GET",
-    //   url: `https://woooo.shop/api/user/kakao/callback?code=${code}`,
-    // })
     try {
       const data = await axios.get(
         `https://woooo.shop/api/user/kakao/callback?code=${code}`
@@ -40,6 +35,12 @@ const KakaoRedirect = (props) => {
     } catch (e) {
       console.log(e);
     }
+
+    // return function () {
+    //   axios({
+    //   method: "GET",
+    //   url: `https://woooo.shop/api/user/kakao/callback?code=${code}`,
+    // })
     // 카카오 인증받을 api
     // .then((res) => {
     //   console.log(res); // 토큰이 넘어올 것임
@@ -49,7 +50,6 @@ const KakaoRedirect = (props) => {
     //   navigate("/main")
     //   console.log('로그인성공')
     //   // 토큰 받았았고 로그인됐으니 화면 전환시켜줌(메인으로)
-
     //   }).catch((err) => {
     //   console.log("소셜로그인 에러", err);
     //   window.alert("로그인에 실패하였습니다.");
@@ -61,7 +61,7 @@ const KakaoRedirect = (props) => {
 
   return (
     <>
-      <h1>뜬다?</h1>
+      <h1>뜬다</h1>
     </>
   );
 };

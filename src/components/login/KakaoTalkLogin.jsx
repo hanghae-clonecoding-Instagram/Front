@@ -1,5 +1,5 @@
 
-export const KAKAO_AUTH_URL = 'https://kauth.kakao.com/oauth/authorize?client_id=40c30095a62e9d6e05f9022ba3546597&redirect_uri=http://localhost:3000/api/user/kakao/callback&response_type=code'
+export const KAKAO_AUTH_URL = 'https://kauth.kakao.com/oauth/authorize?client_id=40c30095a62e9d6e05f9022ba3546597&redirect_uri=https://instargram-clone-coding.vercel.app/api/user/kakao/callback&response_type=code'
 
 
 // 위의 코드를 눌러 동의하기 페이지가 나오면 redirect화면이 나온다. 
