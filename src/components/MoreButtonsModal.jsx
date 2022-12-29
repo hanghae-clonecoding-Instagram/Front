@@ -27,7 +27,7 @@ const MoreButtonsModal = ({
   const onClickDeleteBtnHandler = () => {
     if (window.confirm("게시글을 삭제하시겠습니까?")) {
       dispatch(isMoreButtonsModal(false));
-      // setMoreButtonsClick(false); // 모어버튼 모달창 끄기
+      setMoreButtonsClick(false); // 모어버튼 모달창 끄기
       setDetailBtnClick(false); // 디테일모달창 끄기!!!
       return dispatch(__deletePost(postId));
     }
@@ -43,8 +43,8 @@ const MoreButtonsModal = ({
           ref={outSection}
           onClick={(e) => {
             if (outSection.current === e.target) {
-              setMoreButtonsClick(false);
-              // dispatch(isMoreButtonsModal(false));
+              // setMoreButtonsClick(false);
+              dispatch(isMoreButtonsModal(false));
             }
           }}
         >
