@@ -171,7 +171,7 @@ export const postSlice = createSlice({
     [__addPost.pending]: (state) => {},
     [__addPost.fulfilled]: (state, action) => {
       console.log(action.payload);
-      state.mypagePostList.push(action.payload);
+      state.mypagePostList.unshift(action.payload);
       state.mypageUserInfo.postingNum += 1;
     },
     [__addPost.rejected]: (state, action) => {

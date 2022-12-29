@@ -28,27 +28,6 @@ const PostTop = ({ post }) => {
         />
       ) : null}
 
-      {/* <DetailModal
-      detailBtnClick={detailBtnClick}
-      setDetailBtnClick={setDetailBtnClick}
-      postId={post.postId}
-      /> */}
-      {moreButtonsModal === true ? (
-        <MoreButtonsModal
-          moreButtonsClick={moreButtonsClick}
-          setMoreButtonsClick={setMoreButtonsClick}
-          detailBtnClick={detailBtnClick}
-          setDetailBtnClick={setDetailBtnClick}
-          postId={post.postId}
-        />
-      ) : null}
-      {/* <MoreButtonsModal
-        moreButtonsClick={moreButtonsClick}
-        setMoreButtonsClick={setMoreButtonsClick}
-        setDetailBtnClick={setDetailBtnClick}
-        postId={post.postId}
-      /> */}
-
       <ContentTop>
         <User>
           <UserImage

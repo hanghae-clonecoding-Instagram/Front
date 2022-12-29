@@ -125,13 +125,15 @@ const ModalWrapper = styled.div`
 
 const Modal = styled.div`
   z-index: 100;
-  position: fixed;
-  width: 1100px;
+  height: 600px;
+  /* position: fixed; */
+  /* width: 1100px; */
   display: flex;
   font-size: 14px;
 `;
 
 const ModalContent = styled.div`
+  height: 600px;
   width: 400px;
   background-color: white;
   border-top-right-radius: 5px;
@@ -143,7 +145,10 @@ const ModalContent = styled.div`
 const PostImage = styled.img.attrs((props) => ({
   src: props.src,
 }))`
-  width: ${(props) => props.width};
+  /* width: ${(props) => props.width}; */
+  width: 600px;
+  height: 600px;
+  object-fit: cover;
 `;
 
 const ModalContentTop = styled.div`

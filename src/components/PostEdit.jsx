@@ -217,12 +217,12 @@ const MainBar = styled.div`
   }
 `;
 const Box = styled.div`
-  width: 900px;
+  width: 1000px;
   /* height: 650px; */
   display: flex;
 `;
 const Picture = styled.div`
-  width: 65%;
+  width: 600px;
   /* height: 100%; */
   // background-color: white;
   border-bottom-left-radius: 15px;
@@ -264,24 +264,27 @@ const Icon = styled.div`
   }
 `;
 const Image = styled.div`
-  width: 100%;
+  width: 600px;
   /* height: 100%; */
   position: absolute;
   border-right: 0.5px solid rgb(0, 0, 0, 0.1);
   z-index: 10;
   img {
-    width: 100%;
+    width: 600px;
+    height: 600px;
+    object-fit: cover;
     /* height: 100%; */
     background-size: cover;
     border: 0;
+    border-bottom-left-radius: 15px;
     /* border: 1px solid #ced4da;
       border-bottom-right-radius: 20px;
       border-bottom-left-radius: 20px; */
   }
 `;
 const Text = styled.div`
-  width: 35%;
-  height: 650px;
+  width: 400px;
+  height: 599px;
   /* padding: 10px; */
   box-sizing: border-box;
   .user_box {
