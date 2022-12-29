@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { RiKakaoTalkFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { instance } from "../../core/api/axios";
+import { KAKAO_AUTH_URL } from "./KakaoTalkLogin";
 
 const SignUpForm = (props) => {
   const navigate = useNavigate();
@@ -63,7 +64,7 @@ const SignUpForm = (props) => {
         </p>
         {/* 소셜로그인 컴포넌트 */}
         {/* <KakaoTalkLogin/> */}
-        <Kakao>
+        <Kakao onClick={()=>{ window.location.href = KAKAO_AUTH_URL }}>
           <RiKakaoTalkFill style={{ fontSize: "16px", marginRight: "5px" }} />
           <span>카카오 로그인</span>
         </Kakao>

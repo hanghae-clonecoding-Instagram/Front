@@ -6,7 +6,6 @@ const LoginPhImg = ()=>{
         <ImgBox>
           <img src ='/img/ph.png' />
           <div className="ph_img_list">
-            {/* intro img 4장있음 자동으로 리스트를 바꿔줄 수는 없을까? */}
             <img src='/img/intro.png'/>
           </div>
         </ImgBox>

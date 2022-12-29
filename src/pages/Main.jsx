@@ -22,7 +22,6 @@ const Main = (post) => {
   useEffect(() => {
     dispatch(__getPosts());
   }, [dispatch]);
-  console.log(posts);
 
   return (
     <Total>
