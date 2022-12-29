@@ -37,52 +37,52 @@ const MoreButtonsModal = ({
     <div>
       {isEdit === true ? <PostEdit isEdit={isEdit} postId={postId} /> : null}
       {/* <PostEdit isEdit={isEdit} setIsEdit={setIsEdit} postId={postId} /> */}
-      {/* {moreButtonsClick === true ? ( */}
-      <ModalWrapper
-        className="modalOutside"
-        ref={outSection}
-        onClick={(e) => {
-          if (outSection.current === e.target) {
-            // setMoreButtonsClick(false);
-            dispatch(isMoreButtonsModal(false));
-          }
-        }}
-      >
-        <Modal>
-          <ModalButton fontColor="red" fontWeight="bold">
-            신고하기
-          </ModalButton>
-          <ModalButton
-            onClick={() => {
-              // dispatch(isMoreButtonsModal(false));
-              // setIsEdit(true);
-              console.log(isEdit);
-              dispatch(isEditModalHandler(true));
-              // dispatch(isMoreButtonsModal(false));
-              // dispatch(isHandler(true));
-              // setMoreButtonsClick(false);
-              // console.log(moreButtonsClick);
-            }}
-          >
-            게시물 수정
-          </ModalButton>
-          <ModalButton
-            onClick={() => {
-              onClickDeleteBtnHandler();
-            }}
-          >
-            게시물 삭제
-          </ModalButton>
-          <ModalButton
-            onClick={() => {
+      {moreButtonsClick === true ? (
+        <ModalWrapper
+          className="modalOutside"
+          ref={outSection}
+          onClick={(e) => {
+            if (outSection.current === e.target) {
               setMoreButtonsClick(false);
-            }}
-          >
-            취소
-          </ModalButton>
-        </Modal>
-      </ModalWrapper>
-      {/* ) : null} */}
+              // dispatch(isMoreButtonsModal(false));
+            }
+          }}
+        >
+          <Modal>
+            <ModalButton fontColor="red" fontWeight="bold">
+              신고하기
+            </ModalButton>
+            <ModalButton
+              onClick={() => {
+                // dispatch(isMoreButtonsModal(false));
+                // setIsEdit(true);
+                console.log(isEdit);
+                dispatch(isEditModalHandler(true));
+                setMoreButtonsClick(false);
+                // dispatch(isMoreButtonsModal(false));
+                // dispatch(isHandler(true));
+                // console.log(moreButtonsClick);
+              }}
+            >
+              게시물 수정
+            </ModalButton>
+            <ModalButton
+              onClick={() => {
+                onClickDeleteBtnHandler();
+              }}
+            >
+              게시물 삭제
+            </ModalButton>
+            <ModalButton
+              onClick={() => {
+                setMoreButtonsClick(false);
+              }}
+            >
+              취소
+            </ModalButton>
+          </Modal>
+        </ModalWrapper>
+      ) : null}
     </div>
   );
 };

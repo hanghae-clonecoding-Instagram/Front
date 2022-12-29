@@ -44,7 +44,7 @@ const DetailModal = ({ detailBtnClick, setDetailBtnClick, postId }) => {
 
   return (
     <div>
-      {moreButtonsClick === true ? (
+      {/* {moreButtonsClick === true ? ( */}
         <MoreButtonsModal
           moreButtonsClick={moreButtonsClick}
           setMoreButtonsClick={setMoreButtonsClick}
@@ -52,7 +52,7 @@ const DetailModal = ({ detailBtnClick, setDetailBtnClick, postId }) => {
           setDetailBtnClick={setDetailBtnClick}
           postId={post.postId}
         />
-      ) : null}
+      {/* ) : null} */}
       <ModalWrapper
         className="modalOutside"
         ref={outSection}

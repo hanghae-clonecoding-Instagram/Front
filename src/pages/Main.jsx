@@ -44,16 +44,21 @@ const Main = (post) => {
 };
 const Total = styled.div`
   z-index: 0;
-  position: absolute;
-  top: 5000px;
+  position: fixed;
+  top: 50px;
   left: 38%;
+  padding-top: 4500px;
+  overflow: auto;
   height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* margin-top: 2752px; */
   font-size: 14px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const Post = styled.div`
