@@ -14,4 +14,3 @@ export const KAKAO_AUTH_URL = 'https://kauth.kakao.com/oauth/authorize?client_id
 // 해당 경로(리다이렉트 URL)에 도달했을 때 보여줄 컴포넌트 생성
 // (리다이렉트 화면으로 사용됨, 로딩중 화면준비 -> 인가코드 받아야함) 
 // Router설정
-// 
