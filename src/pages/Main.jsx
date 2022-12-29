@@ -40,7 +40,7 @@ const Total = styled.div`
   z-index: 0;
   position: absolute;
   top: 80px;
-  left: 38%;
+  left: 36%;
   height: 100vh;
   align-items: center;
   font-size: 14px;

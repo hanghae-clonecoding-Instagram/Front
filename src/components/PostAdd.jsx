@@ -158,12 +158,12 @@ const MainBar = styled.div`
 `;
 const Box = styled.div`
   width: 900px;
-  height: 650px;
+  height: 600px;
   display: flex;
 `;
 const Picture = styled.div`
-  width: 65%;
-  height: 100%;
+  width: 600px;
+  height: 600px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -205,12 +205,13 @@ const Image = styled.div`
   height: 100%;
   position: absolute;
   border-right: 0.5px solid rgb(0, 0, 0, 0.1);
-  /* z-index: 10; */
   img {
     width: 100%;
     height: 100%;
+    object-fit: cover;
     background-size: cover;
     border: 0;
+    border-bottom-left-radius: 15px;
     /* border: 1px solid #ced4da;
       border-bottom-right-radius: 20px;
       border-bottom-left-radius: 20px; */
