@@ -186,7 +186,7 @@ export const postSlice = createSlice({
       state.mypageUserInfo.postingNum -= 1;
     },
     [__deletePost.rejected]: (state, action) => {
-      console.log(action.payload.response.data.errorMessage);
+      alert(action.payload.response.data.errorMessage);
     },
 
     [__editPost.pending]: (state) => {},
@@ -194,7 +194,7 @@ export const postSlice = createSlice({
       state.post = action.payload;
     },
     [__editPost.rejected]: (state, action) => {
-      console.log(action.payload.response.data.errorMessage);
+      alert(action.payload.response.data.errorMessage);
     },
 
     [__getMypage.pending]: (state) => {},
