@@ -5,25 +5,28 @@ import styled from "styled-components";
 import CommentInput from "../components/CommentInput";
 import { __getComment } from "../Redux/modules/commentSlice";
 
-const PostBottom  = ({inputTagWidth, postId}) =>{
+const PostBottom  = ({inputTagWidth, post}) =>{
   const dispatch = useDispatch()
   const {commentList} = useSelector((state)=> state.comment)
-  // console.log(`post: ${postId}`,  commentList)
+
+  // console.log('코멘트유저: ',post.cmtUsername)
+  // console.log('코멘트: ', post.latestCmt)
   
   useEffect(() => {
-    dispatch(__getComment(postId));
+    // dispatch(__getComment(postId));
     }, [dispatch]);
 
   return (
     <>
       {/* 상위컴포넌트에서 map을 돌렸는데, 
       왜 모든 post에 같은내용의 댓글이 들어가는가? */}
-      <div key={commentList[0]?.commentsId}>
-        <Username marginLeft="15px">{commentList[0]?.username}</Username>
-        <Comment>{commentList[0]?.comment}</Comment>
+      <div key={post.postId}>
+        <Username marginLeft="15px">{post.cmtUsername}</Username>
+        <Comment>{post.latestCmt}</Comment>
       </div>      
-      <CommentInput inputTagWidth={inputTagWidth} postId={postId} />
+      <CommentInput inputTagWidth={inputTagWidth} postId={post.postId} />
     </>
+
   );
 };
 const Username = styled.span`

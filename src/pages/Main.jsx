@@ -16,6 +16,7 @@ const Main = (post) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { posts } = useSelector((state) => state.post);
+  console.log(posts)
 
   // 호출 시 사용!!!
   useEffect(() => {
@@ -23,19 +24,21 @@ const Main = (post) => {
   }, [dispatch]);
   console.log(posts);
 
-  // useEffect(() => {
-  // dispatch(__getComment(postId));
 
+<<<<<<< HEAD
   // }, [dispatch]);
   // console.log(comments);
   // 커멘트 가져오는 디스패치 어디 ㅇ확인
+=======
+  
+>>>>>>> 009ea5cf06c639c508174abf46eeab32810da2bc
   return (
     <Total>
       {posts.map((post) => {
         return (
           <Post key={`main-post-${post.postId}`}>
             <PostTop post={post} />
-            <PostBottom inputTagWidth="355px" postId={post.postId} />
+            <PostBottom inputTagWidth="355px" post={post} />
           </Post>
         );
       })}

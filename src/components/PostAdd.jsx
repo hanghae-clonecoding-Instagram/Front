@@ -8,10 +8,12 @@ import { isModalHandler } from "../Redux/modules/modalSlice";
 
 const PostAdd = () => {
   const navigate = useNavigate();
-
-  // 모달 store
   const dispatch = useDispatch();
-  const isModal = useSelector((state) => state.modal.modal);
+
+  // 글작성 버튼 누르면 상단에 user정보 보여야함 
+  // 어떤 정보로 가져올 것인지. 일단 postuser정보로 가져오기로 
+  const { mypageUserInfo } = useSelector((state) => state.post);
+  console.log(mypageUserInfo)
 
   // 이미지 미리보기 state
   const [userImage, setUserImage] = useState(null);
@@ -62,7 +64,6 @@ const PostAdd = () => {
     //   console.log(value);
     // }
 
-    // 이미지를 어떻게 보낼 것인가
     form.append(
       "requestDto",
       new Blob([JSON.stringify({ content: textArea })], {
@@ -236,6 +237,9 @@ const Text = styled.div`
       border-radius: 50%;
       margin-right: 10px;
     }
+    p{
+      font-weight:600;
+    }
   }
   textarea {
     width: 98%;
@@ -245,6 +249,7 @@ const Text = styled.div`
     padding: 15px;
     box-sizing: border-box;
     margin-bottom: 20px;
+    line-height: 20px;
   }
   textarea:focus {
     border-color: #495057;

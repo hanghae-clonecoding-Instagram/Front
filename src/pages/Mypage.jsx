@@ -2,23 +2,31 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import MypageCard from "../components/MypageCard";
 import { useDispatch, useSelector } from "react-redux";
-import { __getMypage } from "../Redux/modules/postSlice";
+import { __getMypage, __getPost, __getPosts } from "../Redux/modules/postSlice";
 import { useEffect } from "react";
 
 const Mypage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const userinfo = useSelector((state)=> state.post)
   const { mypageUserInfo, mypagePostList } = useSelector((state) => state.post);
+<<<<<<< HEAD
   console.log("mypageUserInfo: ", mypageUserInfo);
   console.log("mypagePostList: ", mypagePostList);
   // console.log(userinfo)
+=======
+  // console.log('mypageUserInfo: ', mypageUserInfo)
+  console.log('mypagePostList: ', mypagePostList)
+>>>>>>> 009ea5cf06c639c508174abf46eeab32810da2bc
 
   // 호출 시 사용!!!
   useEffect(() => {
     dispatch(__getMypage());
-  }, [dispatch]);
+  }, [dispatch ]);
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 009ea5cf06c639c508174abf46eeab32810da2bc
   const logout = () => {
     if (window.confirm("로그아웃 하시겠습니까?")) {
       window.localStorage.removeItem("is_login");
@@ -56,7 +64,7 @@ const Mypage = () => {
           </div>
         </div>
       </UserBox>
-      {/* <PostBox>
+      <PostBox>
         {mypagePostList?.map((post) => {
           return (
             <MypageCard
@@ -67,7 +75,7 @@ const Mypage = () => {
             />
           );
         })}
-      </PostBox> */}
+      </PostBox>
     </Box>
   );
 };
