@@ -32,10 +32,7 @@ export const __addComment = createAsyncThunk(
       console.log(data.data.commentList)
       thunkAPI.dispatch(__getComment(postId))
       thunkAPI.dispatch(__getMypage())
-      // const mypagepostlist=thunkAPI.getState().post.mypagePostList
-      // console.log(mypagepostlist)
-      // getState() 슬라이스 값을 가옴.
-      // 스토어 업데잍 ㅡ디스패치 
+      thunkAPI.dispatch(__getPosts())
       return thunkAPI.fulfillWithValue(data.data.commentList, postId);
     } catch (error) {
       console.log(error);
