@@ -11,7 +11,7 @@ function Layout({ children }) {
   );
 }
 const LayoutTotal = styled.div`
-  position: relative;
+  /* position: relative; */
 `;
 
 export default Layout;

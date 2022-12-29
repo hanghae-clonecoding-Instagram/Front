@@ -16,14 +16,13 @@ const Main = (post) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { posts } = useSelector((state) => state.post);
-  console.log(posts)
+  console.log(posts);
 
   // 호출 시 사용!!!
   useEffect(() => {
     dispatch(__getPosts());
   }, [dispatch]);
 
-  
   return (
     <Total>
       {posts.map((post) => {
@@ -40,24 +39,19 @@ const Main = (post) => {
 const Total = styled.div`
   z-index: 0;
   position: absolute;
-  top: 3000px;
-  left: 40%;
+  top: 80px;
+  left: 38%;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
-  /* margin-top: 2752px; */
   font-size: 14px;
 `;
 
 const Post = styled.div`
-  /* z-index: 0; */
-
   width: 470px;
   border: 1px solid rgb(0, 0, 0, 0.2);
   border-radius: 10px;
   background-color: white;
+  margin-bottom: 15px;
 `;
 
 export default Main;

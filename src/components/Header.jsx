@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -11,6 +11,7 @@ import {
 } from "../Redux/modules/modalSlice";
 import PostAdd from "./PostAdd";
 import DetailModal from "./DetailModal";
+import { __getMypage } from "../Redux/modules/postSlice";
 
 const Header = () => {
   const locationNow = useLocation();
@@ -19,6 +20,12 @@ const Header = () => {
   const isModal = useSelector((state) => state.modal.modal);
   const isDetailModal = useSelector((state) => state.modal.detailModal);
 
+  const { mypageUserInfo } = useSelector((state) => state.post);
+
+  useEffect(() => {
+    dispatch(__getMypage());
+  }, []);
+  console.log(mypageUserInfo);
   // 이자리에 username 가져오기위한 get요청 할 것!!!
 
   if (locationNow.pathname === "/") return null;
@@ -52,6 +59,7 @@ const Header = () => {
               }}
             />
             <User
+              src={mypageUserInfo.profileImage}
               onClick={() => {
                 navigate("/mypage");
               }}
@@ -109,9 +117,9 @@ const Plus = styled.img.attrs({
   cursor: pointer;
 `;
 
-const User = styled.img.attrs({
-  src: "/img/user.png",
-})`
+const User = styled.img.attrs((props) => ({
+  src: props.src,
+}))`
   width: 25px;
   height: 25px;
   object-fit: cover;

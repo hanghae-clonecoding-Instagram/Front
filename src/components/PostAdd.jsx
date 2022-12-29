@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { __addPost, __getPosts } from "../Redux/modules/postSlice";
-import { useRef, useState } from "react";
+import { __addPost, __getMypage, __getPosts } from "../Redux/modules/postSlice";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 // modal store
@@ -10,10 +10,8 @@ const PostAdd = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // 글작성 버튼 누르면 상단에 user정보 보여야함 
-  // 어떤 정보로 가져올 것인지. 일단 postuser정보로 가져오기로 
-  const { mypageUserInfo } = useSelector((state) => state.post);
-  console.log(mypageUserInfo)
+  // 글작성 버튼 누르면 상단에 user정보 보여야함
+  // 어떤 정보로 가져올 것인지. 일단 postuser정보로 가져오기로
 
   // 이미지 미리보기 state
   const [userImage, setUserImage] = useState(null);
@@ -22,6 +20,12 @@ const PostAdd = () => {
   const [images, setImages] = useState(null);
   const userImageFile = new FormData();
   const form = new FormData();
+  const { mypageUserInfo } = useSelector((state) => state.post);
+
+  useEffect(() => {
+    dispatch(__getMypage());
+  }, []);
+  console.log(mypageUserInfo);
 
   // 이미지 미리보기
   const imgPreview = (e) => {
@@ -225,13 +229,14 @@ const Text = styled.div`
     margin-bottom: 15px;
     padding: 10px 10px 0px 10px;
     img {
-      border-radius: 50%;
-      width: 45px;
+      width: 40px;
       height: 40px;
+      object-fit: cover;
+      border-radius: 50%;
       margin-right: 10px;
     }
-    p{
-      font-weight:600;
+    p {
+      font-weight: 600;
     }
   }
   textarea {

@@ -8,11 +8,11 @@ const MypageCard = ({ postId, image, likePostNum, commentNum }) => {
   return (
     <>
       {detailBtnClick === true ? (
-      <DetailModal
-        detailBtnClick={detailBtnClick}
-        setDetailBtnClick={setDetailBtnClick}
-        postId={postId}
-      />
+        <DetailModal
+          detailBtnClick={detailBtnClick}
+          setDetailBtnClick={setDetailBtnClick}
+          postId={postId}
+        />
       ) : null}
       {/* <DetailModal
         detailBtnClick={detailBtnClick}
@@ -79,6 +79,7 @@ const Image = styled.img.attrs((props) => ({
 }))`
   width: 100%;
   height: 100%;
+  object-fit: cover;
   opacity: 1;
   -webkit-transition: 0.3s ease-in-out;
   transition: 0.3s ease-in-out;

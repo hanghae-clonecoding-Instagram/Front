@@ -25,7 +25,7 @@ const ButtonLayout = ({
   // console.log(likePost);
   // console.log(likePostNum);
 
-  console.log(postId);
+  // console.log(postId);
 
   // true가 누른 것!!!
   const HeartButtonHandler = () => {

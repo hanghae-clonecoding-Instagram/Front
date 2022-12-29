@@ -9,21 +9,19 @@ const Mypage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { mypageUserInfo, mypagePostList } = useSelector((state) => state.post);
-  // console.log('mypageUserInfo: ', mypageUserInfo)
-  console.log('mypagePostList: ', mypagePostList)
+  console.log("mypagePostList: ", mypagePostList);
 
   // 호출 시 사용!!!
   useEffect(() => {
     dispatch(__getMypage());
-  }, [dispatch ]);
-
+  }, [dispatch]);
 
   const logout = () => {
-    if(window.confirm('로그아웃 하시겠습니까?')){
-      window.localStorage.removeItem('is_login');
-      window.location.href='/'
+    if (window.confirm("로그아웃 하시겠습니까?")) {
+      window.localStorage.removeItem("is_login");
+      window.location.href = "/";
     }
-  }
+  };
 
   return (
     <Box>
@@ -46,13 +44,11 @@ const Mypage = () => {
             >
               프로필편집
             </button>
-            <Logout src='/img/logout.png' onClick={logout}/>
+            <Logout src="/img/logout.png" onClick={logout} />
           </div>
           <div className="infoCard">
             <span>게시물 </span>
-            <span className="infoCardPostNum">
-              {mypageUserInfo.postingNum}
-            </span>
+            <span className="infoCardPostNum">{mypageUserInfo.postingNum}</span>
             <div>{mypageUserInfo.introduction}</div>
           </div>
         </div>
@@ -75,11 +71,10 @@ const Mypage = () => {
 
 const Box = styled.div`
   width: 1000px;
-  margin: 0 auto;
+  margin: 60px auto;
 `;
 const UserBox = styled.div`
   height: 280px;
-  padding-top: 15px;
   box-sizing: border-box;
   margin: 0 15px;
   border-bottom: 1px solid #ced4da;
@@ -155,6 +150,6 @@ const Logout = styled.img`
   height: 35px;
   cursor: pointer;
   margin-left: 15px;
-`
+`;
 
 export default Mypage;
