@@ -1,14 +1,10 @@
-# hanghae-clonecoding-Instagram
 # 인스타그램 클론코딩
+### hanghae-clonecoding-Instagram
+<br>
 
 ### 클론코딩 개발 브랜치입니다
 - 개발기간 : 2022. 12. 23 - 22. 12. 29
 - 팀원 : 정소영, 최유정 
-<br>
-<br>
-
-## 시연 동영상
-https://www.youtube.com/watch?v=vA8j_TPFy6E
 <br>
 <br>
 
@@ -20,6 +16,17 @@ https://www.youtube.com/watch?v=vA8j_TPFy6E
 - Github, Git
 <br>
 <br>
+
+## 시연 동영상
+https://www.youtube.com/watch?v=vA8j_TPFy6E
+<br>
+<br>
+
+## notion
+https://www.notion.so/3-2d1e4d53cc7c47da86a50d44e93ad32d
+<br>
+<br>
+
 
 ## 와이어프레임
 ![image](https://user-images.githubusercontent.com/85012454/209954848-a0546563-446c-4fc4-8dce-ee16ac797f5a.png)
