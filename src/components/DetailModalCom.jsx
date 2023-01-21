@@ -30,7 +30,9 @@ const DetailModalCom = ({ postId }) => {
       {commentList.map((c) => {
         return (
           <ModalContentText key={c.commentId}>
-            <UserImage marginLeft="0px" src={c.profileImage} />
+            <Div>
+              <UserImage marginLeft="0px" src={c.profileImage} />
+            </Div>
             <UserText>
               <Username>{c.username}</Username>
               <UserContent
@@ -48,7 +50,9 @@ const DetailModalCom = ({ postId }) => {
     </>
   );
 };
-
+const Div = styled.div`
+  width: 50px;
+`
 const UserImage = styled.img.attrs((props) => ({
   src: props.src,
 }))`
@@ -56,14 +60,12 @@ const UserImage = styled.img.attrs((props) => ({
   height: 35px;
   object-fit: cover;
   border-radius: 50%;
-  border: 1px soild red;
   margin: 0px 0px 0px ${(props) => props.marginLeft};
 `;
 
 const Username = styled.span`
   font-weight: bold;
-  margin-right: 10px;
-  flex: 1.2;
+  width: 60px;
 `;
 
 const ModalContentText = styled.div`
@@ -73,7 +75,6 @@ const ModalContentText = styled.div`
   padding: 15px 15px 5px 15px;
   box-sizing: border-box;
 `;
-
 const UserText = styled.div`
   width: 100%;
   height: 100%;
@@ -82,7 +83,7 @@ const UserText = styled.div`
   align-items: center;
 `;
 const UserContent = styled.span`
-  flex: 4;
+  width:230px;  
   cursor: pointer;
   :hover {
     color: gray;

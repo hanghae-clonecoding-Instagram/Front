@@ -60,10 +60,10 @@ export const __commentLike = createAsyncThunk(
   async (payload, thunkAPI) => {
     console.log(payload); //commentId가 나와야함
     try {
-      const data = await instance.post(`/api/like/comment/${payload}`);
+      const data = await instance.post(`/api/like/comment/${payload.commentId}`);
       console.log(data)
       // thunkAPI.dispatch(__commentLike(payload))
-      return thunkAPI.fulfillWithValue(data.data);
+      return thunkAPI.fulfillWithValue(payload.isLikeCmt);
     } catch (error) {
       console.log(error);
       return thunkAPI.rejectWithValue(error);
@@ -106,6 +106,7 @@ export const postSlice = createSlice({
     
     [__commentLike.pending]: (state) => {},
     [__commentLike.fulfilled]: (state, action) => {
+      console.log(!action.payload)
       state.commentList = state.commentList
     },
     [__commentLike.rejected]: (state, action) => {

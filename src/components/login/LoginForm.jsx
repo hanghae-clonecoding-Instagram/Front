@@ -25,10 +25,6 @@ const LoginForm = (props) => {
   };
 
   const onSubmit = (e) => {
-    if (state === "") {
-      alert("빈칸 없이 입력해주세요");
-      return;
-    }
     e.preventDefault();
     console.log(state);
     instance.post("/api/user/login", state)
@@ -39,10 +35,10 @@ const LoginForm = (props) => {
       window.location.href = "/main";
     })
     .catch((err)=>{
-      const msg = err.response.data.errorMessage;
-      alert(msg);
+      // const msg = err.response.data.errorMessage;
+      // alert(msg);
       setState("");
-      console.log("로그인 실패");
+      alert("로그인 실패, 정보를 확인해주세요");
       setIsSignUp(false)
     })
   };

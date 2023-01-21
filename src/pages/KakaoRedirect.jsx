@@ -15,17 +15,14 @@ const KakaoRedirect = (props) => {
   console.log(code);
 
   useEffect(() => {
-    console.log("thdud22");
     if (code) {
-      console.log("thdud33");
       kakaoLogin(code);
     }
+    
   }, [code]);
 
   const kakaoLogin = async (code) => {
     console.log(code);
-    console.log("thdud");
-
     try {
       const data = await axios.get(
         `https://woooo.shop/api/user/kakao/callback?code=${code}`
@@ -35,7 +32,7 @@ const KakaoRedirect = (props) => {
     } catch (e) {
       console.log(e);
     }
-
+    // 위 화면에서 에러가 나서 아래 토큰 가져오는 것은 실행해보지 못함
     // return function () {
     //   axios({
     //   method: "GET",

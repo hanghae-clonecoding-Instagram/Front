@@ -25,10 +25,15 @@ const SignUpForm = (props) => {
   
   const handleSignUp = () => {
     console.log(state)
-    if(state == ""){ 
+    if( state.email === "" 
+      && state.username === "" 
+      && state.password === "" ){ 
       alert('빈칸 없이 입력해주세요') 
-      // setIsSignUp(false)
       return 
+    }
+    if( state.password !== state.passwordCheck ){
+      alert("비밀번호를 다시 한번 더 확인하세요");
+      return;
     }
     console.log(isSignUp)
     instance.post("/api/user/signup", state)
@@ -40,11 +45,12 @@ const SignUpForm = (props) => {
       alert(res.data.msg)
     })
     .catch((err)=>{
-      const msg = err.response.data.errorMessage;
-      alert(msg);
+      console.log(err)
       setState("");
       setIsSignUp(true)
+      alert('회원가입 실패, 다시 한번 정보를 입력해주세요')
       console.log("회원가입 실패");
+      console.log()
     })
   }
 

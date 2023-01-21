@@ -51,16 +51,6 @@ const PostAdd = () => {
   const postAddButtonHandler = () => {
     if (userImage === null) return alert("사진을 선택해주세요.");
     console.log(images);
-    // userImageFile.append("file", images);
-
-    // 잘들어가는지 체크!!!
-    // for (const key of userImageFile.keys()) {
-    //   console.log(key);
-    // }
-
-    // for (const value of userImageFile.values()) {
-    //   console.log(value);
-    // }
 
     form.append(
       "requestDto",
